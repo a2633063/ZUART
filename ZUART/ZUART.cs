@@ -30,7 +30,7 @@ namespace ZUART
         {
             btnSend.Enabled = false;
             cbbComList.Items.AddRange(SerialPort.GetPortNames());
-            
+
             if (cbbComList.Items.Count > 0)
             {
                 cbbComList.SelectedIndex = 0;
@@ -79,6 +79,8 @@ namespace ZUART
                 ListSendCheckBox[i].Anchor = ListSendCheckBox[0].Anchor;
                 panel_ListSend.Controls.Add(ListSendCheckBox[i]);
                 #endregion
+
+                toolTip1.SetToolTip(ListSendCheckBox[i], toolTip1.GetToolTip(ListSendCheckBox[0]));
             }
 
         }
@@ -165,7 +167,7 @@ namespace ZUART
             {
                 ComDevice.Close();
             }
-        } 
+        }
         #endregion
 
         #region 发送数据
@@ -195,7 +197,7 @@ namespace ZUART
         #region 多字符串发送
         private void ListSendButton_Click(object sender, EventArgs e)
         {
-           
+
             int item = ((Button)sender).TabIndex;
             SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
         }
@@ -206,7 +208,27 @@ namespace ZUART
         {
             if (chkAutoSend.Checked)
             {
-
+                if (txtSendData.Text.Length < 1)
+                {
+                    MessageBox.Show("发送数据为空!", "错误");
+                    return;
+                }
+                if (txtAutoSendms.Text.Length < 1) txtAutoSendms.Text = "500";
+                timerAutoSend.Interval = Convert.ToInt32(txtAutoSendms.Text);
+                if (timerAutoSend.Enabled)
+                {
+                    timerAutoSend.Enabled = false;
+                    groupBoxComSetting.Enabled = true;
+                    groupboxSendSetting.Enabled = true;
+                    btnSend.Text = "发送";
+                }
+                else
+                {
+                    timerAutoSend.Enabled = true;
+                    groupBoxComSetting.Enabled = false;
+                    groupboxSendSetting.Enabled = false;
+                    btnSend.Text = "停止发送";
+                }
             }
             else
             {
@@ -221,7 +243,7 @@ namespace ZUART
         }
         #endregion
 
-        
+
         #region 选择编码发送字符串
         private bool SendStr(String str)
         {
@@ -272,7 +294,7 @@ namespace ZUART
             }
 
             return false;
-        } 
+        }
         #endregion
 
         #region 字符串转换16进制字节数组
@@ -418,6 +440,24 @@ namespace ZUART
             lblRevCount.Text = "接收:0";
         }
 
-        
+        #region 自动定时发送
+        #region 自动发送定时器函数
+        private void timerAutoSend_Tick(object sender, EventArgs e)
+        {
+            SendStr(txtSendData.Text);
+        }
+        #endregion
+        #region 自动发送间隔时间,只能输入数字
+        private void txtAutoSendms_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != '\b' && ((e.KeyChar < '0') || (e.KeyChar > '9')))//这是允许输入退格键允许输入0-9数字
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion 
+        #endregion
+
+
     }
 }

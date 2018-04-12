@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel_Setting = new System.Windows.Forms.Panel();
             this.groupboxSendSetting = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtAutoSendms = new System.Windows.Forms.TextBox();
             this.chkAutoCleanSend = new System.Windows.Forms.CheckBox();
             this.chkAutoSend = new System.Windows.Forms.CheckBox();
             this.chkfromFileSend = new System.Windows.Forms.CheckBox();
@@ -51,7 +51,7 @@
             this.lkbClearRev = new System.Windows.Forms.LinkLabel();
             this.chkShowTime = new System.Windows.Forms.CheckBox();
             this.chkAutoLine = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxComSetting = new System.Windows.Forms.GroupBox();
             this.cbbParity = new System.Windows.Forms.ComboBox();
             this.cbbStopBits = new System.Windows.Forms.ComboBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -84,10 +84,11 @@
             this.ListSend_Hex0 = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxComSetting.SuspendLayout();
             this.panel_Rec.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel_Send.SuspendLayout();
@@ -102,7 +103,7 @@
             this.panel_Setting.BackColor = System.Drawing.SystemColors.Control;
             this.panel_Setting.Controls.Add(this.groupboxSendSetting);
             this.panel_Setting.Controls.Add(this.groupboxRecSetting);
-            this.panel_Setting.Controls.Add(this.groupBox1);
+            this.panel_Setting.Controls.Add(this.groupBoxComSetting);
             this.panel_Setting.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_Setting.Location = new System.Drawing.Point(0, 0);
             this.panel_Setting.Name = "panel_Setting";
@@ -112,7 +113,7 @@
             // groupboxSendSetting
             // 
             this.groupboxSendSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupboxSendSetting.Controls.Add(this.textBox1);
+            this.groupboxSendSetting.Controls.Add(this.txtAutoSendms);
             this.groupboxSendSetting.Controls.Add(this.chkAutoCleanSend);
             this.groupboxSendSetting.Controls.Add(this.chkAutoSend);
             this.groupboxSendSetting.Controls.Add(this.chkfromFileSend);
@@ -130,16 +131,18 @@
             this.groupboxSendSetting.TabStop = false;
             this.groupboxSendSetting.Text = "发送区设置";
             // 
-            // textBox1
+            // txtAutoSendms
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(105, 82);
-            this.textBox1.MaxLength = 5;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(32, 21);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "1";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAutoSendms.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.txtAutoSendms.Location = new System.Drawing.Point(105, 82);
+            this.txtAutoSendms.MaxLength = 5;
+            this.txtAutoSendms.Name = "txtAutoSendms";
+            this.txtAutoSendms.Size = new System.Drawing.Size(32, 21);
+            this.txtAutoSendms.TabIndex = 5;
+            this.txtAutoSendms.Text = "500";
+            this.txtAutoSendms.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.txtAutoSendms, "建议20-60000范围内");
+            this.txtAutoSendms.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAutoSendms_KeyPress);
             // 
             // chkAutoCleanSend
             // 
@@ -154,7 +157,6 @@
             // chkAutoSend
             // 
             this.chkAutoSend.AutoSize = true;
-            this.chkAutoSend.Enabled = false;
             this.chkAutoSend.Location = new System.Drawing.Point(9, 86);
             this.chkAutoSend.Name = "chkAutoSend";
             this.chkAutoSend.Size = new System.Drawing.Size(96, 16);
@@ -353,26 +355,26 @@
             this.chkAutoLine.Text = "自动换行显示";
             this.chkAutoLine.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // groupBoxComSetting
             // 
-            this.groupBox1.Controls.Add(this.cbbParity);
-            this.groupBox1.Controls.Add(this.cbbStopBits);
-            this.groupBox1.Controls.Add(this.btnOpen);
-            this.groupBox1.Controls.Add(this.cbbDataBits);
-            this.groupBox1.Controls.Add(this.cbbBaudRate);
-            this.groupBox1.Controls.Add(this.cbbComList);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(170, 194);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "端口设置";
+            this.groupBoxComSetting.Controls.Add(this.cbbParity);
+            this.groupBoxComSetting.Controls.Add(this.cbbStopBits);
+            this.groupBoxComSetting.Controls.Add(this.btnOpen);
+            this.groupBoxComSetting.Controls.Add(this.cbbDataBits);
+            this.groupBoxComSetting.Controls.Add(this.cbbBaudRate);
+            this.groupBoxComSetting.Controls.Add(this.cbbComList);
+            this.groupBoxComSetting.Controls.Add(this.label2);
+            this.groupBoxComSetting.Controls.Add(this.label5);
+            this.groupBoxComSetting.Controls.Add(this.label1);
+            this.groupBoxComSetting.Controls.Add(this.label4);
+            this.groupBoxComSetting.Controls.Add(this.label3);
+            this.groupBoxComSetting.Font = new System.Drawing.Font("宋体", 10F);
+            this.groupBoxComSetting.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxComSetting.Name = "groupBoxComSetting";
+            this.groupBoxComSetting.Size = new System.Drawing.Size(170, 194);
+            this.groupBoxComSetting.TabIndex = 1;
+            this.groupBoxComSetting.TabStop = false;
+            this.groupBoxComSetting.Text = "端口设置";
             // 
             // cbbParity
             // 
@@ -663,6 +665,7 @@
             // timerAutoSend
             // 
             this.timerAutoSend.Interval = 1;
+            this.timerAutoSend.Tick += new System.EventHandler(this.timerAutoSend_Tick);
             // 
             // groupBox6
             // 
@@ -723,13 +726,14 @@
             this.ListSend_Hex0.Size = new System.Drawing.Size(15, 14);
             this.ListSend_Hex0.TabIndex = 3;
             this.ListSend_Hex0.TabStop = false;
+            this.toolTip1.SetToolTip(this.ListSend_Hex0, "选择:以Hex发送\r\n不选:以文本发送");
             this.ListSend_Hex0.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(155, 17);
+            this.label7.Location = new System.Drawing.Point(138, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 12);
             this.label7.TabIndex = 4;
@@ -738,7 +742,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 17);
+            this.label6.Location = new System.Drawing.Point(2, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 3;
@@ -762,8 +766,8 @@
             this.groupboxSendSetting.PerformLayout();
             this.groupboxRecSetting.ResumeLayout(false);
             this.groupboxRecSetting.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxComSetting.ResumeLayout(false);
+            this.groupBoxComSetting.PerformLayout();
             this.panel_Rec.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -785,7 +789,7 @@
         private System.Windows.Forms.Panel panel_Setting;
         private System.Windows.Forms.Panel panel_Rec;
         private System.Windows.Forms.Panel panel_Send;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxComSetting;
         private System.Windows.Forms.ComboBox cbbParity;
         private System.Windows.Forms.ComboBox cbbStopBits;
         private System.Windows.Forms.ComboBox cbbDataBits;
@@ -828,7 +832,7 @@
         private System.Windows.Forms.CheckBox chkAutoSend;
         private System.Windows.Forms.CheckBox chkfromFileSend;
         private System.Windows.Forms.CheckBox chkAutoAddSend;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtAutoSendms;
         private System.Windows.Forms.Timer timerAutoSend;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Panel panel_ListSend;
@@ -837,6 +841,7 @@
         private System.Windows.Forms.CheckBox ListSend_Hex0;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
