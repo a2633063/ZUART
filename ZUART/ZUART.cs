@@ -21,6 +21,7 @@ namespace ZUART
         public ZUART()
         {
             InitializeComponent();
+            this.MinimumSize = this.Size;
             init();
 
         }
@@ -288,7 +289,7 @@ namespace ZUART
             {
                 lblSendCount.Invoke(new MethodInvoker(delegate
                 {
-                    lblSendCount.Text = "发送:" + (int.Parse(lblSendCount.Text.Substring(3)) + txtSendData.Text.Length).ToString();
+                    lblSendCount.Text = "发送:" + (int.Parse(lblSendCount.Text.Substring(3)) + sendData.Length).ToString();
                 }));
                 return true;
             }
@@ -315,6 +316,19 @@ namespace ZUART
             byte[] ReDatas = new byte[ComDevice.BytesToRead];
             ComDevice.Read(ReDatas, 0, ReDatas.Length);//读取数据
             this.AddData(ReDatas);//输出数据
+        }
+        #endregion
+        #region 接收文本框,输入监听,供输入直接发送
+        private void txtShowData_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (chkRecSend.Checked && ComDevice.IsOpen)
+            {
+                //if ((e.KeyChar >= ' ' && e.KeyChar <= '~') || e.KeyChar == '\r')//这是允许输入退格键允许输入0-9数字
+                //{
+                SendStr(e.KeyChar.ToString(), false);
+                e.Handled = true;
+                //}
+            }
         }
         #endregion
 
@@ -424,6 +438,7 @@ namespace ZUART
 
         #endregion
 
+        #region 发送文件载入
         private void lkbReadSend_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenFileDialog ofdg = new OpenFileDialog();
@@ -433,12 +448,15 @@ namespace ZUART
                 txtSendData.Text = System.IO.File.ReadAllText(file, Encoding.Default);//把读出来的数据显示在textbox中
             }
         }
+        #endregion
 
+        #region 计数清零
         private void btnCleanCount_Click(object sender, EventArgs e)
         {
             lblSendCount.Text = "发送:0";
             lblRevCount.Text = "接收:0";
         }
+        #endregion
 
         #region 自动定时发送
         #region 自动发送定时器函数
@@ -459,10 +477,12 @@ namespace ZUART
 
         #endregion
 
+        #region 关于按钮
         private void btnabout_Click(object sender, EventArgs e)
         {
             FrmAbout frmAbout = new FrmAbout();
             frmAbout.ShowDialog();
         }
+        #endregion
     }
 }
