@@ -134,6 +134,7 @@
             // 
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(105, 82);
+            this.textBox1.MaxLength = 5;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(32, 21);
             this.textBox1.TabIndex = 5;
@@ -658,6 +659,10 @@
             // 
             this.ComDevice.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Com_DataReceived);
             // 
+            // timerAutoSend
+            // 
+            this.timerAutoSend.Interval = 1;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.panel_ListSend);
@@ -676,6 +681,7 @@
             this.panel_ListSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_ListSend.AutoScroll = true;
             this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
             this.panel_ListSend.Controls.Add(this.ListSend_Send0);
             this.panel_ListSend.Controls.Add(this.ListSend_Text0);
@@ -695,6 +701,7 @@
             this.ListSend_Send0.TabStop = false;
             this.ListSend_Send0.Text = "1";
             this.ListSend_Send0.UseVisualStyleBackColor = true;
+            this.ListSend_Send0.Click += new System.EventHandler(this.ListSendButton_Click);
             // 
             // ListSend_Text0
             // 

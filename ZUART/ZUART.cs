@@ -53,6 +53,7 @@ namespace ZUART
                 ListSendButton[i].Click += ListSendButton_Click;
                 ListSendButton[i].TabStop = ListSendButton[0].TabStop;
                 ListSendButton[i].TabIndex = i;
+                ListSendButton[i].Anchor = ListSendButton[0].Anchor;
                 panel_ListSend.Controls.Add(ListSendButton[i]);
                 #endregion
 
@@ -62,6 +63,7 @@ namespace ZUART
                 ListSendTextBox[i].Size = ListSendTextBox[0].Size;
                 ListSendTextBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 1;
                 ListSendTextBox[i].TabStop = ListSendTextBox[0].TabStop;
+                ListSendTextBox[i].Anchor = ListSendTextBox[0].Anchor;
                 panel_ListSend.Controls.Add(ListSendTextBox[i]);
                 #endregion
 
@@ -73,6 +75,7 @@ namespace ZUART
                 ListSendCheckBox[i].Text = ListSendCheckBox[0].Text;
                 ListSendCheckBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 5;
                 ListSendCheckBox[i].TabStop = ListSendCheckBox[0].TabStop;
+                ListSendCheckBox[i].Anchor = ListSendCheckBox[0].Anchor;
                 panel_ListSend.Controls.Add(ListSendCheckBox[i]);
                 #endregion
             }
@@ -82,11 +85,6 @@ namespace ZUART
 
 
         #region 打开串口按钮
-        /// <summary>
-        /// 打开串口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnOpen_Click(object sender, EventArgs e)
         {
             if (cbbComList.Items.Count <= 0)
@@ -151,25 +149,20 @@ namespace ZUART
                 btnOpen_Click(null, null);
             }
 
-        } 
+        }
         #endregion
-        /// <summary>
-        /// 关闭串口
-        /// </summary>
+
+        #region 关闭串口
         public void ClearSelf()
         {
             if (ComDevice.IsOpen)
             {
                 ComDevice.Close();
             }
-        }
+        } 
+        #endregion
 
         #region 发送数据
-        /// <summary>
-        /// 发送数据
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="data"></param>
         public bool SendData(byte[] data)
         {
             if (ComDevice.IsOpen)
@@ -194,31 +187,29 @@ namespace ZUART
         #endregion
 
         #region 多字符串发送
-        /// <summary>
-        /// 发送数据button事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ListSendButton_Click(object sender, EventArgs e)
         {
+           
             int item = ((Button)sender).TabIndex;
             SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
         }
         #endregion
 
         #region 发送数据button事件
-        /// <summary>
-        /// 发送数据button事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnSend_Click(object sender, EventArgs e)
         {
-            if (SendStr(txtSendData.Text))
+            if (chkAutoSend.Checked)
             {
-                if (chkAutoCleanSend.Checked)
+
+            }
+            else
+            {
+                if (SendStr(txtSendData.Text))
                 {
-                    txtSendData.Text = "";
+                    if (chkAutoCleanSend.Checked)
+                    {
+                        txtSendData.Text = "";
+                    }
                 }
             }
         }
@@ -279,11 +270,6 @@ namespace ZUART
         #endregion
 
         #region 字符串转换16进制字节数组
-        /// <summary>
-        /// 字符串转换16进制字节数组
-        /// </summary>
-        /// <param name="hexString"></param>
-        /// <returns></returns>
         private byte[] strToHexByte(string hexString)
         {
             hexString = hexString.Replace(" ", "");
@@ -296,11 +282,6 @@ namespace ZUART
         #endregion
 
         #region 接收数据监听
-        /// <summary>
-        /// 接收数据
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Com_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             byte[] ReDatas = new byte[ComDevice.BytesToRead];
@@ -310,10 +291,6 @@ namespace ZUART
         #endregion
 
         #region 接收文本框字符处理
-        /// <summary>
-        /// 添加数据
-        /// </summary>
-        /// <param name="data">字节数组</param>
         public void AddData(byte[] data)
         {
             if (rbtnHex.Checked)
@@ -346,10 +323,8 @@ namespace ZUART
 
 
 
-        /// <summary>
-        /// 输入到显示区域
-        /// </summary>
-        /// <param name="content"></param>
+
+        //输入到显示区域
         private void AddContent(string content)
         {
             this.BeginInvoke(new MethodInvoker(delegate
@@ -368,20 +343,12 @@ namespace ZUART
         #endregion
 
         #region 清空接收区
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void lkbClearRev_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             txtShowData.Clear();
         }
         #endregion
         #region 清空发送
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void lkbClearSend_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             txtSendData.Clear();
