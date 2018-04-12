@@ -13,9 +13,21 @@ namespace ZUART
 {
     public partial class ZUART : Form
     {
+        const int ListSend_Count = 50;
+        Button[] ListSendButton = new Button[ListSend_Count];
+        TextBox[] ListSendTextBox = new TextBox[ListSend_Count];
+        CheckBox[] ListSendCheckBox = new CheckBox[ListSend_Count];
+
         public ZUART()
         {
             InitializeComponent();
+            init();
+
+        }
+
+        #region 初始化
+        private void init()
+        {
             btnSend.Enabled = false;
             cbbComList.Items.AddRange(SerialPort.GetPortNames());
             if (cbbComList.Items.Count > 0)
@@ -27,7 +39,46 @@ namespace ZUART
             cbbParity.SelectedIndex = 0;
             cbbStopBits.SelectedIndex = 0;
 
+            ListSendButton[0] = ListSend_Send0;
+            ListSendTextBox[0] = ListSend_Text0;
+            ListSendCheckBox[0] = ListSend_Hex0;
+            for (int i = 1; i < ListSend_Count; i++)
+            {
+                #region 增加Button
+                ListSendButton[i] = new Button();
+                ListSendButton[i].Left = ListSendButton[0].Left;
+                ListSendButton[i].Size = ListSendButton[0].Size;
+                ListSendButton[i].Text = (i + 1).ToString();
+                ListSendButton[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 1;
+                ListSendButton[i].Click += ListSendButton_Click;
+                ListSendButton[i].TabStop = ListSendButton[0].TabStop;
+                ListSendButton[i].TabIndex = i;
+                panel_ListSend.Controls.Add(ListSendButton[i]);
+                #endregion
+
+                #region 增加TextBox
+                ListSendTextBox[i] = new TextBox();
+                ListSendTextBox[i].Left = ListSendTextBox[0].Left;
+                ListSendTextBox[i].Size = ListSendTextBox[0].Size;
+                ListSendTextBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 1;
+                ListSendTextBox[i].TabStop = ListSendTextBox[0].TabStop;
+                panel_ListSend.Controls.Add(ListSendTextBox[i]);
+                #endregion
+
+                #region 增加CheckBox
+
+                ListSendCheckBox[i] = new CheckBox();
+                ListSendCheckBox[i].Left = ListSendCheckBox[0].Left;
+                ListSendCheckBox[i].Size = ListSendCheckBox[0].Size;
+                ListSendCheckBox[i].Text = ListSendCheckBox[0].Text;
+                ListSendCheckBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 5;
+                ListSendCheckBox[i].TabStop = ListSendCheckBox[0].TabStop;
+                panel_ListSend.Controls.Add(ListSendCheckBox[i]);
+                #endregion
+            }
+
         }
+        #endregion
 
 
         #region 打开串口按钮
@@ -91,6 +142,7 @@ namespace ZUART
         }
 
         #endregion
+        #region 打开串口后设置串口参数立即生效(关闭后重新打开串口)
         private void cbbComSetChange(object sender, EventArgs e)
         {
             if (ComDevice.IsOpen)
@@ -99,7 +151,8 @@ namespace ZUART
                 btnOpen_Click(null, null);
             }
 
-        }
+        } 
+        #endregion
         /// <summary>
         /// 关闭串口
         /// </summary>
@@ -133,9 +186,23 @@ namespace ZUART
             }
             else
             {
-                MessageBox.Show("串口未打开", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("串口未打开", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AddContent("串口未打开\r\n");
             }
             return false;
+        }
+        #endregion
+
+        #region 多字符串发送
+        /// <summary>
+        /// 发送数据button事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListSendButton_Click(object sender, EventArgs e)
+        {
+            int item = ((Button)sender).TabIndex;
+            SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
         }
         #endregion
 
@@ -147,46 +214,68 @@ namespace ZUART
         /// <param name="e"></param>
         private void btnSend_Click(object sender, EventArgs e)
         {
-            byte[] sendData = null;
-
-            if (rbtnSendHex.Checked)
-            {
-                sendData = strToHexByte(txtSendData.Text.Trim());
-            }
-            else if (rbtnSendASCII.Checked)
-            {
-                sendData = Encoding.ASCII.GetBytes(txtSendData.Text.Trim());
-            }
-            else if (rbtnSendUTF8.Checked)
-            {
-                sendData = Encoding.UTF8.GetBytes(txtSendData.Text.Trim());
-            }
-            else if (rbtnSendUnicode.Checked)
-            {
-                sendData = Encoding.Unicode.GetBytes(txtSendData.Text.Trim());
-            }
-            else
-            {
-                sendData = Encoding.ASCII.GetBytes(txtSendData.Text.Trim());
-            }
-
-            if (this.SendData(sendData))//发送数据成功计数
+            if (SendStr(txtSendData.Text))
             {
                 if (chkAutoCleanSend.Checked)
                 {
                     txtSendData.Text = "";
                 }
+            }
+        }
+        #endregion
+
+        
+        #region 选择编码发送字符串
+        private bool SendStr(String str)
+        {
+            return SendStr(txtSendData.Text, rbtnSendHex.Checked);
+        }
+        private bool SendStr(String str, bool hexbool)
+        {
+
+            byte[] sendData = null;
+
+            if (hexbool)
+            {
+                try
+                {
+                    sendData = strToHexByte(str.Trim());
+                }
+                catch (Exception)
+                {
+                    //throw;
+                    MessageBox.Show("字符串转十六进制有误,请检测输入格式.", "错误!");
+                    return false;
+                }
+            }
+            else if (rbtnSendASCII.Checked)
+            {
+                sendData = Encoding.ASCII.GetBytes(str);
+            }
+            else if (rbtnSendUTF8.Checked)
+            {
+                sendData = Encoding.UTF8.GetBytes(str);
+            }
+            else if (rbtnSendUnicode.Checked)
+            {
+                sendData = Encoding.Unicode.GetBytes(str);
+            }
+            else
+            {
+                sendData = Encoding.ASCII.GetBytes(str);
+            }
+
+            if (this.SendData(sendData))//发送数据成功计数
+            {
                 lblSendCount.Invoke(new MethodInvoker(delegate
                 {
                     lblSendCount.Text = "发送:" + (int.Parse(lblSendCount.Text.Substring(3)) + txtSendData.Text.Length).ToString();
                 }));
-            }
-            else
-            {
-
+                return true;
             }
 
-        }
+            return false;
+        } 
         #endregion
 
         #region 字符串转换16进制字节数组

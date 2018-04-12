@@ -76,6 +76,14 @@
             this.lblRevCount = new System.Windows.Forms.Label();
             this.lblSendCount = new System.Windows.Forms.Label();
             this.ComDevice = new System.IO.Ports.SerialPort(this.components);
+            this.timerAutoSend = new System.Windows.Forms.Timer(this.components);
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.panel_ListSend = new System.Windows.Forms.Panel();
+            this.ListSend_Send0 = new System.Windows.Forms.Button();
+            this.ListSend_Text0 = new System.Windows.Forms.TextBox();
+            this.ListSend_Hex0 = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -85,6 +93,8 @@
             this.panel_Send.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel_Log.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.panel_ListSend.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Setting
@@ -116,7 +126,7 @@
             this.groupboxSendSetting.Location = new System.Drawing.Point(3, 348);
             this.groupboxSendSetting.Name = "groupboxSendSetting";
             this.groupboxSendSetting.Size = new System.Drawing.Size(170, 187);
-            this.groupboxSendSetting.TabIndex = 13;
+            this.groupboxSendSetting.TabIndex = 3;
             this.groupboxSendSetting.TabStop = false;
             this.groupboxSendSetting.Text = "发送区设置";
             // 
@@ -126,7 +136,7 @@
             this.textBox1.Location = new System.Drawing.Point(105, 82);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(32, 21);
-            this.textBox1.TabIndex = 25;
+            this.textBox1.TabIndex = 5;
             this.textBox1.Text = "1";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -136,7 +146,7 @@
             this.chkAutoCleanSend.Location = new System.Drawing.Point(9, 64);
             this.chkAutoCleanSend.Name = "chkAutoCleanSend";
             this.chkAutoCleanSend.Size = new System.Drawing.Size(108, 16);
-            this.chkAutoCleanSend.TabIndex = 24;
+            this.chkAutoCleanSend.TabIndex = 3;
             this.chkAutoCleanSend.Text = "发送完自动清空";
             this.chkAutoCleanSend.UseVisualStyleBackColor = true;
             // 
@@ -147,7 +157,7 @@
             this.chkAutoSend.Location = new System.Drawing.Point(9, 86);
             this.chkAutoSend.Name = "chkAutoSend";
             this.chkAutoSend.Size = new System.Drawing.Size(96, 16);
-            this.chkAutoSend.TabIndex = 23;
+            this.chkAutoSend.TabIndex = 4;
             this.chkAutoSend.Text = "发送周期(ms)";
             this.chkAutoSend.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +168,7 @@
             this.chkfromFileSend.Location = new System.Drawing.Point(9, 20);
             this.chkfromFileSend.Name = "chkfromFileSend";
             this.chkfromFileSend.Size = new System.Drawing.Size(108, 16);
-            this.chkfromFileSend.TabIndex = 22;
+            this.chkfromFileSend.TabIndex = 1;
             this.chkfromFileSend.Text = "启用文件数据源";
             this.chkfromFileSend.UseVisualStyleBackColor = true;
             // 
@@ -169,7 +179,7 @@
             this.chkAutoAddSend.Location = new System.Drawing.Point(9, 42);
             this.chkAutoAddSend.Name = "chkAutoAddSend";
             this.chkAutoAddSend.Size = new System.Drawing.Size(108, 16);
-            this.chkAutoAddSend.TabIndex = 21;
+            this.chkAutoAddSend.TabIndex = 2;
             this.chkAutoAddSend.Text = "自动发送附加位";
             this.chkAutoAddSend.UseVisualStyleBackColor = true;
             // 
@@ -179,7 +189,7 @@
             this.rbtnSendUnicode.Location = new System.Drawing.Point(68, 130);
             this.rbtnSendUnicode.Name = "rbtnSendUnicode";
             this.rbtnSendUnicode.Size = new System.Drawing.Size(65, 16);
-            this.rbtnSendUnicode.TabIndex = 20;
+            this.rbtnSendUnicode.TabIndex = 9;
             this.rbtnSendUnicode.Text = "Unicode";
             this.rbtnSendUnicode.UseVisualStyleBackColor = true;
             // 
@@ -189,7 +199,7 @@
             this.rbtnSendHex.Location = new System.Drawing.Point(9, 108);
             this.rbtnSendHex.Name = "rbtnSendHex";
             this.rbtnSendHex.Size = new System.Drawing.Size(41, 16);
-            this.rbtnSendHex.TabIndex = 17;
+            this.rbtnSendHex.TabIndex = 6;
             this.rbtnSendHex.Text = "Hex";
             this.rbtnSendHex.UseVisualStyleBackColor = true;
             // 
@@ -200,7 +210,7 @@
             this.rbtnSendASCII.Location = new System.Drawing.Point(68, 109);
             this.rbtnSendASCII.Name = "rbtnSendASCII";
             this.rbtnSendASCII.Size = new System.Drawing.Size(53, 16);
-            this.rbtnSendASCII.TabIndex = 18;
+            this.rbtnSendASCII.TabIndex = 7;
             this.rbtnSendASCII.TabStop = true;
             this.rbtnSendASCII.Text = "ASCII";
             this.rbtnSendASCII.UseVisualStyleBackColor = true;
@@ -211,7 +221,7 @@
             this.rbtnSendUTF8.Location = new System.Drawing.Point(9, 130);
             this.rbtnSendUTF8.Name = "rbtnSendUTF8";
             this.rbtnSendUTF8.Size = new System.Drawing.Size(53, 16);
-            this.rbtnSendUTF8.TabIndex = 19;
+            this.rbtnSendUTF8.TabIndex = 8;
             this.rbtnSendUTF8.Text = "UTF-8";
             this.rbtnSendUTF8.UseVisualStyleBackColor = true;
             // 
@@ -221,7 +231,7 @@
             this.lkbReadSend.Location = new System.Drawing.Point(16, 159);
             this.lkbReadSend.Name = "lkbReadSend";
             this.lkbReadSend.Size = new System.Drawing.Size(53, 12);
-            this.lkbReadSend.TabIndex = 16;
+            this.lkbReadSend.TabIndex = 10;
             this.lkbReadSend.TabStop = true;
             this.lkbReadSend.Text = "文件载入";
             this.lkbReadSend.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbReadSend_LinkClicked);
@@ -232,7 +242,7 @@
             this.lkbClearSend.Location = new System.Drawing.Point(83, 159);
             this.lkbClearSend.Name = "lkbClearSend";
             this.lkbClearSend.Size = new System.Drawing.Size(53, 12);
-            this.lkbClearSend.TabIndex = 15;
+            this.lkbClearSend.TabIndex = 11;
             this.lkbClearSend.TabStop = true;
             this.lkbClearSend.Text = "清除发送";
             this.lkbClearSend.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbClearSend_LinkClicked);
@@ -250,7 +260,7 @@
             this.groupboxRecSetting.Location = new System.Drawing.Point(3, 203);
             this.groupboxRecSetting.Name = "groupboxRecSetting";
             this.groupboxRecSetting.Size = new System.Drawing.Size(170, 141);
-            this.groupboxRecSetting.TabIndex = 12;
+            this.groupboxRecSetting.TabIndex = 2;
             this.groupboxRecSetting.TabStop = false;
             this.groupboxRecSetting.Text = "接收区设置";
             // 
@@ -260,7 +270,7 @@
             this.lkbSaveRev.Location = new System.Drawing.Point(16, 118);
             this.lkbSaveRev.Name = "lkbSaveRev";
             this.lkbSaveRev.Size = new System.Drawing.Size(53, 12);
-            this.lkbSaveRev.TabIndex = 13;
+            this.lkbSaveRev.TabIndex = 7;
             this.lkbSaveRev.TabStop = true;
             this.lkbSaveRev.Text = "保存数据";
             this.lkbSaveRev.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbSaveRev_LinkClicked);
@@ -271,7 +281,7 @@
             this.rbtnUnicode.Location = new System.Drawing.Point(72, 87);
             this.rbtnUnicode.Name = "rbtnUnicode";
             this.rbtnUnicode.Size = new System.Drawing.Size(65, 16);
-            this.rbtnUnicode.TabIndex = 12;
+            this.rbtnUnicode.TabIndex = 6;
             this.rbtnUnicode.TabStop = true;
             this.rbtnUnicode.Text = "Unicode";
             this.rbtnUnicode.UseVisualStyleBackColor = true;
@@ -282,7 +292,7 @@
             this.rbtnUTF8.Location = new System.Drawing.Point(12, 87);
             this.rbtnUTF8.Name = "rbtnUTF8";
             this.rbtnUTF8.Size = new System.Drawing.Size(53, 16);
-            this.rbtnUTF8.TabIndex = 11;
+            this.rbtnUTF8.TabIndex = 5;
             this.rbtnUTF8.TabStop = true;
             this.rbtnUTF8.Text = "UTF-8";
             this.rbtnUTF8.UseVisualStyleBackColor = true;
@@ -294,7 +304,7 @@
             this.rbtnASCII.Location = new System.Drawing.Point(72, 65);
             this.rbtnASCII.Name = "rbtnASCII";
             this.rbtnASCII.Size = new System.Drawing.Size(53, 16);
-            this.rbtnASCII.TabIndex = 10;
+            this.rbtnASCII.TabIndex = 4;
             this.rbtnASCII.TabStop = true;
             this.rbtnASCII.Text = "ASCII";
             this.rbtnASCII.UseVisualStyleBackColor = true;
@@ -305,7 +315,7 @@
             this.rbtnHex.Location = new System.Drawing.Point(13, 65);
             this.rbtnHex.Name = "rbtnHex";
             this.rbtnHex.Size = new System.Drawing.Size(41, 16);
-            this.rbtnHex.TabIndex = 9;
+            this.rbtnHex.TabIndex = 3;
             this.rbtnHex.TabStop = true;
             this.rbtnHex.Text = "Hex";
             this.rbtnHex.UseVisualStyleBackColor = true;
@@ -316,7 +326,7 @@
             this.lkbClearRev.Location = new System.Drawing.Point(83, 118);
             this.lkbClearRev.Name = "lkbClearRev";
             this.lkbClearRev.Size = new System.Drawing.Size(53, 12);
-            this.lkbClearRev.TabIndex = 14;
+            this.lkbClearRev.TabIndex = 8;
             this.lkbClearRev.TabStop = true;
             this.lkbClearRev.Text = "清除接收";
             this.lkbClearRev.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbClearRev_LinkClicked);
@@ -327,7 +337,7 @@
             this.chkShowTime.Location = new System.Drawing.Point(13, 42);
             this.chkShowTime.Name = "chkShowTime";
             this.chkShowTime.Size = new System.Drawing.Size(96, 16);
-            this.chkShowTime.TabIndex = 8;
+            this.chkShowTime.TabIndex = 2;
             this.chkShowTime.Text = "显示接收时间";
             this.chkShowTime.UseVisualStyleBackColor = true;
             this.chkShowTime.CheckedChanged += new System.EventHandler(this.chkShowTime_CheckedChanged);
@@ -338,7 +348,7 @@
             this.chkAutoLine.Location = new System.Drawing.Point(13, 20);
             this.chkAutoLine.Name = "chkAutoLine";
             this.chkAutoLine.Size = new System.Drawing.Size(96, 16);
-            this.chkAutoLine.TabIndex = 7;
+            this.chkAutoLine.TabIndex = 1;
             this.chkAutoLine.Text = "自动换行显示";
             this.chkAutoLine.UseVisualStyleBackColor = true;
             // 
@@ -359,7 +369,7 @@
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(170, 194);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "端口设置";
             // 
@@ -509,7 +519,7 @@
             this.panel_Rec.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_Rec.Location = new System.Drawing.Point(174, 0);
             this.panel_Rec.Name = "panel_Rec";
-            this.panel_Rec.Size = new System.Drawing.Size(603, 429);
+            this.panel_Rec.Size = new System.Drawing.Size(646, 429);
             this.panel_Rec.TabIndex = 1;
             // 
             // groupBox2
@@ -519,7 +529,7 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(603, 429);
+            this.groupBox2.Size = new System.Drawing.Size(646, 429);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "数据接收区";
@@ -531,7 +541,7 @@
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(597, 407);
+            this.txtShowData.Size = new System.Drawing.Size(640, 407);
             this.txtShowData.TabIndex = 2;
             // 
             // panel_Send
@@ -540,7 +550,7 @@
             this.panel_Send.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel_Send.Location = new System.Drawing.Point(174, 429);
             this.panel_Send.Name = "panel_Send";
-            this.panel_Send.Size = new System.Drawing.Size(603, 106);
+            this.panel_Send.Size = new System.Drawing.Size(646, 106);
             this.panel_Send.TabIndex = 2;
             // 
             // groupBox3
@@ -551,8 +561,8 @@
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(603, 106);
-            this.groupBox3.TabIndex = 1;
+            this.groupBox3.Size = new System.Drawing.Size(646, 106);
+            this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
             // 
@@ -560,10 +570,10 @@
             // 
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(521, 22);
+            this.btnSend.Location = new System.Drawing.Point(564, 22);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(78, 76);
-            this.btnSend.TabIndex = 3;
+            this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -576,8 +586,8 @@
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(512, 76);
-            this.txtSendData.TabIndex = 0;
+            this.txtSendData.Size = new System.Drawing.Size(555, 76);
+            this.txtSendData.TabIndex = 1;
             // 
             // panel_Log
             // 
@@ -589,7 +599,7 @@
             this.panel_Log.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel_Log.Location = new System.Drawing.Point(0, 535);
             this.panel_Log.Name = "panel_Log";
-            this.panel_Log.Size = new System.Drawing.Size(777, 25);
+            this.panel_Log.Size = new System.Drawing.Size(1005, 25);
             this.panel_Log.TabIndex = 3;
             // 
             // Log
@@ -608,7 +618,7 @@
             // 
             this.btnCleanCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCleanCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCleanCount.Location = new System.Drawing.Point(697, 1);
+            this.btnCleanCount.Location = new System.Drawing.Point(925, 1);
             this.btnCleanCount.Name = "btnCleanCount";
             this.btnCleanCount.Size = new System.Drawing.Size(66, 20);
             this.btnCleanCount.TabIndex = 14;
@@ -621,7 +631,7 @@
             this.lblRevCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRevCount.AutoSize = true;
             this.lblRevCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblRevCount.Location = new System.Drawing.Point(485, 2);
+            this.lblRevCount.Location = new System.Drawing.Point(713, 2);
             this.lblRevCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblRevCount.Name = "lblRevCount";
             this.lblRevCount.Padding = new System.Windows.Forms.Padding(2);
@@ -635,7 +645,7 @@
             this.lblSendCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSendCount.AutoSize = true;
             this.lblSendCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSendCount.Location = new System.Drawing.Point(591, 2);
+            this.lblSendCount.Location = new System.Drawing.Point(819, 2);
             this.lblSendCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblSendCount.Name = "lblSendCount";
             this.lblSendCount.Padding = new System.Windows.Forms.Padding(2);
@@ -648,16 +658,95 @@
             // 
             this.ComDevice.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Com_DataReceived);
             // 
-            // frmSerialPort
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.panel_ListSend);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox6.Location = new System.Drawing.Point(820, 0);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(185, 535);
+            this.groupBox6.TabIndex = 6;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "多字符串发送";
+            // 
+            // panel_ListSend
+            // 
+            this.panel_ListSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
+            this.panel_ListSend.Controls.Add(this.ListSend_Send0);
+            this.panel_ListSend.Controls.Add(this.ListSend_Text0);
+            this.panel_ListSend.Controls.Add(this.ListSend_Hex0);
+            this.panel_ListSend.Location = new System.Drawing.Point(4, 32);
+            this.panel_ListSend.Name = "panel_ListSend";
+            this.panel_ListSend.Size = new System.Drawing.Size(181, 503);
+            this.panel_ListSend.TabIndex = 6;
+            // 
+            // ListSend_Send0
+            // 
+            this.ListSend_Send0.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ListSend_Send0.Location = new System.Drawing.Point(0, 0);
+            this.ListSend_Send0.Name = "ListSend_Send0";
+            this.ListSend_Send0.Size = new System.Drawing.Size(25, 21);
+            this.ListSend_Send0.TabIndex = 0;
+            this.ListSend_Send0.TabStop = false;
+            this.ListSend_Send0.Text = "1";
+            this.ListSend_Send0.UseVisualStyleBackColor = true;
+            // 
+            // ListSend_Text0
+            // 
+            this.ListSend_Text0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListSend_Text0.Location = new System.Drawing.Point(27, 0);
+            this.ListSend_Text0.Name = "ListSend_Text0";
+            this.ListSend_Text0.Size = new System.Drawing.Size(125, 21);
+            this.ListSend_Text0.TabIndex = 4;
+            this.ListSend_Text0.TabStop = false;
+            // 
+            // ListSend_Hex0
+            // 
+            this.ListSend_Hex0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListSend_Hex0.AutoSize = true;
+            this.ListSend_Hex0.Location = new System.Drawing.Point(157, 4);
+            this.ListSend_Hex0.Name = "ListSend_Hex0";
+            this.ListSend_Hex0.Size = new System.Drawing.Size(15, 14);
+            this.ListSend_Hex0.TabIndex = 3;
+            this.ListSend_Hex0.TabStop = false;
+            this.ListSend_Hex0.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(155, 17);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(23, 12);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "HEX";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(2, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "发送";
+            // 
+            // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(777, 560);
+            this.ClientSize = new System.Drawing.Size(1005, 560);
             this.Controls.Add(this.panel_Rec);
             this.Controls.Add(this.panel_Send);
             this.Controls.Add(this.panel_Setting);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.panel_Log);
-            this.Name = "frmSerialPort";
+            this.Name = "ZUART";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "串口调试助手";
             this.panel_Setting.ResumeLayout(false);
@@ -675,6 +764,10 @@
             this.groupBox3.PerformLayout();
             this.panel_Log.ResumeLayout(false);
             this.panel_Log.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.panel_ListSend.ResumeLayout(false);
+            this.panel_ListSend.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -728,6 +821,14 @@
         private System.Windows.Forms.CheckBox chkfromFileSend;
         private System.Windows.Forms.CheckBox chkAutoAddSend;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Timer timerAutoSend;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Panel panel_ListSend;
+        private System.Windows.Forms.Button ListSend_Send0;
+        private System.Windows.Forms.TextBox ListSend_Text0;
+        private System.Windows.Forms.CheckBox ListSend_Hex0;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 
