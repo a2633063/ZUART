@@ -30,6 +30,7 @@ namespace ZUART
         {
             btnSend.Enabled = false;
             cbbComList.Items.AddRange(SerialPort.GetPortNames());
+            
             if (cbbComList.Items.Count > 0)
             {
                 cbbComList.SelectedIndex = 0;
@@ -140,7 +141,12 @@ namespace ZUART
         }
 
         #endregion
-        #region 打开串口后设置串口参数立即生效(关闭后重新打开串口)
+        #region 串口参数设置监听 打开串口后设置串口参数立即生效(关闭后重新打开串口)
+        private void cbbComList_DropDown(object sender, EventArgs e)
+        {
+            cbbComList.Items.Clear();
+            cbbComList.Items.AddRange(SerialPort.GetPortNames());
+        }
         private void cbbComSetChange(object sender, EventArgs e)
         {
             if (ComDevice.IsOpen)
@@ -411,5 +417,7 @@ namespace ZUART
             lblSendCount.Text = "发送:0";
             lblRevCount.Text = "接收:0";
         }
+
+        
     }
 }

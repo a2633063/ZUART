@@ -467,6 +467,7 @@
             this.cbbComList.Name = "cbbComList";
             this.cbbComList.Size = new System.Drawing.Size(98, 21);
             this.cbbComList.TabIndex = 1;
+            this.cbbComList.DropDown += new System.EventHandler(this.cbbComList_DropDown);
             this.cbbComList.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
             // label2
