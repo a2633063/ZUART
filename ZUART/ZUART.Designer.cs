@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ZUART));
             this.panel_Setting = new System.Windows.Forms.Panel();
             this.groupboxSendSetting = new System.Windows.Forms.GroupBox();
             this.txtAutoSendms = new System.Windows.Forms.TextBox();
@@ -43,6 +44,7 @@
             this.lkbReadSend = new System.Windows.Forms.LinkLabel();
             this.lkbClearSend = new System.Windows.Forms.LinkLabel();
             this.groupboxRecSetting = new System.Windows.Forms.GroupBox();
+            this.chkRecSend = new System.Windows.Forms.CheckBox();
             this.lkbSaveRev = new System.Windows.Forms.LinkLabel();
             this.rbtnUnicode = new System.Windows.Forms.RadioButton();
             this.rbtnUTF8 = new System.Windows.Forms.RadioButton();
@@ -86,7 +88,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkRecSend = new System.Windows.Forms.CheckBox();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -269,6 +270,16 @@
             this.groupboxRecSetting.TabIndex = 2;
             this.groupboxRecSetting.TabStop = false;
             this.groupboxRecSetting.Text = "接收区设置";
+            // 
+            // chkRecSend
+            // 
+            this.chkRecSend.AutoSize = true;
+            this.chkRecSend.Location = new System.Drawing.Point(13, 64);
+            this.chkRecSend.Name = "chkRecSend";
+            this.chkRecSend.Size = new System.Drawing.Size(96, 16);
+            this.chkRecSend.TabIndex = 9;
+            this.chkRecSend.Text = "输入直接发送";
+            this.chkRecSend.UseVisualStyleBackColor = true;
             // 
             // lkbSaveRev
             // 
@@ -766,16 +777,6 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "发送";
             // 
-            // chkRecSend
-            // 
-            this.chkRecSend.AutoSize = true;
-            this.chkRecSend.Location = new System.Drawing.Point(13, 64);
-            this.chkRecSend.Name = "chkRecSend";
-            this.chkRecSend.Size = new System.Drawing.Size(96, 16);
-            this.chkRecSend.TabIndex = 9;
-            this.chkRecSend.Text = "输入直接发送";
-            this.chkRecSend.UseVisualStyleBackColor = true;
-            // 
             // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -786,6 +787,7 @@
             this.Controls.Add(this.panel_Setting);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.panel_Log);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZUART";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "串口调试助手";
