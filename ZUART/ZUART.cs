@@ -455,9 +455,14 @@ namespace ZUART
                 e.Handled = true;
             }
         }
-        #endregion 
         #endregion
 
+        #endregion
 
+        private void btnabout_Click(object sender, EventArgs e)
+        {
+            FrmAbout frmAbout = new FrmAbout();
+            frmAbout.ShowDialog();
+        }
     }
 }

@@ -85,6 +85,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnabout = new System.Windows.Forms.Button();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -596,6 +597,7 @@
             // panel_Log
             // 
             this.panel_Log.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_Log.Controls.Add(this.btnabout);
             this.panel_Log.Controls.Add(this.Log);
             this.panel_Log.Controls.Add(this.btnCleanCount);
             this.panel_Log.Controls.Add(this.lblRevCount);
@@ -622,7 +624,7 @@
             // 
             this.btnCleanCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCleanCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCleanCount.Location = new System.Drawing.Point(925, 1);
+            this.btnCleanCount.Location = new System.Drawing.Point(877, 1);
             this.btnCleanCount.Name = "btnCleanCount";
             this.btnCleanCount.Size = new System.Drawing.Size(66, 20);
             this.btnCleanCount.TabIndex = 14;
@@ -635,7 +637,7 @@
             this.lblRevCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRevCount.AutoSize = true;
             this.lblRevCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblRevCount.Location = new System.Drawing.Point(713, 2);
+            this.lblRevCount.Location = new System.Drawing.Point(671, 2);
             this.lblRevCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblRevCount.Name = "lblRevCount";
             this.lblRevCount.Padding = new System.Windows.Forms.Padding(2);
@@ -649,7 +651,7 @@
             this.lblSendCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSendCount.AutoSize = true;
             this.lblSendCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSendCount.Location = new System.Drawing.Point(819, 2);
+            this.lblSendCount.Location = new System.Drawing.Point(774, 2);
             this.lblSendCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblSendCount.Name = "lblSendCount";
             this.lblSendCount.Padding = new System.Windows.Forms.Padding(2);
@@ -748,6 +750,18 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "发送";
             // 
+            // btnabout
+            // 
+            this.btnabout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnabout.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnabout.Location = new System.Drawing.Point(949, 1);
+            this.btnabout.Name = "btnabout";
+            this.btnabout.Size = new System.Drawing.Size(51, 20);
+            this.btnabout.TabIndex = 16;
+            this.btnabout.Text = "关于";
+            this.btnabout.UseVisualStyleBackColor = true;
+            this.btnabout.Click += new System.EventHandler(this.btnabout_Click);
+            // 
             // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -842,6 +856,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnabout;
     }
 }
 
