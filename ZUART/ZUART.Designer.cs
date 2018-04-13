@@ -215,10 +215,10 @@
             this.rbtnSendASCII.Checked = true;
             this.rbtnSendASCII.Location = new System.Drawing.Point(68, 109);
             this.rbtnSendASCII.Name = "rbtnSendASCII";
-            this.rbtnSendASCII.Size = new System.Drawing.Size(53, 16);
+            this.rbtnSendASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnSendASCII.TabIndex = 7;
             this.rbtnSendASCII.TabStop = true;
-            this.rbtnSendASCII.Text = "ASCII";
+            this.rbtnSendASCII.Text = "GBK";
             this.rbtnSendASCII.UseVisualStyleBackColor = true;
             // 
             // rbtnSendUTF8
@@ -320,10 +320,10 @@
             this.rbtnASCII.Checked = true;
             this.rbtnASCII.Location = new System.Drawing.Point(72, 88);
             this.rbtnASCII.Name = "rbtnASCII";
-            this.rbtnASCII.Size = new System.Drawing.Size(53, 16);
+            this.rbtnASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnASCII.TabIndex = 4;
             this.rbtnASCII.TabStop = true;
-            this.rbtnASCII.Text = "ASCII";
+            this.rbtnASCII.Text = "GBK";
             this.rbtnASCII.UseVisualStyleBackColor = true;
             // 
             // rbtnHex

@@ -270,7 +270,8 @@ namespace ZUART
             }
             else if (rbtnSendASCII.Checked)
             {
-                sendData = Encoding.ASCII.GetBytes(str);
+                //sendData = Encoding.ASCII.GetBytes(str);
+                sendData = Encoding.GetEncoding("GBK").GetBytes(str);
             }
             else if (rbtnSendUTF8.Checked)
             {
@@ -282,7 +283,7 @@ namespace ZUART
             }
             else
             {
-                sendData = Encoding.ASCII.GetBytes(str);
+                sendData = Encoding.GetEncoding("GBK").GetBytes(str);
             }
 
             if (this.SendData(sendData))//发送数据成功计数
@@ -354,7 +355,8 @@ namespace ZUART
             }
             else// if (rbtnASCII.Checked)
             {
-                AddContent(new ASCIIEncoding().GetString(data));
+                //AddContent(new ASCIIEncoding().GetString(data));
+                AddContent(Encoding.GetEncoding("GBK").GetString(data));
             }
 
             lblRevCount.Invoke(new MethodInvoker(delegate
