@@ -198,6 +198,7 @@
             this.rbtnSendUnicode.TabIndex = 9;
             this.rbtnSendUnicode.Text = "Unicode";
             this.rbtnSendUnicode.UseVisualStyleBackColor = true;
+            this.rbtnSendUnicode.Click += new System.EventHandler(this.rbtnSend_Click);
             // 
             // rbtnSendHex
             // 
@@ -208,6 +209,7 @@
             this.rbtnSendHex.TabIndex = 6;
             this.rbtnSendHex.Text = "Hex";
             this.rbtnSendHex.UseVisualStyleBackColor = true;
+            this.rbtnSendHex.Click += new System.EventHandler(this.rbtnSend_Click);
             // 
             // rbtnSendASCII
             // 
@@ -220,6 +222,7 @@
             this.rbtnSendASCII.TabStop = true;
             this.rbtnSendASCII.Text = "GBK";
             this.rbtnSendASCII.UseVisualStyleBackColor = true;
+            this.rbtnSendASCII.Click += new System.EventHandler(this.rbtnSend_Click);
             // 
             // rbtnSendUTF8
             // 
@@ -230,6 +233,7 @@
             this.rbtnSendUTF8.TabIndex = 8;
             this.rbtnSendUTF8.Text = "UTF-8";
             this.rbtnSendUTF8.UseVisualStyleBackColor = true;
+            this.rbtnSendUTF8.Click += new System.EventHandler(this.rbtnSend_Click);
             // 
             // lkbReadSend
             // 
@@ -299,9 +303,9 @@
             this.rbtnUnicode.Name = "rbtnUnicode";
             this.rbtnUnicode.Size = new System.Drawing.Size(65, 16);
             this.rbtnUnicode.TabIndex = 6;
-            this.rbtnUnicode.TabStop = true;
             this.rbtnUnicode.Text = "Unicode";
             this.rbtnUnicode.UseVisualStyleBackColor = true;
+            this.rbtnUnicode.Click += new System.EventHandler(this.rbtn_Click);
             // 
             // rbtnUTF8
             // 
@@ -310,9 +314,9 @@
             this.rbtnUTF8.Name = "rbtnUTF8";
             this.rbtnUTF8.Size = new System.Drawing.Size(53, 16);
             this.rbtnUTF8.TabIndex = 5;
-            this.rbtnUTF8.TabStop = true;
             this.rbtnUTF8.Text = "UTF-8";
             this.rbtnUTF8.UseVisualStyleBackColor = true;
+            this.rbtnUTF8.Click += new System.EventHandler(this.rbtn_Click);
             // 
             // rbtnASCII
             // 
@@ -325,6 +329,7 @@
             this.rbtnASCII.TabStop = true;
             this.rbtnASCII.Text = "GBK";
             this.rbtnASCII.UseVisualStyleBackColor = true;
+            this.rbtnASCII.Click += new System.EventHandler(this.rbtn_Click);
             // 
             // rbtnHex
             // 
@@ -333,9 +338,9 @@
             this.rbtnHex.Name = "rbtnHex";
             this.rbtnHex.Size = new System.Drawing.Size(41, 16);
             this.rbtnHex.TabIndex = 3;
-            this.rbtnHex.TabStop = true;
             this.rbtnHex.Text = "Hex";
             this.rbtnHex.UseVisualStyleBackColor = true;
+            this.rbtnHex.Click += new System.EventHandler(this.rbtn_Click);
             // 
             // lkbClearRev
             // 
@@ -472,6 +477,7 @@
             this.cbbBaudRate.Name = "cbbBaudRate";
             this.cbbBaudRate.Size = new System.Drawing.Size(98, 21);
             this.cbbBaudRate.TabIndex = 2;
+            this.cbbBaudRate.Text = global::ZUART.Properties.Settings.Default.cbbBaudRate;
             this.cbbBaudRate.ValueMember = "1";
             this.cbbBaudRate.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
@@ -791,6 +797,7 @@
             this.Name = "ZUART";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "串口调试助手";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZUART_FormClosing);
             this.panel_Setting.ResumeLayout(false);
             this.groupboxSendSetting.ResumeLayout(false);
             this.groupboxSendSetting.PerformLayout();
