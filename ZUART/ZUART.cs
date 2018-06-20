@@ -102,8 +102,8 @@ namespace ZUART
 
             for (int i = 0; i < ListSend_Count; i++)
             {
-                ListSendTextBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text"+i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-                ListSendCheckBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex"+i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+                ListSendTextBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+                ListSendCheckBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             }
             #endregion
         }
@@ -140,16 +140,18 @@ namespace ZUART
                 {
                     ComDevice.Open();
                     btnSend.Enabled = true;
+                    btnOpen.Text = "关闭串口";
+                    btnOpen.Image = Properties.Resources.open;
+                    // 串口号,波特率,数据位,停止位.校验位
+                    Log.Text = "串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text;
+                    timerIcon.Enabled = true;
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                btnOpen.Text = "关闭串口";
-                btnOpen.Image = Properties.Resources.open;
-                // 串口号,波特率,数据位,停止位.校验位
-                Log.Text = "串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text;
             }
             else
             {
@@ -157,14 +159,16 @@ namespace ZUART
                 {
                     ComDevice.Close();
                     btnSend.Enabled = false;
+                    btnOpen.Text = "打开串口";
+                    btnOpen.Image = Properties.Resources.close;
+                    Log.Text = "串口已关闭";
+                    timerIcon.Enabled = false;
+                    this.Icon = Properties.Resources.zuart;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                btnOpen.Text = "打开串口";
-                btnOpen.Image = Properties.Resources.close;
-                Log.Text = "串口已关闭";
             }
 
 
@@ -531,5 +535,16 @@ namespace ZUART
             ((RadioButton)sender).Checked = true;
         }
         #endregion
+
+        int icon_flag = 0;
+        private void timerIcon_Tick(object sender, EventArgs e)
+        {
+            icon_flag++;
+            if (icon_flag > 2) icon_flag = 1;
+            if (icon_flag == 1)
+                this.Icon = Properties.Resources.zuart_open_1;
+            else if (icon_flag == 2)
+                this.Icon = Properties.Resources.zuart_open_2;
+        }
     }
 }

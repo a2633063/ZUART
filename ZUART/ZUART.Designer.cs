@@ -88,6 +88,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timerIcon = new System.Windows.Forms.Timer(this.components);
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -425,6 +426,7 @@
             // 
             // btnOpen
             // 
+            this.btnOpen.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOpen.Font = new System.Drawing.Font("宋体", 10F);
             this.btnOpen.Image = global::ZUART.Properties.Resources.close;
             this.btnOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -695,6 +697,8 @@
             // 
             // ComDevice
             // 
+            this.ComDevice.ReadTimeout = 1000;
+            this.ComDevice.WriteTimeout = 1000;
             this.ComDevice.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.Com_DataReceived);
             // 
             // timerAutoSend
@@ -783,10 +787,17 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "发送";
             // 
+            // timerIcon
+            // 
+            this.timerIcon.Interval = 300;
+            this.timerIcon.Tick += new System.EventHandler(this.timerIcon_Tick);
+            // 
             // ZUART
             // 
+            this.AcceptButton = this.btnSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnOpen;
             this.ClientSize = new System.Drawing.Size(1005, 573);
             this.Controls.Add(this.panel_Rec);
             this.Controls.Add(this.panel_Send);
@@ -796,7 +807,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZUART";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "串口调试助手";
+            this.Text = "Z串口调试助手";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZUART_FormClosing);
             this.panel_Setting.ResumeLayout(false);
             this.groupboxSendSetting.ResumeLayout(false);
@@ -881,6 +892,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnabout;
         private System.Windows.Forms.CheckBox chkRecSend;
+        private System.Windows.Forms.Timer timerIcon;
     }
 }
 

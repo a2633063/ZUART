@@ -111,6 +111,9 @@
     <None Include="Resources\open.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\zuart_open.ico" />
+    <None Include="Resources\zuart_open_1.ico" />
+    <None Include="Resources\zuart_open_2.ico" />
     <Content Include="zuart.ico" />
   </ItemGroup>
   <ItemGroup>
