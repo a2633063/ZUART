@@ -149,7 +149,8 @@ namespace ZUART
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AddContent("串口打开错误:" + ex.Message+"\r\n");
                     return;
                 }
             }
