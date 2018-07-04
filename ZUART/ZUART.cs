@@ -129,36 +129,35 @@ namespace ZUART
                 return;
             }
 
-            if (ComDevice.IsOpen == false)
+            try
             {
-                ComDevice.PortName = cbbComList.Text.ToString();
-                ComDevice.BaudRate = Convert.ToInt32(cbbBaudRate.Text.ToString());
-                ComDevice.Parity = (Parity)Convert.ToInt32(cbbParity.SelectedIndex.ToString());
-                ComDevice.DataBits = Convert.ToInt32(cbbDataBits.Text.ToString());
-                ComDevice.StopBits = (StopBits)Convert.ToInt32(cbbStopBits.Text.ToString());
-                try
+                //if (ComDevice.IsOpen == false)
+                if (btnOpen.Text == "打开串口")
                 {
+                    ComDevice.PortName = cbbComList.Text.ToString();
+                    ComDevice.BaudRate = Convert.ToInt32(cbbBaudRate.Text.ToString());
+                    ComDevice.Parity = (Parity)Convert.ToInt32(cbbParity.SelectedIndex.ToString());
+                    ComDevice.DataBits = Convert.ToInt32(cbbDataBits.Text.ToString());
+                    ComDevice.StopBits = (StopBits)Convert.ToInt32(cbbStopBits.Text.ToString());
+
                     ComDevice.Open();
-                    btnSend.Enabled = true;
-                    btnOpen.Text = "关闭串口";
-                    btnOpen.Image = Properties.Resources.open;
-                    // 串口号,波特率,数据位,停止位.校验位
-                    Log.Text = "串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text;
-                    timerIcon.Enabled = true;
 
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    AddContent("串口打开错误:" + ex.Message+"\r\n");
-                    return;
-                }
-            }
-            else
-            {
-                try
+                else
                 {
                     ComDevice.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AddContent("串口打开错误:" + ex.Message + "\r\n");
+
+            }
+            finally
+            {
+                if (ComDevice.IsOpen == false)
+                {
                     btnSend.Enabled = false;
                     btnOpen.Text = "打开串口";
                     btnOpen.Image = Properties.Resources.close;
@@ -166,12 +165,18 @@ namespace ZUART
                     timerIcon.Enabled = false;
                     this.Icon = Properties.Resources.zuart;
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnSend.Enabled = true;
+                    btnOpen.Text = "关闭串口";
+                    btnOpen.Image = Properties.Resources.open;
+                    // 串口号,波特率,数据位,停止位.校验位
+                    Log.Text = "串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text;
+                    timerIcon.Enabled = true;
                 }
-            }
 
+            }
+            
 
         }
 
