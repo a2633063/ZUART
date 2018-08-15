@@ -442,8 +442,9 @@ namespace ZUART
         {
             if (chkShowTime.Checked)
             {
-                chkAutoLine.Enabled = false;
                 chkAutoLine.Checked = true;
+                chkAutoLine.Enabled = false;
+                chkShowTime.Checked = true;
             }
             else
             {
