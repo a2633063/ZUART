@@ -198,15 +198,7 @@ namespace ZUART
         }
         #endregion
 
-        #region 关闭串口
-        public void ClearSelf()
-        {
-            if (ComDevice.IsOpen)
-            {
-                ComDevice.Close();
-            }
-        }
-        #endregion
+
 
         #region 发送数据
         public bool SendData(byte[] data)
@@ -364,9 +356,10 @@ namespace ZUART
                 //if ((e.KeyChar >= ' ' && e.KeyChar <= '~') || e.KeyChar == '\r')//这是允许输入退格键允许输入0-9数字
                 //{
                 SendStr(e.KeyChar.ToString(), false);
-                e.Handled = true;
+               
                 //}
             }
+            e.Handled = true;
         }
         #endregion
 
