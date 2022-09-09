@@ -48,10 +48,20 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtShowData = new System.Windows.Forms.TextBox();
             this.zuartControl1 = new ZUARTControl.ZuartControl();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel_Log.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Log
@@ -65,14 +75,14 @@
             this.panel_Log.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel_Log.Location = new System.Drawing.Point(0, 594);
             this.panel_Log.Name = "panel_Log";
-            this.panel_Log.Size = new System.Drawing.Size(1006, 25);
+            this.panel_Log.Size = new System.Drawing.Size(1096, 25);
             this.panel_Log.TabIndex = 3;
             // 
             // btnabout
             // 
             this.btnabout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnabout.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnabout.Location = new System.Drawing.Point(950, 1);
+            this.btnabout.Location = new System.Drawing.Point(1040, 1);
             this.btnabout.Name = "btnabout";
             this.btnabout.Size = new System.Drawing.Size(51, 20);
             this.btnabout.TabIndex = 16;
@@ -96,7 +106,7 @@
             // 
             this.btnCleanCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCleanCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCleanCount.Location = new System.Drawing.Point(878, 1);
+            this.btnCleanCount.Location = new System.Drawing.Point(968, 1);
             this.btnCleanCount.Name = "btnCleanCount";
             this.btnCleanCount.Size = new System.Drawing.Size(66, 20);
             this.btnCleanCount.TabIndex = 14;
@@ -109,7 +119,7 @@
             this.lblRevCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRevCount.AutoSize = true;
             this.lblRevCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblRevCount.Location = new System.Drawing.Point(672, 2);
+            this.lblRevCount.Location = new System.Drawing.Point(762, 2);
             this.lblRevCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblRevCount.Name = "lblRevCount";
             this.lblRevCount.Padding = new System.Windows.Forms.Padding(2);
@@ -123,7 +133,7 @@
             this.lblSendCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSendCount.AutoSize = true;
             this.lblSendCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSendCount.Location = new System.Drawing.Point(775, 2);
+            this.lblSendCount.Location = new System.Drawing.Point(865, 2);
             this.lblSendCount.MinimumSize = new System.Drawing.Size(100, 0);
             this.lblSendCount.Name = "lblSendCount";
             this.lblSendCount.Padding = new System.Windows.Forms.Padding(2);
@@ -137,10 +147,10 @@
             this.groupBox6.Controls.Add(this.panel_ListSend);
             this.groupBox6.Controls.Add(this.label7);
             this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox6.Location = new System.Drawing.Point(813, 0);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Location = new System.Drawing.Point(0, 0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(193, 594);
+            this.groupBox6.Size = new System.Drawing.Size(192, 594);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "多字符串发送";
@@ -161,7 +171,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(146, 16);
+            this.label7.Location = new System.Drawing.Point(145, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 12);
             this.label7.TabIndex = 4;
@@ -183,45 +193,46 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnSend);
             this.groupBox3.Controls.Add(this.txtSendData);
+            this.groupBox3.Controls.Add(this.btnSend);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(180, 482);
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(627, 106);
+            this.groupBox3.Size = new System.Drawing.Size(716, 106);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
             // 
             // btnSend
             // 
-            this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(545, 22);
+            this.btnSend.Location = new System.Drawing.Point(675, 19);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(78, 76);
+            this.btnSend.Size = new System.Drawing.Size(38, 84);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
             // 
             // txtSendData
             // 
-            this.txtSendData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSendData.Location = new System.Drawing.Point(3, 22);
+            this.txtSendData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSendData.Location = new System.Drawing.Point(3, 19);
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(536, 76);
+            this.txtSendData.Size = new System.Drawing.Size(672, 84);
             this.txtSendData.TabIndex = 1;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.txtShowData);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(180, 0);
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(627, 476);
+            this.groupBox2.Size = new System.Drawing.Size(716, 484);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "数据接收区";
@@ -234,15 +245,14 @@
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(621, 454);
+            this.txtShowData.Size = new System.Drawing.Size(710, 462);
             this.txtShowData.TabIndex = 2;
             // 
             // zuartControl1
             // 
-            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.zuartControl1.AutoLine = true;
+            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.zuartControl1.AutoLine = false;
             this.zuartControl1.ButtonSend = this.btnSend;
             this.zuartControl1.Labellog = this.Log;
             this.zuartControl1.Location = new System.Drawing.Point(0, 0);
@@ -255,15 +265,52 @@
             this.zuartControl1.ComConnectState += new System.EventHandler<ZUARTControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
             this.zuartControl1.ComDataReceived += new System.EventHandler<ZUARTControl.ZuartControl.ComDataReceived_EventArgs>(this.zuartControl1_ComDataReceived);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(177, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox6);
+            this.splitContainer1.Size = new System.Drawing.Size(912, 594);
+            this.splitContainer1.SplitterDistance = 716;
+            this.splitContainer1.TabIndex = 9;
+            this.splitContainer1.TabStop = false;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox2);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
+            this.splitContainer2.Size = new System.Drawing.Size(716, 594);
+            this.splitContainer2.SplitterDistance = 484;
+            this.splitContainer2.TabIndex = 9;
+            this.splitContainer2.TabStop = false;
+            // 
             // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 619);
+            this.ClientSize = new System.Drawing.Size(1096, 619);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.zuartControl1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.panel_Log);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ZUART";
@@ -278,6 +325,14 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -301,6 +356,8 @@
         private System.Windows.Forms.TextBox txtShowData;
         private ZUARTControl.ZuartControl zuartControl1;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 

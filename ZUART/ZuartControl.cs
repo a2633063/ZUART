@@ -113,13 +113,13 @@ namespace ZUARTControl
             {
                 panel_ListSend = value;
                 if (panel_ListSend == null) return;
-
+                
                 //todo 增加控件
                 for (int i = 0; i < ListSend_Count; i++)
                 {
                     #region 增加Button
                     ListSendButton[i] = new Button();
-                    ListSendButton[i].Left = 0;
+                    ListSendButton[i].Left = -1;
                     ListSendButton[i].Size = new Size(25, 21);
                     ListSendButton[i].Text = (i + 1).ToString();
                     ListSendButton[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
@@ -131,8 +131,8 @@ namespace ZUARTControl
 
                     #region 增加TextBox
                     ListSendTextBox[i] = new TextBox();
-                    ListSendTextBox[i].Size = new Size(125, 21);
-                    ListSendTextBox[i].Left = 27;
+                    ListSendTextBox[i].Left = 25;
+                    ListSendTextBox[i].Size = new Size(panel_ListSend.Width- ListSendTextBox[i].Left - 17, 21);
                     ListSendTextBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
                     ListSendTextBox[i].TabStop = false;
                     ListSendTextBox[i].Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) | AnchorStyles.Right)));
@@ -141,8 +141,8 @@ namespace ZUARTControl
 
                     #region 增加CheckBox
                     ListSendCheckBox[i] = new CheckBox();
-                    ListSendCheckBox[i].Left = 157;
-                    ListSendCheckBox[i].Size = new Size(15, 14);
+                    ListSendCheckBox[i].Left = panel_ListSend.Width-16;
+                    ListSendCheckBox[i].Size = new Size(15, 15);
                     ListSendCheckBox[i].Text = "";
                     ListSendCheckBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height) +1) + 4;
                     ListSendCheckBox[i].TabStop = false;
@@ -222,8 +222,16 @@ namespace ZUARTControl
         #endregion
         #endregion
 
-        UInt64 RevCount = 0;    //接收计数
-        UInt64 SendCount = 0;   //发送计数
+        public UInt64 RevCount = 0;    //接收计数
+        public UInt64 SendCount = 0;   //发送计数
+
+        public bool IsComOpen
+        {
+            get
+            {
+                return ComDevice.IsOpen;
+            }
+        }
         public ZuartControl()
         {
             System.Diagnostics.Debug.WriteLine("ZuartControl");
@@ -577,17 +585,29 @@ namespace ZUARTControl
         {
             //this.BeginInvoke(new MethodInvoker(delegate
             //{
+            string str = "";
             if (txtShowData == null) return;
 
             if (chkAutoLine.Checked && txtShowData.Text.Length > 0)
             {
-                txtShowData.AppendText("\r\n");
+                str = "\r\n";
+                //txtShowData.AppendText("\r\n");
             }
             if (chkShowTime.Checked)
             {
-                txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n");
+                str += " [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n";
+                //txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n");
             }
-            txtShowData.AppendText(content);
+            
+            str += content;
+            if(chkAutoScroll.Checked)
+            {
+                txtShowData.AppendText(str);
+            }else
+            {
+                txtShowData.Text += str;
+            }
+            
             //}));
         }
         #endregion

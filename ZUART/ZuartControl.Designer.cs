@@ -70,6 +70,7 @@ namespace ZUARTControl
             this.ComDevice = new System.IO.Ports.SerialPort(this.components);
             this.timerAutoSend = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkAutoScroll = new System.Windows.Forms.CheckBox();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -234,6 +235,7 @@ namespace ZUARTControl
             // 
             // groupboxRecSetting
             // 
+            this.groupboxRecSetting.Controls.Add(this.chkAutoScroll);
             this.groupboxRecSetting.Controls.Add(this.chkRecSend);
             this.groupboxRecSetting.Controls.Add(this.lkbSaveRev);
             this.groupboxRecSetting.Controls.Add(this.rbtnUnicode);
@@ -245,7 +247,7 @@ namespace ZUARTControl
             this.groupboxRecSetting.Controls.Add(this.chkAutoLine);
             this.groupboxRecSetting.Location = new System.Drawing.Point(3, 203);
             this.groupboxRecSetting.Name = "groupboxRecSetting";
-            this.groupboxRecSetting.Size = new System.Drawing.Size(170, 152);
+            this.groupboxRecSetting.Size = new System.Drawing.Size(170, 168);
             this.groupboxRecSetting.TabIndex = 2;
             this.groupboxRecSetting.TabStop = false;
             this.groupboxRecSetting.Text = "接收区设置";
@@ -253,7 +255,7 @@ namespace ZUARTControl
             // chkRecSend
             // 
             this.chkRecSend.AutoSize = true;
-            this.chkRecSend.Location = new System.Drawing.Point(13, 64);
+            this.chkRecSend.Location = new System.Drawing.Point(13, 62);
             this.chkRecSend.Name = "chkRecSend";
             this.chkRecSend.Size = new System.Drawing.Size(96, 16);
             this.chkRecSend.TabIndex = 9;
@@ -263,7 +265,7 @@ namespace ZUARTControl
             // lkbSaveRev
             // 
             this.lkbSaveRev.AutoSize = true;
-            this.lkbSaveRev.Location = new System.Drawing.Point(16, 132);
+            this.lkbSaveRev.Location = new System.Drawing.Point(16, 149);
             this.lkbSaveRev.Name = "lkbSaveRev";
             this.lkbSaveRev.Size = new System.Drawing.Size(53, 12);
             this.lkbSaveRev.TabIndex = 7;
@@ -274,7 +276,7 @@ namespace ZUARTControl
             // rbtnUnicode
             // 
             this.rbtnUnicode.AutoSize = true;
-            this.rbtnUnicode.Location = new System.Drawing.Point(72, 110);
+            this.rbtnUnicode.Location = new System.Drawing.Point(72, 127);
             this.rbtnUnicode.Name = "rbtnUnicode";
             this.rbtnUnicode.Size = new System.Drawing.Size(65, 16);
             this.rbtnUnicode.TabIndex = 6;
@@ -285,7 +287,7 @@ namespace ZUARTControl
             // rbtnUTF8
             // 
             this.rbtnUTF8.AutoSize = true;
-            this.rbtnUTF8.Location = new System.Drawing.Point(12, 110);
+            this.rbtnUTF8.Location = new System.Drawing.Point(12, 127);
             this.rbtnUTF8.Name = "rbtnUTF8";
             this.rbtnUTF8.Size = new System.Drawing.Size(53, 16);
             this.rbtnUTF8.TabIndex = 5;
@@ -297,7 +299,7 @@ namespace ZUARTControl
             // 
             this.rbtnASCII.AutoSize = true;
             this.rbtnASCII.Checked = true;
-            this.rbtnASCII.Location = new System.Drawing.Point(72, 88);
+            this.rbtnASCII.Location = new System.Drawing.Point(72, 105);
             this.rbtnASCII.Name = "rbtnASCII";
             this.rbtnASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnASCII.TabIndex = 4;
@@ -309,7 +311,7 @@ namespace ZUARTControl
             // rbtnHex
             // 
             this.rbtnHex.AutoSize = true;
-            this.rbtnHex.Location = new System.Drawing.Point(13, 88);
+            this.rbtnHex.Location = new System.Drawing.Point(13, 105);
             this.rbtnHex.Name = "rbtnHex";
             this.rbtnHex.Size = new System.Drawing.Size(41, 16);
             this.rbtnHex.TabIndex = 3;
@@ -320,7 +322,7 @@ namespace ZUARTControl
             // lkbClearRev
             // 
             this.lkbClearRev.AutoSize = true;
-            this.lkbClearRev.Location = new System.Drawing.Point(83, 132);
+            this.lkbClearRev.Location = new System.Drawing.Point(83, 149);
             this.lkbClearRev.Name = "lkbClearRev";
             this.lkbClearRev.Size = new System.Drawing.Size(53, 12);
             this.lkbClearRev.TabIndex = 8;
@@ -331,7 +333,7 @@ namespace ZUARTControl
             // chkShowTime
             // 
             this.chkShowTime.AutoSize = true;
-            this.chkShowTime.Location = new System.Drawing.Point(13, 42);
+            this.chkShowTime.Location = new System.Drawing.Point(13, 41);
             this.chkShowTime.Name = "chkShowTime";
             this.chkShowTime.Size = new System.Drawing.Size(96, 16);
             this.chkShowTime.TabIndex = 2;
@@ -524,6 +526,18 @@ namespace ZUARTControl
             this.timerAutoSend.Interval = 1;
             this.timerAutoSend.Tick += new System.EventHandler(this.timerAutoSend_Tick);
             // 
+            // chkAutoScroll
+            // 
+            this.chkAutoScroll.AutoSize = true;
+            this.chkAutoScroll.Checked = true;
+            this.chkAutoScroll.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoScroll.Location = new System.Drawing.Point(13, 83);
+            this.chkAutoScroll.Name = "chkAutoScroll";
+            this.chkAutoScroll.Size = new System.Drawing.Size(72, 16);
+            this.chkAutoScroll.TabIndex = 9;
+            this.chkAutoScroll.Text = "自动滚屏";
+            this.chkAutoScroll.UseVisualStyleBackColor = true;
+            // 
             // ZuartControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -582,5 +596,6 @@ namespace ZUARTControl
         private System.Windows.Forms.Timer timerAutoSend;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkRecSend;
+        private System.Windows.Forms.CheckBox chkAutoScroll;
     }
 }

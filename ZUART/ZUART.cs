@@ -97,7 +97,7 @@ namespace ZUART
         {
             byte[] data = e.data;
 
-            lblRevCount.Text = "接收:" + (int.Parse(lblRevCount.Text.Substring(3)) + data.Length).ToString();
+            lblRevCount.Text = "接收:" + zuartControl1.RevCount.ToString();
         }
         #endregion
 
@@ -112,6 +112,8 @@ namespace ZUART
         {
             lblSendCount.Text = "发送:0";
             lblRevCount.Text = "接收:0";
+            zuartControl1.RevCount = 0;
+            zuartControl1.SendCount = 0;
         }
         #endregion
 
