@@ -9,12 +9,224 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ZUART1
+namespace ZUARTControl
 {
     public partial class ZuartControl : UserControl
     {
+
+
+        #region 自定义属性
+        [Category("显示设置"),Description("自动换行显示开关"),Browsable(true)]
+        public bool AutoLine
+        {
+            get
+            {
+                return chkAutoLine.Checked;
+            }
+            set
+            {
+                chkAutoLine.Checked = value;
+            }
+        }
+
+        private Label labLog ;
+        [Category("控件绑定"),Description("设置显示log的Label"),Browsable(true)]
+        public Label Labellog
+        {
+            get
+            {
+                return labLog;
+            }
+            set
+            {
+                labLog = value;
+
+            }
+        }
+
+
+
+        private TextBox txtShowData;
+        [Category("控件绑定"), Description("设置接收文本的TextBox"), Browsable(true)]
+        public TextBox TextBoxShowData
+        {
+            get
+            {
+                return txtShowData;
+            }
+            set
+            {
+                txtShowData = value;
+                if (txtShowData != null)
+                    txtShowData.KeyPress += txtShowData_KeyPress;
+            }
+        }
+
+        private TextBox txtSendData;
+        [Category("控件绑定"), Description("设置发送文本的TextBox"), Browsable(true)]
+        public TextBox TextBoxSendData
+        {
+            get
+            {
+                return txtSendData;
+            }
+            set
+            {
+                txtSendData = value;
+                if (txtSendData == null) return;
+               // txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+
+            }
+        }
+
+
+        private Button btnSend;
+        [Category("控件绑定"), Description("绑定发送按钮Button"), Browsable(true)]
+        public Button ButtonSend
+        {
+            get
+            {
+                return btnSend;
+            }
+            set
+            {
+                if (btnSend != null)
+                    btnSend.Click -= btnSend_Click;
+                btnSend = value;
+                if (btnSend != null)
+                {
+                    btnSend.Enabled = ComDevice.IsOpen;
+                    btnSend.Click += btnSend_Click;
+                }
+            }
+        }
+
+        private Panel panel_ListSend;
+        [Category("控件绑定"), Description("批量发送列表添加的Panel"), Browsable(true)]
+        public Panel PanelListSend
+        {
+            get
+            {
+                return panel_ListSend;
+            }
+            set
+            {
+                panel_ListSend = value;
+                if (panel_ListSend == null) return;
+
+                //todo 增加控件
+                for (int i = 0; i < ListSend_Count; i++)
+                {
+                    #region 增加Button
+                    ListSendButton[i] = new Button();
+                    ListSendButton[i].Left = 0;
+                    ListSendButton[i].Size = new Size(25, 21);
+                    ListSendButton[i].Text = (i + 1).ToString();
+                    ListSendButton[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
+                    ListSendButton[i].Click += ListSendButton_Click;
+                    ListSendButton[i].TabStop = false;
+                    ListSendButton[i].TabIndex = i;
+                    panel_ListSend.Controls.Add(ListSendButton[i]);
+                    #endregion
+
+                    #region 增加TextBox
+                    ListSendTextBox[i] = new TextBox();
+                    ListSendTextBox[i].Size = new Size(125, 21);
+                    ListSendTextBox[i].Left = 27;
+                    ListSendTextBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
+                    ListSendTextBox[i].TabStop = false;
+                    ListSendTextBox[i].Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) | AnchorStyles.Right)));
+                    panel_ListSend.Controls.Add(ListSendTextBox[i]);
+                    #endregion
+
+                    #region 增加CheckBox
+                    ListSendCheckBox[i] = new CheckBox();
+                    ListSendCheckBox[i].Left = 157;
+                    ListSendCheckBox[i].Size = new Size(15, 14);
+                    ListSendCheckBox[i].Text = "";
+                    ListSendCheckBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height) +1) + 4;
+                    ListSendCheckBox[i].TabStop = false;
+                    ListSendCheckBox[i].Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                    panel_ListSend.Controls.Add(ListSendCheckBox[i]);
+                    #endregion
+
+                    toolTip1.SetToolTip(ListSendCheckBox[i], toolTip1.GetToolTip(ListSendCheckBox[0]));
+                }
+               /* for (int i = 0; i < ListSend_Count; i++)
+                {
+                    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+                    ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+                }*/
+
+            }
+        }
+
+        #endregion
+
+
+        #region 自定义事件
+        #region 串口开关事件回调
+        public class ComConnectState_EventArgs :EventArgs
+        {
+            public bool IsComOpen { get; set; }
+        }
+        protected EventHandler<ComConnectState_EventArgs> OnComConnectState;
+        [Category("控件事件"), Description("串口开关状态变化时调用"), Browsable(true)]
+        public event EventHandler<ComConnectState_EventArgs> ComConnectState
+        {
+            add
+            {
+                if (OnComConnectState != null)
+                {
+                    foreach(Delegate d in OnComConnectState.GetInvocationList())
+                    {
+                        if (object.ReferenceEquals(d, value)) return;
+                    }
+                }
+                    OnComConnectState = (EventHandler<ComConnectState_EventArgs>)Delegate.Combine(OnComConnectState, value);
+            }
+            remove
+            {
+                OnComConnectState = (EventHandler<ComConnectState_EventArgs>)Delegate.Remove(OnComConnectState, value);
+            }
+
+        }
+        #endregion
+
+        #region 串口接收事件回调
+        public class ComDataReceived_EventArgs : EventArgs
+        {
+            public byte[] data { get; set; }
+        }
+        protected EventHandler<ComDataReceived_EventArgs> OnComDataReceived;
+        [Category("控件事件"), Description("串口接收到数据后调用"), Browsable(true)]
+        public event EventHandler<ComDataReceived_EventArgs> ComDataReceived
+        {
+            add
+            {
+                if (OnComDataReceived != null)
+                {
+                    foreach (Delegate d in OnComDataReceived.GetInvocationList())
+                    {
+                        if (object.ReferenceEquals(d, value)) return;
+                    }
+                }
+                    OnComDataReceived = (EventHandler<ComDataReceived_EventArgs>)Delegate.Combine(OnComDataReceived, value);
+            }
+            remove
+            {
+                OnComDataReceived = (EventHandler<ComDataReceived_EventArgs>)Delegate.Remove(OnComDataReceived, value);
+            }
+
+        }
+        #endregion
+        #endregion
+
+        UInt64 RevCount = 0;    //接收计数
+        UInt64 SendCount = 0;   //发送计数
         public ZuartControl()
         {
+            System.Diagnostics.Debug.WriteLine("ZuartControl");
             InitializeComponent();
             init();
         }
@@ -30,94 +242,53 @@ namespace ZUART1
         private void init()
         {
             #region 控件初始化
-            btnSend.Enabled = false;
             cbbComList.Items.AddRange(SerialPort.GetPortNames());
 
-            ListSendButton[0] = ListSend_Send0;
-            ListSendTextBox[0] = ListSend_Text0;
-            ListSendCheckBox[0] = ListSend_Hex0;
-            for (int i = 1; i < ListSend_Count; i++)
-            {
-                #region 增加Button
-                ListSendButton[i] = new Button();
-                ListSendButton[i].Left = ListSendButton[0].Left;
-                ListSendButton[i].Size = ListSendButton[0].Size;
-                ListSendButton[i].Text = (i + 1).ToString();
-                ListSendButton[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 1;
-                ListSendButton[i].Click += ListSendButton_Click;
-                ListSendButton[i].TabStop = ListSendButton[0].TabStop;
-                ListSendButton[i].TabIndex = i;
-                ListSendButton[i].Anchor = ListSendButton[0].Anchor;
-                panel_ListSend.Controls.Add(ListSendButton[i]);
-                #endregion
-
-                #region 增加TextBox
-                ListSendTextBox[i] = new TextBox();
-                ListSendTextBox[i].Left = ListSendTextBox[0].Left;
-                ListSendTextBox[i].Size = ListSendTextBox[0].Size;
-                ListSendTextBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 1;
-                ListSendTextBox[i].TabStop = ListSendTextBox[0].TabStop;
-                ListSendTextBox[i].Anchor = ListSendTextBox[0].Anchor;
-                panel_ListSend.Controls.Add(ListSendTextBox[i]);
-                #endregion
-
-                #region 增加CheckBox
-
-                ListSendCheckBox[i] = new CheckBox();
-                ListSendCheckBox[i].Left = ListSendCheckBox[0].Left;
-                ListSendCheckBox[i].Size = ListSendCheckBox[0].Size;
-                ListSendCheckBox[i].Text = ListSendCheckBox[0].Text;
-                ListSendCheckBox[i].Top = ListSendButton[i - 1].Top + ListSendButton[0].Height + 5;
-                ListSendCheckBox[i].TabStop = ListSendCheckBox[0].TabStop;
-                ListSendCheckBox[i].Anchor = ListSendCheckBox[0].Anchor;
-                panel_ListSend.Controls.Add(ListSendCheckBox[i]);
-                #endregion
-
-                toolTip1.SetToolTip(ListSendCheckBox[i], toolTip1.GetToolTip(ListSendCheckBox[0]));
-            }
+            
             #endregion
             #region 设置保存初始化
-            cbbComList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "cbbComList", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            cbbBaudRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "cbbBaudRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            cbbDataBits.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "cbbDataBits", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            cbbStopBits.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "cbbStopBits", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            cbbParity.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "cbbParity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            txtSendData.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            txtAutoSendms.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "txtAutoSendms", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkAutoLine.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoLine", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkShowTime.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkShowTime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkRecSend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkRecSend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkfromFileSend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkfromFileSend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkAutoAddSend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoAddSend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkAutoCleanSend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoCleanSend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            chkAutoSend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoSend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnHex.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnHex", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnASCII.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnASCII", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnUTF8.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnUTF8", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnUnicode.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnUnicode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnSendHex.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendHex", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnSendASCII.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendASCII", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnSendUTF8.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUTF8", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            rbtnSendUnicode.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUnicode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            cbbComList.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbComList", true, DataSourceUpdateMode.OnPropertyChanged));
+            cbbBaudRate.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbBaudRate", true, DataSourceUpdateMode.OnPropertyChanged));
+            cbbDataBits.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbDataBits", true, DataSourceUpdateMode.OnPropertyChanged));
+            cbbStopBits.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbStopBits", true, DataSourceUpdateMode.OnPropertyChanged));
+            cbbParity.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbParity", true, DataSourceUpdateMode.OnPropertyChanged));
+           // txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+            txtAutoSendms.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtAutoSendms", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkAutoLine.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoLine", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkShowTime.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkShowTime", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkRecSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkRecSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkfromFileSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkfromFileSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkAutoAddSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoAddSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkAutoCleanSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoCleanSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkAutoSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnHex.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnHex", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnASCII.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnASCII", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnUTF8.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnUTF8", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnUnicode.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnUnicode", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnSendHex.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendHex", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnSendASCII.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendASCII", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnSendUTF8.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUTF8", true, DataSourceUpdateMode.OnPropertyChanged));
+            rbtnSendUnicode.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUnicode", true, DataSourceUpdateMode.OnPropertyChanged));
 
-            for (int i = 0; i < ListSend_Count; i++)
-            {
-                ListSendTextBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-                ListSendCheckBox[i].DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            }
+            //for (int i = 0; i < ListSend_Count; i++)
+            //{
+            //    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+            //    ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+            //}
             #endregion
         }
         #endregion
 
         private void setting_save(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.Save();
-        }
-        private void ZUART_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            setting_save(null, null);
+            ZUART.Properties.Settings.Default.Save();
         }
 
+        private void Log(string s)
+        {
+            if (Labellog == null) return;
+            Labellog.Text = s;
+        }
 
         #region 打开串口按钮
         private void btnOpen_Click(object sender, EventArgs e)
@@ -125,7 +296,7 @@ namespace ZUART1
             if (cbbComList.Items.Count <= 0)
             {
                 //MessageBox.Show("没有发现串口,请检查线路！");
-                //Log.Text = "没有发现串口,请检查线路！";
+                Log("没有发现串口,请检查线路！");
                 return;
             }
 
@@ -141,7 +312,6 @@ namespace ZUART1
                     ComDevice.StopBits = (StopBits)Convert.ToInt32(cbbStopBits.Text.ToString());
 
                     ComDevice.Open();
-
                 }
                 else
                 {
@@ -158,20 +328,25 @@ namespace ZUART1
             {
                 if (ComDevice.IsOpen == false)
                 {
-                    btnSend.Enabled = false;
+                    if (btnSend != null)
+                        btnSend.Enabled = false;
                     btnOpen.Text = "打开串口";
-                    //btnOpen.Image = Properties.Resources.close;
-                    //Log.Text = "串口已关闭";
+                    btnOpen.Image = ZUART.Properties.Resources.close;
+                    Log("串口已关闭");
                 }
                 else
                 {
-                    btnSend.Enabled = true;
+                    if (btnSend != null)
+                        btnSend.Enabled = true;
                     btnOpen.Text = "关闭串口";
-                    //btnOpen.Image = Properties.Resources.open;
+                    btnOpen.Image = ZUART.Properties.Resources.open;
                     // 串口号,波特率,数据位,停止位.校验位
-                    //Log.Text = "串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text;
+                    Log("串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text);
                 }
 
+                ComConnectState_EventArgs comConnectState_EventArgs = new ComConnectState_EventArgs();
+                comConnectState_EventArgs.IsComOpen = ComDevice.IsOpen;
+                if (OnComConnectState != null) OnComConnectState(this, comConnectState_EventArgs);
             }
 
 
@@ -205,6 +380,7 @@ namespace ZUART1
                 try
                 {
                     ComDevice.Write(data, 0, data.Length);//发送数据
+                    SendCount += (UInt64)data.Length;
                     return true;
                 }
                 catch (Exception ex)
@@ -233,6 +409,7 @@ namespace ZUART1
         #region 发送数据button事件
         private void btnSend_Click(object sender, EventArgs e)
         {
+            if (txtSendData == null) return;
             if (chkAutoSend.Checked)
             {
                 if (txtSendData.Text.Length < 1)
@@ -247,14 +424,14 @@ namespace ZUART1
                     timerAutoSend.Enabled = false;
                     groupBoxComSetting.Enabled = true;
                     groupboxSendSetting.Enabled = true;
-                    btnSend.Text = "发送";
+                    if (btnSend != null) btnSend.Text = "发送";
                 }
                 else
                 {
                     timerAutoSend.Enabled = true;
                     groupBoxComSetting.Enabled = false;
                     groupboxSendSetting.Enabled = false;
-                    btnSend.Text = "停止发送";
+                    if (btnSend != null) btnSend.Text = "停止发送";
                 }
             }
             else
@@ -274,6 +451,7 @@ namespace ZUART1
         #region 选择编码发送字符串
         private bool SendStr(String str)
         {
+            if (txtSendData == null) return false;
             return SendStr(txtSendData.Text, rbtnSendHex.Checked);
         }
         private bool SendStr(String str, bool hexbool)
@@ -338,7 +516,14 @@ namespace ZUART1
         {
             byte[] ReDatas = new byte[ComDevice.BytesToRead];
             ComDevice.Read(ReDatas, 0, ReDatas.Length);//读取数据
-            this.AddData(ReDatas);//输出数据
+            this.BeginInvoke(new MethodInvoker(delegate
+            {
+                RevCount += (UInt64)ReDatas.Length;
+                this.AddData(ReDatas);//输出数据
+                ComDataReceived_EventArgs comDataReceived_EventArgs = new ComDataReceived_EventArgs();
+                comDataReceived_EventArgs.data = ReDatas;
+                if (OnComDataReceived != null) OnComDataReceived(this, comDataReceived_EventArgs);
+             }));
         }
         #endregion
         #region 接收文本框,输入监听,供输入直接发送
@@ -390,31 +575,34 @@ namespace ZUART1
         //输入到显示区域
         private void AddContent(string content)
         {
-            this.BeginInvoke(new MethodInvoker(delegate
+            //this.BeginInvoke(new MethodInvoker(delegate
+            //{
+            if (txtShowData == null) return;
+
+            if (chkAutoLine.Checked && txtShowData.Text.Length > 0)
             {
-                if (chkAutoLine.Checked && txtShowData.Text.Length > 0)
-                {
-                    txtShowData.AppendText("\r\n");
-                    if (chkShowTime.Checked)
-                    {
-                        txtShowData.AppendText("【" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "】" + "\r\n");
-                    }
-                }
-                txtShowData.AppendText(content);
-            }));
+                txtShowData.AppendText("\r\n");
+            }
+            if (chkShowTime.Checked)
+            {
+                txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n");
+            }
+            txtShowData.AppendText(content);
+            //}));
         }
         #endregion
 
         #region 清空接收区
         private void lkbClearRev_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            txtShowData.Clear();
+            if (txtShowData != null)
+                txtShowData.Clear();
         }
         #endregion
         #region 清空发送
         private void lkbClearSend_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            txtSendData.Clear();
+            if (txtSendData != null) txtSendData.Clear();
 
         }
         #endregion
@@ -443,7 +631,7 @@ namespace ZUART1
             //    MessageBox("");
             //    return;
             //}
-
+            if (txtShowData == null) return;
             StreamWriter myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "文本文档(*.txt)|*.txt|所有文件(*.*)|*.*";
@@ -464,10 +652,10 @@ namespace ZUART1
         private void lkbReadSend_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenFileDialog ofdg = new OpenFileDialog();
-            if (ofdg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (ofdg.ShowDialog(this) == DialogResult.OK)
             {
                 string file = ofdg.FileName;//得到选择的文件的完整路径
-                txtSendData.Text = System.IO.File.ReadAllText(file, Encoding.Default);//把读出来的数据显示在textbox中
+                if (txtSendData != null) txtSendData.Text = System.IO.File.ReadAllText(file, Encoding.Default);//把读出来的数据显示在textbox中
             }
         }
         #endregion
@@ -478,7 +666,7 @@ namespace ZUART1
         #region 自动发送定时器函数
         private void timerAutoSend_Tick(object sender, EventArgs e)
         {
-            SendStr(txtSendData.Text);
+            if (txtSendData != null) SendStr(txtSendData.Text);
         }
         #endregion
         #region 自动发送间隔时间,只能输入数字

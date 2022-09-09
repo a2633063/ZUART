@@ -21,7 +21,7 @@
       <Value Profile="(Default)">ZUART</Value>
     </Setting>
     <Setting Name="chkAutoLine" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="chkShowTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

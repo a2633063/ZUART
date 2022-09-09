@@ -1,5 +1,5 @@
 ﻿
-namespace ZUART1
+namespace ZUARTControl
 {
     partial class ZuartControl
     {
@@ -14,6 +14,8 @@ namespace ZUART1
         /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
+            System.Diagnostics.Debug.WriteLine("Dispose");
+            setting_save(null, null);
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -67,27 +69,11 @@ namespace ZUART1
             this.label3 = new System.Windows.Forms.Label();
             this.ComDevice = new System.IO.Ports.SerialPort(this.components);
             this.timerAutoSend = new System.Windows.Forms.Timer(this.components);
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.panel_ListSend = new System.Windows.Forms.Panel();
-            this.ListSend_Send0 = new System.Windows.Forms.Button();
-            this.ListSend_Text0 = new System.Windows.Forms.TextBox();
-            this.ListSend_Hex0 = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.txtSendData = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtShowData = new System.Windows.Forms.TextBox();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
             this.groupBoxComSetting.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.panel_ListSend.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Setting
@@ -96,10 +82,10 @@ namespace ZUART1
             this.panel_Setting.Controls.Add(this.groupboxSendSetting);
             this.panel_Setting.Controls.Add(this.groupboxRecSetting);
             this.panel_Setting.Controls.Add(this.groupBoxComSetting);
-            this.panel_Setting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_Setting.Location = new System.Drawing.Point(0, 0);
             this.panel_Setting.Name = "panel_Setting";
-            this.panel_Setting.Size = new System.Drawing.Size(174, 572);
+            this.panel_Setting.Size = new System.Drawing.Size(182, 572);
             this.panel_Setting.TabIndex = 0;
             // 
             // groupboxSendSetting
@@ -538,157 +524,13 @@ namespace ZUART1
             this.timerAutoSend.Interval = 1;
             this.timerAutoSend.Tick += new System.EventHandler(this.timerAutoSend_Tick);
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.panel_ListSend);
-            this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox6.Location = new System.Drawing.Point(801, 0);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(185, 572);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "多字符串发送";
-            // 
-            // panel_ListSend
-            // 
-            this.panel_ListSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_ListSend.AutoScroll = true;
-            this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
-            this.panel_ListSend.Controls.Add(this.ListSend_Send0);
-            this.panel_ListSend.Controls.Add(this.ListSend_Text0);
-            this.panel_ListSend.Controls.Add(this.ListSend_Hex0);
-            this.panel_ListSend.Location = new System.Drawing.Point(4, 32);
-            this.panel_ListSend.Name = "panel_ListSend";
-            this.panel_ListSend.Size = new System.Drawing.Size(181, 540);
-            this.panel_ListSend.TabIndex = 6;
-            // 
-            // ListSend_Send0
-            // 
-            this.ListSend_Send0.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ListSend_Send0.Location = new System.Drawing.Point(0, 0);
-            this.ListSend_Send0.Name = "ListSend_Send0";
-            this.ListSend_Send0.Size = new System.Drawing.Size(25, 21);
-            this.ListSend_Send0.TabIndex = 0;
-            this.ListSend_Send0.TabStop = false;
-            this.ListSend_Send0.Text = "1";
-            this.ListSend_Send0.UseVisualStyleBackColor = true;
-            this.ListSend_Send0.Click += new System.EventHandler(this.ListSendButton_Click);
-            // 
-            // ListSend_Text0
-            // 
-            this.ListSend_Text0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListSend_Text0.Location = new System.Drawing.Point(27, 0);
-            this.ListSend_Text0.Name = "ListSend_Text0";
-            this.ListSend_Text0.Size = new System.Drawing.Size(125, 21);
-            this.ListSend_Text0.TabIndex = 4;
-            this.ListSend_Text0.TabStop = false;
-            // 
-            // ListSend_Hex0
-            // 
-            this.ListSend_Hex0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListSend_Hex0.AutoSize = true;
-            this.ListSend_Hex0.Location = new System.Drawing.Point(157, 4);
-            this.ListSend_Hex0.Name = "ListSend_Hex0";
-            this.ListSend_Hex0.Size = new System.Drawing.Size(15, 14);
-            this.ListSend_Hex0.TabIndex = 3;
-            this.ListSend_Hex0.TabStop = false;
-            this.toolTip1.SetToolTip(this.ListSend_Hex0, "选择:以Hex发送\r\n不选:以文本发送");
-            this.ListSend_Hex0.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(138, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 12);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "HEX";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "发送";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnSend);
-            this.groupBox3.Controls.Add(this.txtSendData);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(174, 466);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(627, 106);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "数据发送区";
-            // 
-            // btnSend
-            // 
-            this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(545, 22);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(78, 76);
-            this.btnSend.TabIndex = 2;
-            this.btnSend.Text = "发送";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // txtSendData
-            // 
-            this.txtSendData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSendData.Location = new System.Drawing.Point(3, 22);
-            this.txtSendData.Multiline = true;
-            this.txtSendData.Name = "txtSendData";
-            this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(536, 76);
-            this.txtSendData.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtShowData);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(174, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(627, 466);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "数据接收区";
-            // 
-            // txtShowData
-            // 
-            this.txtShowData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtShowData.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txtShowData.Location = new System.Drawing.Point(3, 19);
-            this.txtShowData.Multiline = true;
-            this.txtShowData.Name = "txtShowData";
-            this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(621, 444);
-            this.txtShowData.TabIndex = 2;
-            this.txtShowData.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtShowData_KeyPress);
-            // 
             // ZuartControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panel_Setting);
-            this.Controls.Add(this.groupBox6);
             this.Name = "ZuartControl";
-            this.Size = new System.Drawing.Size(986, 572);
+            this.Size = new System.Drawing.Size(182, 572);
             this.panel_Setting.ResumeLayout(false);
             this.groupboxSendSetting.ResumeLayout(false);
             this.groupboxSendSetting.PerformLayout();
@@ -696,14 +538,6 @@ namespace ZUART1
             this.groupboxRecSetting.PerformLayout();
             this.groupBoxComSetting.ResumeLayout(false);
             this.groupBoxComSetting.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.panel_ListSend.ResumeLayout(false);
-            this.panel_ListSend.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -746,19 +580,7 @@ namespace ZUART1
         private System.Windows.Forms.CheckBox chkAutoAddSend;
         private System.Windows.Forms.TextBox txtAutoSendms;
         private System.Windows.Forms.Timer timerAutoSend;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Panel panel_ListSend;
-        private System.Windows.Forms.Button ListSend_Send0;
-        private System.Windows.Forms.TextBox ListSend_Text0;
-        private System.Windows.Forms.CheckBox ListSend_Hex0;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox chkRecSend;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.TextBox txtSendData;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtShowData;
     }
 }
