@@ -1486,5 +1486,17 @@ namespace ZUART.Properties {
                 this["ListSend_Hex49"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chkTrans {
+            get {
+                return ((bool)(this["chkTrans"]));
+            }
+            set {
+                this["chkTrans"] = value;
+            }
+        }
     }
 }

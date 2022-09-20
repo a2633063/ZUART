@@ -92,14 +92,19 @@ namespace ZUART
         #endregion
 
 
-        #region 接收数据监听
-        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ComDataReceived_EventArgs e)
+        #region 接收/发送数据监听
+        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ComData_EventArgs e)
         {
             byte[] data = e.data;
 
             lblRevCount.Text = "接收:" + zuartControl1.RevCount.ToString();
         }
+        private void zuartControl1_ComDataSend(object sender, ZuartControl.ComData_EventArgs e)
+        {
+            lblSendCount.Text = "发送:" + zuartControl1.SendCount.ToString();
+        }
         #endregion
+
 
 
 
@@ -123,6 +128,7 @@ namespace ZUART
         {
             FrmAbout frmAbout = new FrmAbout();
             frmAbout.ShowDialog();
+            frmAbout.Dispose();
         }
         #endregion
 
@@ -136,7 +142,6 @@ namespace ZUART
             else if (icon_flag == 2)
                 this.Icon = Properties.Resources.zuart_open_2;
         }
-
 
     }
 }

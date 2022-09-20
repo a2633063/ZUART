@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,7 +13,7 @@ namespace ZUARTControl
 
 
         #region 自定义属性
-        [Category("显示设置"),Description("自动换行显示开关"),Browsable(true)]
+        [Category("显示设置"), Description("自动换行显示开关"), Browsable(true)]
         public bool AutoLine
         {
             get
@@ -29,8 +26,8 @@ namespace ZUARTControl
             }
         }
 
-        private Label labLog ;
-        [Category("控件绑定"),Description("设置显示log的Label"),Browsable(true)]
+        private Label labLog;
+        [Category("控件绑定"), Description("设置显示log的Label"), Browsable(true)]
         public Label Labellog
         {
             get
@@ -58,7 +55,10 @@ namespace ZUARTControl
             {
                 txtShowData = value;
                 if (txtShowData != null)
+                {
+                    txtShowData.AcceptsTab = true;
                     txtShowData.KeyPress += txtShowData_KeyPress;
+                }
             }
         }
 
@@ -74,7 +74,7 @@ namespace ZUARTControl
             {
                 txtSendData = value;
                 if (txtSendData == null) return;
-               // txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+                txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
 
             }
         }
@@ -113,7 +113,7 @@ namespace ZUARTControl
             {
                 panel_ListSend = value;
                 if (panel_ListSend == null) return;
-                
+
                 //todo 增加控件
                 for (int i = 0; i < ListSend_Count; i++)
                 {
@@ -124,7 +124,7 @@ namespace ZUARTControl
                     ListSendButton[i].Text = (i + 1).ToString();
                     ListSendButton[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
                     ListSendButton[i].Click += ListSendButton_Click;
-                    ListSendButton[i].TabStop = false;
+                    ListSendButton[i].TabStop = true;
                     ListSendButton[i].TabIndex = i;
                     panel_ListSend.Controls.Add(ListSendButton[i]);
                     #endregion
@@ -132,31 +132,33 @@ namespace ZUARTControl
                     #region 增加TextBox
                     ListSendTextBox[i] = new TextBox();
                     ListSendTextBox[i].Left = 25;
-                    ListSendTextBox[i].Size = new Size(panel_ListSend.Width- ListSendTextBox[i].Left - 17, 21);
+                    ListSendTextBox[i].Size = new Size(panel_ListSend.Width - ListSendTextBox[i].Left - 17, 21);
                     ListSendTextBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
-                    ListSendTextBox[i].TabStop = false;
+                    ListSendTextBox[i].TabStop = true;
+                    ListSendTextBox[i].TabIndex = i;
                     ListSendTextBox[i].Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) | AnchorStyles.Right)));
                     panel_ListSend.Controls.Add(ListSendTextBox[i]);
                     #endregion
 
                     #region 增加CheckBox
                     ListSendCheckBox[i] = new CheckBox();
-                    ListSendCheckBox[i].Left = panel_ListSend.Width-16;
+                    ListSendCheckBox[i].Left = panel_ListSend.Width - 16;
                     ListSendCheckBox[i].Size = new Size(15, 15);
                     ListSendCheckBox[i].Text = "";
-                    ListSendCheckBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height) +1) + 4;
-                    ListSendCheckBox[i].TabStop = false;
+                    ListSendCheckBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height) + 1) + 4;
+                    ListSendCheckBox[i].TabStop = true;
+                    ListSendCheckBox[i].TabIndex = i;
                     ListSendCheckBox[i].Anchor = AnchorStyles.Top | AnchorStyles.Right;
                     panel_ListSend.Controls.Add(ListSendCheckBox[i]);
                     #endregion
 
                     toolTip1.SetToolTip(ListSendCheckBox[i], toolTip1.GetToolTip(ListSendCheckBox[0]));
                 }
-               /* for (int i = 0; i < ListSend_Count; i++)
-                {
-                    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-                    ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-                }*/
+                /* for (int i = 0; i < ListSend_Count; i++)
+                 {
+                     ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+                     ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
+                 }*/
 
             }
         }
@@ -166,7 +168,7 @@ namespace ZUARTControl
 
         #region 自定义事件
         #region 串口开关事件回调
-        public class ComConnectState_EventArgs :EventArgs
+        public class ComConnectState_EventArgs : EventArgs
         {
             public bool IsComOpen { get; set; }
         }
@@ -178,12 +180,12 @@ namespace ZUARTControl
             {
                 if (OnComConnectState != null)
                 {
-                    foreach(Delegate d in OnComConnectState.GetInvocationList())
+                    foreach (Delegate d in OnComConnectState.GetInvocationList())
                     {
                         if (object.ReferenceEquals(d, value)) return;
                     }
                 }
-                    OnComConnectState = (EventHandler<ComConnectState_EventArgs>)Delegate.Combine(OnComConnectState, value);
+                OnComConnectState = (EventHandler<ComConnectState_EventArgs>)Delegate.Combine(OnComConnectState, value);
             }
             remove
             {
@@ -194,13 +196,13 @@ namespace ZUARTControl
         #endregion
 
         #region 串口接收事件回调
-        public class ComDataReceived_EventArgs : EventArgs
+        public class ComData_EventArgs : EventArgs
         {
             public byte[] data { get; set; }
         }
-        protected EventHandler<ComDataReceived_EventArgs> OnComDataReceived;
+        protected EventHandler<ComData_EventArgs> OnComDataReceived;
         [Category("控件事件"), Description("串口接收到数据后调用"), Browsable(true)]
-        public event EventHandler<ComDataReceived_EventArgs> ComDataReceived
+        public event EventHandler<ComData_EventArgs> ComDataReceived
         {
             add
             {
@@ -211,19 +213,43 @@ namespace ZUARTControl
                         if (object.ReferenceEquals(d, value)) return;
                     }
                 }
-                    OnComDataReceived = (EventHandler<ComDataReceived_EventArgs>)Delegate.Combine(OnComDataReceived, value);
+                OnComDataReceived = (EventHandler<ComData_EventArgs>)Delegate.Combine(OnComDataReceived, value);
             }
             remove
             {
-                OnComDataReceived = (EventHandler<ComDataReceived_EventArgs>)Delegate.Remove(OnComDataReceived, value);
+                OnComDataReceived = (EventHandler<ComData_EventArgs>)Delegate.Remove(OnComDataReceived, value);
+            }
+
+        }
+        #endregion
+        #region 串口发送事件回调
+
+        protected EventHandler<ComData_EventArgs> OnComDataSend;
+        [Category("控件事件"), Description("串口发送数据后调用"), Browsable(true)]
+        public event EventHandler<ComData_EventArgs> ComDataSend
+        {
+            add
+            {
+                if (OnComDataSend != null)
+                {
+                    foreach (Delegate d in OnComDataSend.GetInvocationList())
+                    {
+                        if (object.ReferenceEquals(d, value)) return;
+                    }
+                }
+                OnComDataSend = (EventHandler<ComData_EventArgs>)Delegate.Combine(OnComDataSend, value);
+            }
+            remove
+            {
+                OnComDataSend = (EventHandler<ComData_EventArgs>)Delegate.Remove(OnComDataSend, value);
             }
 
         }
         #endregion
         #endregion
 
-        public UInt64 RevCount = 0;    //接收计数
-        public UInt64 SendCount = 0;   //发送计数
+        public UInt64 RevCount { get; set; }    //接收计数
+        public UInt64 SendCount { get; set; }    //发送计数
 
         public bool IsComOpen
         {
@@ -237,6 +263,8 @@ namespace ZUARTControl
             System.Diagnostics.Debug.WriteLine("ZuartControl");
             InitializeComponent();
             init();
+            RevCount = 0;
+            SendCount = 0;
         }
 
 
@@ -252,7 +280,7 @@ namespace ZUARTControl
             #region 控件初始化
             cbbComList.Items.AddRange(SerialPort.GetPortNames());
 
-            
+
             #endregion
             #region 设置保存初始化
             cbbComList.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbComList", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -260,11 +288,12 @@ namespace ZUARTControl
             cbbDataBits.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbDataBits", true, DataSourceUpdateMode.OnPropertyChanged));
             cbbStopBits.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbStopBits", true, DataSourceUpdateMode.OnPropertyChanged));
             cbbParity.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "cbbParity", true, DataSourceUpdateMode.OnPropertyChanged));
-           // txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+            // txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
             txtAutoSendms.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtAutoSendms", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoLine.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoLine", true, DataSourceUpdateMode.OnPropertyChanged));
             chkShowTime.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkShowTime", true, DataSourceUpdateMode.OnPropertyChanged));
             chkRecSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkRecSend", true, DataSourceUpdateMode.OnPropertyChanged));
+            chkTrans.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkTrans", true, DataSourceUpdateMode.OnPropertyChanged));
             chkfromFileSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkfromFileSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoAddSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoAddSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoCleanSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoCleanSend", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -350,6 +379,9 @@ namespace ZUARTControl
                     btnOpen.Image = ZUART.Properties.Resources.open;
                     // 串口号,波特率,数据位,停止位.校验位
                     Log("串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text);
+
+                    ComDevice.DtrEnable = chkDTR.Checked;
+                    ComDevice.RtsEnable = chkRTS.Checked;
                 }
 
                 ComConnectState_EventArgs comConnectState_EventArgs = new ComConnectState_EventArgs();
@@ -359,7 +391,11 @@ namespace ZUARTControl
 
 
         }
-
+        private void chkRTS_DTR_CheckedChanged(object sender, EventArgs e)
+        {
+            ComDevice.DtrEnable = chkDTR.Checked;
+            ComDevice.RtsEnable = chkRTS.Checked;
+        }
         #endregion
         #region 串口参数设置监听 打开串口后设置串口参数立即生效(关闭后重新打开串口)
         private void cbbComList_DropDown(object sender, EventArgs e)
@@ -389,6 +425,13 @@ namespace ZUARTControl
                 {
                     ComDevice.Write(data, 0, data.Length);//发送数据
                     SendCount += (UInt64)data.Length;
+
+                    if (OnComDataSend != null)
+                    {
+                        ComData_EventArgs comData_EventArgs = new ComData_EventArgs();
+                        comData_EventArgs.data = data;
+                        OnComDataSend(this, comData_EventArgs);
+                    }
                     return true;
                 }
                 catch (Exception ex)
@@ -480,22 +523,183 @@ namespace ZUARTControl
                     return false;
                 }
             }
-            else if (rbtnSendASCII.Checked)
-            {
-                //sendData = Encoding.ASCII.GetBytes(str);
-                sendData = Encoding.GetEncoding("GBK").GetBytes(str);
-            }
-            else if (rbtnSendUTF8.Checked)
-            {
-                sendData = Encoding.UTF8.GetBytes(str);
-            }
-            else if (rbtnSendUnicode.Checked)
-            {
-                sendData = Encoding.Unicode.GetBytes(str);
-            }
             else
             {
-                sendData = Encoding.GetEncoding("GBK").GetBytes(str);
+                #region 转义字符的处理
+                if (chkTrans.Checked)
+                {//转义字符的处理
+                    string s = "";
+                    char c_temp = (char)0;
+                    int is_trans_status = 0;
+                    foreach (char c in str)
+                    {
+                        switch (is_trans_status)
+                        {
+                            case 0:
+                                {
+                                    if (c != '\\')
+                                    {
+                                        s += c;
+                                    }
+                                    else
+                                    {
+                                        is_trans_status = 1;
+                                    }
+                                    c_temp = (char)0;
+                                    continue;
+                                }
+                            case 1:
+                                switch (c)
+                                {
+                                    case 'a': s += '\x07'; is_trans_status = 0; break;
+                                    case 'b': s += '\x08'; is_trans_status = 0; break;
+                                    case 'f': s += '\x0C'; is_trans_status = 0; break;
+                                    case 'n': s += '\x0A'; is_trans_status = 0; break;
+                                    case 'r': s += '\x0D'; is_trans_status = 0; break;
+                                    case 't': s += '\x09'; is_trans_status = 0; break;
+                                    case 'v': s += '\x0B'; is_trans_status = 0; break;
+                                    case '\\': s += '\\'; is_trans_status = 0; break;
+                                    case '\'': s += '\''; is_trans_status = 0; break;
+                                    case '\"': s += '\x22'; is_trans_status = 0; break;
+                                    case '?': s += '?'; is_trans_status = 0; break;
+                                    //case '0': s += '\x00'; is_trans_status = 0; break;
+                                    case 'x': is_trans_status = 2; break;
+                                    case '0': goto CASE_7;
+                                    case '1': goto CASE_7;
+                                    case '2': goto CASE_7;
+                                    case '3': goto CASE_7;
+                                    case '4': goto CASE_7;
+                                    case '5': goto CASE_7;
+                                    case '6': goto CASE_7;
+                                    case '7':
+                                    CASE_7:
+                                        c_temp = (char)(c - '0');
+                                        is_trans_status = 4;
+                                        break;
+                                    default:
+                                        s += c;
+                                        is_trans_status = 0;
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                {
+                                    is_trans_status++;
+                                    if (c <= 'F' && c >= 'A')
+                                    {
+                                        c_temp = (char)(c - 'A' + 10);
+                                    }
+                                    else if (c <= 'f' && c >= 'a')
+                                    {
+                                        c_temp = (char)(c - 'a' + 10);
+                                    }
+                                    if (c <= '9' && c >= '0')
+                                    {
+                                        c_temp = (char)(c - '0');
+                                    }
+                                    else
+                                    {   //\x后非十六进制,着则忽略\符号
+                                        s += 'x' + c;
+                                        is_trans_status = 0;
+                                    }
+                                }
+                                break;
+                            case 3:
+                                {
+                                    if (c <= 'F' && c >= 'A')
+                                    {
+                                        c_temp = (char)(c_temp * 16 + (c - 'A' + 10));
+                                    }
+                                    else if (c <= 'f' && c >= 'a')
+                                    {
+                                        c_temp = (char)(c_temp * 16 + (c - 'a' + 10));
+                                    }
+                                    if (c <= '9' && c >= '0')
+                                    {
+                                        c_temp = (char)(c_temp * 16 + (c - '0'));
+                                    }
+
+                                    s += c_temp;
+
+                                    if (!((c <= 'F' && c >= 'A') || (c <= 'f' && c >= 'a') || (c <= '9' && c >= '0')))
+                                    {
+                                        s += c;
+                                    }
+
+                                    is_trans_status = 0;
+                                }
+                                break;
+
+                            case 4://\d[d]
+                                {
+                                    if (c < '8' && c >= '0')
+                                    {
+                                        c_temp = (char)(c_temp * 8 + c - '0');
+                                        is_trans_status++;
+                                    }
+                                    else
+                                    {   //\d后非8进制
+                                        s += c_temp;
+                                        s += c;
+                                        is_trans_status = 0;
+                                    }
+                                }
+                                break;
+                            case 5: //\dd[d]最后一个字符
+                                {
+                                    if (c < '8' && c >= '0')
+                                    {
+                                        c_temp = (char)(c_temp * 8 + c - '0');
+                                    }
+                                    s += c_temp;
+
+                                    if (!(c < '8' && c >= '0'))
+                                    {
+                                        s += c;
+                                    }
+                                    is_trans_status = 0;
+                                }
+                                break;
+                        }
+                    }
+
+                    if(is_trans_status >=2 && is_trans_status<=5) s += c_temp;
+
+
+                    str = s;
+                    //str = Regex.Replace(str, @"(?<!\\)\\a", "\a");
+                    //str = Regex.Replace(str, @"(?<!\\)\\b", "\b");
+                    //str = Regex.Replace(str, @"(?<!\\)\\f", "\f");
+                    //str = Regex.Replace(str, @"(?<!\\)\\n", "\n");
+                    //str = Regex.Replace(str, @"(?<!\\)\\r", "\r");
+                    //str = Regex.Replace(str, @"(?<!\\)\\t", "\t");
+                    //str = Regex.Replace(str, @"(?<!\\)\\v", "\v");
+                    //str = Regex.Replace(str, @"(?<!\\)\\\\", "\\");
+                    //str = Regex.Replace(str, @"(?<!\\)\\'", "\'");
+                    //str = Regex.Replace(str, @"(?<!\\)\\""", "\"");
+                    //str = Regex.Replace(str, @"(?<!\\)\\?", "?");
+                    //str = Regex.Replace(str, @"(?<!\\)\\0", "\0");
+
+                    #endregion
+
+                }
+                if (rbtnSendASCII.Checked)
+                {
+                    //sendData = Encoding.ASCII.GetBytes(str);
+                    sendData = Encoding.GetEncoding("GBK").GetBytes(str);
+                }
+                else if (rbtnSendUTF8.Checked)
+                {
+                    sendData = Encoding.UTF8.GetBytes(str);
+                }
+                else if (rbtnSendUnicode.Checked)
+                {
+                    sendData = Encoding.Unicode.GetBytes(str);
+                }
+                else
+                {
+                    sendData = Encoding.GetEncoding("GBK").GetBytes(str);
+                }
             }
 
             if (this.SendData(sendData))//发送数据成功计数
@@ -528,10 +732,10 @@ namespace ZUARTControl
             {
                 RevCount += (UInt64)ReDatas.Length;
                 this.AddData(ReDatas);//输出数据
-                ComDataReceived_EventArgs comDataReceived_EventArgs = new ComDataReceived_EventArgs();
+                ComData_EventArgs comDataReceived_EventArgs = new ComData_EventArgs();
                 comDataReceived_EventArgs.data = ReDatas;
                 if (OnComDataReceived != null) OnComDataReceived(this, comDataReceived_EventArgs);
-             }));
+            }));
         }
         #endregion
         #region 接收文本框,输入监听,供输入直接发送
@@ -598,16 +802,17 @@ namespace ZUARTControl
                 str += " [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n";
                 //txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n");
             }
-            
+
             str += content;
-            if(chkAutoScroll.Checked)
+            if (chkAutoScroll.Checked)
             {
                 txtShowData.AppendText(str);
-            }else
+            }
+            else
             {
                 txtShowData.Text += str;
             }
-            
+
             //}));
         }
         #endregion
