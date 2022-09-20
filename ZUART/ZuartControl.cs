@@ -254,7 +254,7 @@ namespace ZUARTControl
 
         public UInt64 RevCount { get; set; }    //接收计数
         public UInt64 SendCount { get; set; }    //发送计数
-
+        public string SendFileName { get; set; }    //外部文件源
         public bool IsComOpen
         {
             get
@@ -298,6 +298,7 @@ namespace ZUARTControl
             chkShowTime.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkShowTime", true, DataSourceUpdateMode.OnPropertyChanged));
             chkRecSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkRecSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkTrans.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkTrans", true, DataSourceUpdateMode.OnPropertyChanged));
+            //chkfromFileSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkfromFileSend", true, DataSourceUpdateMode.OnPropertyChanged)); 
             chkAutoAddSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoAddSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoCleanSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoCleanSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoSend", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -436,8 +437,23 @@ namespace ZUARTControl
             {
                 try
                 {
-                    ComDevice.Write(data, 0, data.Length);//发送数据
-                    SendCount += (UInt64)data.Length;
+
+                    byte[] data_temp = new byte[4096];
+
+                    long offect = 0;
+                    long length = 4096;
+
+                    for(offect=0; offect<data.LongLength; offect += length)
+                    {
+                        length = 4096;
+                        if (length > data.LongLength - offect) length = data.LongLength - offect;
+                        Array.Copy(data, offect, data_temp, 0, length);
+                        ComDevice.Write(data_temp, 0, (int)length);//发送数据
+                        SendCount += (UInt64)length;
+                    }
+
+                    //ComDevice.Write(data, 0, data.Length);//发送数据
+                    //SendCount += (UInt64)data.Length;
 
                     if (OnComDataSend != null)
                     {
@@ -473,6 +489,12 @@ namespace ZUARTControl
         #region 发送数据button事件
         private void btnSend_Click(object sender, EventArgs e)
         {
+            if(chkfromFileSend.Checked && SendFileName!=null && File.Exists(SendFileName))
+            {
+                byte[] file = File.ReadAllBytes(SendFileName);
+                SendData(file);//TODO 发送大量数据时容易出问题 需要优化
+                return;
+            }
             if (txtSendData == null) return;
             if (chkAutoSend.Checked)
             {
@@ -927,15 +949,36 @@ namespace ZUARTControl
 
         #endregion
 
-        #region 发送文件载入
-        private void lkbReadSend_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        #region 外部文件源载入 
+        private void chkfromFileSend_CheckedChanged(object sender, EventArgs e)
         {
-            OpenFileDialog ofdg = new OpenFileDialog();
-            if (ofdg.ShowDialog(this) == DialogResult.OK)
+            if (chkfromFileSend.Checked)
             {
-                string file = ofdg.FileName;//得到选择的文件的完整路径
-                if (txtSendData != null) txtSendData.Text = System.IO.File.ReadAllText(file, Encoding.Default);//把读出来的数据显示在textbox中
+                OpenFileDialog ofdg = new OpenFileDialog();
+                if (ofdg.ShowDialog(this) == DialogResult.OK)
+                {
+                    SendFileName = ofdg.FileName;//得到选择的文件的完整路径
+                    //if (txtSendData != null) txtSendData.Text = System.IO.File.ReadAllText(file, Encoding.Default);//把读出来的数据显示在textbox中
+ 
+                    if (txtSendData != null)
+                    {
+                        //txtSendData.Enabled = false;
+                        txtSendData.Tag = txtSendData.Text;
+                        txtSendData.Text = "启用外部文件数据源:\r\n"+ofdg.FileName;
+                    }
+                }
+                else
+                {
+                    chkfromFileSend.Checked = false;
+                }
             }
+            txtSendData.Enabled = !chkfromFileSend.Checked;
+            if (txtSendData.Enabled)
+            {
+                txtSendData.Text = (string)txtSendData.Tag;
+                SendFileName = null;
+            }
+
         }
         #endregion
 
@@ -945,7 +988,10 @@ namespace ZUARTControl
         #region 自动发送定时器函数
         private void timerAutoSend_Tick(object sender, EventArgs e)
         {
-            if (txtSendData != null) SendStr(txtSendData.Text, rbtnSendHex.Checked);
+            if (txtSendData != null)
+            {
+                SendStr(txtSendData.Text, rbtnSendHex.Checked);
+            }
         }
         #endregion
         #region 自动发送间隔时间,只能输入数字
@@ -1002,5 +1048,7 @@ namespace ZUARTControl
             if(((ToolStripMenuItem)sender).CheckState == CheckState.Checked)
                 lkbSendKey.Text = ((ToolStripMenuItem)sender).Text;
         }
+
+
     }
 }
