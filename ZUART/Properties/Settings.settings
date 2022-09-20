@@ -21,7 +21,7 @@
       <Value Profile="(Default)">ZUART</Value>
     </Setting>
     <Setting Name="chkAutoLine" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="chkShowTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -370,6 +370,18 @@
     </Setting>
     <Setting Name="chkTrans" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="menuItemSendKey1" Type="System.Windows.Forms.CheckState" Scope="User">
+      <Value Profile="(Default)">Checked</Value>
+    </Setting>
+    <Setting Name="menuItemSendKey2" Type="System.Windows.Forms.CheckState" Scope="User">
+      <Value Profile="(Default)">Unchecked</Value>
+    </Setting>
+    <Setting Name="menuItemSendKey3" Type="System.Windows.Forms.CheckState" Scope="User">
+      <Value Profile="(Default)">Unchecked</Value>
+    </Setting>
+    <Setting Name="menuItemSendKey4" Type="System.Windows.Forms.CheckState" Scope="User">
+      <Value Profile="(Default)">Unchecked</Value>
     </Setting>
   </Settings>
 </SettingsFile>

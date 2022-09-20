@@ -239,6 +239,7 @@
             // 
             // txtShowData
             // 
+            this.txtShowData.AcceptsTab = true;
             this.txtShowData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtShowData.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.txtShowData.Location = new System.Drawing.Point(3, 19);
@@ -316,6 +317,7 @@
             this.Controls.Add(this.zuartControl1);
             this.Controls.Add(this.panel_Log);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "ZUART";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Z串口调试助手";

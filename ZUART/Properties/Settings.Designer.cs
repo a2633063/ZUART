@@ -97,7 +97,7 @@ namespace ZUART.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool chkAutoLine {
             get {
                 return ((bool)(this["chkAutoLine"]));
@@ -1496,6 +1496,54 @@ namespace ZUART.Properties {
             }
             set {
                 this["chkTrans"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Checked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey1 {
+            get {
+                return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey1"]));
+            }
+            set {
+                this["menuItemSendKey1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey2 {
+            get {
+                return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey2"]));
+            }
+            set {
+                this["menuItemSendKey2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey3 {
+            get {
+                return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey3"]));
+            }
+            set {
+                this["menuItemSendKey3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey4 {
+            get {
+                return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey4"]));
+            }
+            set {
+                this["menuItemSendKey4"] = value;
             }
         }
     }

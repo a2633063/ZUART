@@ -37,12 +37,13 @@ namespace ZUARTControl
             this.txtAutoSendms = new System.Windows.Forms.TextBox();
             this.chkAutoCleanSend = new System.Windows.Forms.CheckBox();
             this.chkAutoSend = new System.Windows.Forms.CheckBox();
-            this.chkfromFileSend = new System.Windows.Forms.CheckBox();
+            this.chkTrans = new System.Windows.Forms.CheckBox();
             this.chkAutoAddSend = new System.Windows.Forms.CheckBox();
             this.rbtnSendUnicode = new System.Windows.Forms.RadioButton();
             this.rbtnSendHex = new System.Windows.Forms.RadioButton();
             this.rbtnSendASCII = new System.Windows.Forms.RadioButton();
             this.rbtnSendUTF8 = new System.Windows.Forms.RadioButton();
+            this.lkbSendKey = new System.Windows.Forms.LinkLabel();
             this.lkbReadSend = new System.Windows.Forms.LinkLabel();
             this.lkbClearSend = new System.Windows.Forms.LinkLabel();
             this.groupboxRecSetting = new System.Windows.Forms.GroupBox();
@@ -73,11 +74,16 @@ namespace ZUARTControl
             this.ComDevice = new System.IO.Ports.SerialPort(this.components);
             this.timerAutoSend = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.chkTrans = new System.Windows.Forms.CheckBox();
+            this.menuSendKey = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
             this.groupBoxComSetting.SuspendLayout();
+            this.menuSendKey.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Setting
@@ -99,12 +105,12 @@ namespace ZUARTControl
             this.groupboxSendSetting.Controls.Add(this.chkAutoCleanSend);
             this.groupboxSendSetting.Controls.Add(this.chkAutoSend);
             this.groupboxSendSetting.Controls.Add(this.chkTrans);
-            this.groupboxSendSetting.Controls.Add(this.chkfromFileSend);
             this.groupboxSendSetting.Controls.Add(this.chkAutoAddSend);
             this.groupboxSendSetting.Controls.Add(this.rbtnSendUnicode);
             this.groupboxSendSetting.Controls.Add(this.rbtnSendHex);
             this.groupboxSendSetting.Controls.Add(this.rbtnSendASCII);
             this.groupboxSendSetting.Controls.Add(this.rbtnSendUTF8);
+            this.groupboxSendSetting.Controls.Add(this.lkbSendKey);
             this.groupboxSendSetting.Controls.Add(this.lkbReadSend);
             this.groupboxSendSetting.Controls.Add(this.lkbClearSend);
             this.groupboxSendSetting.Location = new System.Drawing.Point(3, 377);
@@ -117,7 +123,7 @@ namespace ZUARTControl
             // txtAutoSendms
             // 
             this.txtAutoSendms.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txtAutoSendms.Location = new System.Drawing.Point(105, 100);
+            this.txtAutoSendms.Location = new System.Drawing.Point(105, 76);
             this.txtAutoSendms.MaxLength = 5;
             this.txtAutoSendms.Name = "txtAutoSendms";
             this.txtAutoSendms.Size = new System.Drawing.Size(32, 21);
@@ -130,7 +136,7 @@ namespace ZUARTControl
             // chkAutoCleanSend
             // 
             this.chkAutoCleanSend.AutoSize = true;
-            this.chkAutoCleanSend.Location = new System.Drawing.Point(9, 81);
+            this.chkAutoCleanSend.Location = new System.Drawing.Point(9, 58);
             this.chkAutoCleanSend.Name = "chkAutoCleanSend";
             this.chkAutoCleanSend.Size = new System.Drawing.Size(108, 16);
             this.chkAutoCleanSend.TabIndex = 3;
@@ -140,29 +146,28 @@ namespace ZUARTControl
             // chkAutoSend
             // 
             this.chkAutoSend.AutoSize = true;
-            this.chkAutoSend.Location = new System.Drawing.Point(9, 104);
+            this.chkAutoSend.Location = new System.Drawing.Point(9, 78);
             this.chkAutoSend.Name = "chkAutoSend";
             this.chkAutoSend.Size = new System.Drawing.Size(96, 16);
             this.chkAutoSend.TabIndex = 4;
             this.chkAutoSend.Text = "发送周期(ms)";
             this.chkAutoSend.UseVisualStyleBackColor = true;
             // 
-            // chkfromFileSend
+            // chkTrans
             // 
-            this.chkfromFileSend.AutoSize = true;
-            this.chkfromFileSend.Enabled = false;
-            this.chkfromFileSend.Location = new System.Drawing.Point(9, 39);
-            this.chkfromFileSend.Name = "chkfromFileSend";
-            this.chkfromFileSend.Size = new System.Drawing.Size(108, 16);
-            this.chkfromFileSend.TabIndex = 1;
-            this.chkfromFileSend.Text = "启用文件数据源";
-            this.chkfromFileSend.UseVisualStyleBackColor = true;
+            this.chkTrans.AutoSize = true;
+            this.chkTrans.Location = new System.Drawing.Point(9, 18);
+            this.chkTrans.Name = "chkTrans";
+            this.chkTrans.Size = new System.Drawing.Size(96, 16);
+            this.chkTrans.TabIndex = 1;
+            this.chkTrans.Text = "转义字符处理";
+            this.chkTrans.UseVisualStyleBackColor = true;
             // 
             // chkAutoAddSend
             // 
             this.chkAutoAddSend.AutoSize = true;
             this.chkAutoAddSend.Enabled = false;
-            this.chkAutoAddSend.Location = new System.Drawing.Point(9, 60);
+            this.chkAutoAddSend.Location = new System.Drawing.Point(9, 38);
             this.chkAutoAddSend.Name = "chkAutoAddSend";
             this.chkAutoAddSend.Size = new System.Drawing.Size(108, 16);
             this.chkAutoAddSend.TabIndex = 2;
@@ -172,7 +177,7 @@ namespace ZUARTControl
             // rbtnSendUnicode
             // 
             this.rbtnSendUnicode.AutoSize = true;
-            this.rbtnSendUnicode.Location = new System.Drawing.Point(68, 148);
+            this.rbtnSendUnicode.Location = new System.Drawing.Point(68, 123);
             this.rbtnSendUnicode.Name = "rbtnSendUnicode";
             this.rbtnSendUnicode.Size = new System.Drawing.Size(65, 16);
             this.rbtnSendUnicode.TabIndex = 9;
@@ -183,7 +188,7 @@ namespace ZUARTControl
             // rbtnSendHex
             // 
             this.rbtnSendHex.AutoSize = true;
-            this.rbtnSendHex.Location = new System.Drawing.Point(9, 126);
+            this.rbtnSendHex.Location = new System.Drawing.Point(9, 101);
             this.rbtnSendHex.Name = "rbtnSendHex";
             this.rbtnSendHex.Size = new System.Drawing.Size(41, 16);
             this.rbtnSendHex.TabIndex = 6;
@@ -195,7 +200,7 @@ namespace ZUARTControl
             // 
             this.rbtnSendASCII.AutoSize = true;
             this.rbtnSendASCII.Checked = true;
-            this.rbtnSendASCII.Location = new System.Drawing.Point(68, 127);
+            this.rbtnSendASCII.Location = new System.Drawing.Point(68, 102);
             this.rbtnSendASCII.Name = "rbtnSendASCII";
             this.rbtnSendASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnSendASCII.TabIndex = 7;
@@ -207,7 +212,7 @@ namespace ZUARTControl
             // rbtnSendUTF8
             // 
             this.rbtnSendUTF8.AutoSize = true;
-            this.rbtnSendUTF8.Location = new System.Drawing.Point(9, 148);
+            this.rbtnSendUTF8.Location = new System.Drawing.Point(9, 123);
             this.rbtnSendUTF8.Name = "rbtnSendUTF8";
             this.rbtnSendUTF8.Size = new System.Drawing.Size(53, 16);
             this.rbtnSendUTF8.TabIndex = 8;
@@ -215,10 +220,21 @@ namespace ZUARTControl
             this.rbtnSendUTF8.UseVisualStyleBackColor = true;
             this.rbtnSendUTF8.Click += new System.EventHandler(this.rbtnSend_Click);
             // 
+            // lkbSendKey
+            // 
+            this.lkbSendKey.Location = new System.Drawing.Point(5, 173);
+            this.lkbSendKey.Name = "lkbSendKey";
+            this.lkbSendKey.Size = new System.Drawing.Size(160, 12);
+            this.lkbSendKey.TabIndex = 10;
+            this.lkbSendKey.TabStop = true;
+            this.lkbSendKey.Text = "Enter发送,Ctrl+Enter换行";
+            this.lkbSendKey.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lkbSendKey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbSendKey_LinkClicked);
+            // 
             // lkbReadSend
             // 
             this.lkbReadSend.AutoSize = true;
-            this.lkbReadSend.Location = new System.Drawing.Point(16, 177);
+            this.lkbReadSend.Location = new System.Drawing.Point(16, 151);
             this.lkbReadSend.Name = "lkbReadSend";
             this.lkbReadSend.Size = new System.Drawing.Size(53, 12);
             this.lkbReadSend.TabIndex = 10;
@@ -229,7 +245,7 @@ namespace ZUARTControl
             // lkbClearSend
             // 
             this.lkbClearSend.AutoSize = true;
-            this.lkbClearSend.Location = new System.Drawing.Point(83, 177);
+            this.lkbClearSend.Location = new System.Drawing.Point(83, 151);
             this.lkbClearSend.Name = "lkbClearSend";
             this.lkbClearSend.Size = new System.Drawing.Size(53, 12);
             this.lkbClearSend.TabIndex = 11;
@@ -496,7 +512,7 @@ namespace ZUARTControl
             this.cbbBaudRate.Name = "cbbBaudRate";
             this.cbbBaudRate.Size = new System.Drawing.Size(98, 21);
             this.cbbBaudRate.TabIndex = 2;
-            this.cbbBaudRate.Text = global::ZUART.Properties.Settings.Default.cbbBaudRate;
+            this.cbbBaudRate.Text = "115200";
             this.cbbBaudRate.ValueMember = "1";
             this.cbbBaudRate.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
@@ -567,15 +583,47 @@ namespace ZUARTControl
             this.timerAutoSend.Interval = 1;
             this.timerAutoSend.Tick += new System.EventHandler(this.timerAutoSend_Tick);
             // 
-            // chkTrans
+            // menuSendKey
             // 
-            this.chkTrans.AutoSize = true;
-            this.chkTrans.Location = new System.Drawing.Point(9, 18);
-            this.chkTrans.Name = "chkTrans";
-            this.chkTrans.Size = new System.Drawing.Size(96, 16);
-            this.chkTrans.TabIndex = 1;
-            this.chkTrans.Text = "转义字符处理";
-            this.chkTrans.UseVisualStyleBackColor = true;
+            this.menuSendKey.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.menuSendKey.Name = "menuSendKey";
+            this.menuSendKey.Size = new System.Drawing.Size(222, 92);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(221, 22);
+            this.toolStripMenuItem1.Text = "Enter发送,Ctrl+Enter换行";
+            this.toolStripMenuItem1.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_CheckStateChanged);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(221, 22);
+            this.toolStripMenuItem2.Text = "Enter发送,Shift+Enter换行";
+            this.toolStripMenuItem2.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_CheckStateChanged);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(221, 22);
+            this.toolStripMenuItem3.Text = "Ctrl+Enter发送,Enter换行";
+            this.toolStripMenuItem3.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_CheckStateChanged);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(221, 22);
+            this.toolStripMenuItem4.Text = "Shift+Enter发送,Enter换行";
+            this.toolStripMenuItem4.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_CheckStateChanged);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem_Click);
             // 
             // ZuartControl
             // 
@@ -591,6 +639,7 @@ namespace ZUARTControl
             this.groupboxRecSetting.PerformLayout();
             this.groupBoxComSetting.ResumeLayout(false);
             this.groupBoxComSetting.PerformLayout();
+            this.menuSendKey.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -629,7 +678,6 @@ namespace ZUARTControl
         private System.Windows.Forms.RadioButton rbtnSendUTF8;
         private System.Windows.Forms.CheckBox chkAutoCleanSend;
         private System.Windows.Forms.CheckBox chkAutoSend;
-        private System.Windows.Forms.CheckBox chkfromFileSend;
         private System.Windows.Forms.CheckBox chkAutoAddSend;
         private System.Windows.Forms.TextBox txtAutoSendms;
         private System.Windows.Forms.Timer timerAutoSend;
@@ -639,5 +687,11 @@ namespace ZUARTControl
         private System.Windows.Forms.CheckBox chkRTS;
         private System.Windows.Forms.CheckBox chkDTR;
         private System.Windows.Forms.CheckBox chkTrans;
+        private System.Windows.Forms.LinkLabel lkbSendKey;
+        private System.Windows.Forms.ContextMenuStrip menuSendKey;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }

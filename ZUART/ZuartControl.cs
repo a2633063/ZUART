@@ -76,6 +76,10 @@ namespace ZUARTControl
                 if (txtSendData == null) return;
                 txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
 
+                // txtSendData.AcceptsTab = true;
+                txtSendData.KeyPress += txtSendData_KeyPress;
+                txtSendData.KeyDown += txtSendData_KeyDown;
+
             }
         }
 
@@ -294,7 +298,6 @@ namespace ZUARTControl
             chkShowTime.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkShowTime", true, DataSourceUpdateMode.OnPropertyChanged));
             chkRecSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkRecSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkTrans.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkTrans", true, DataSourceUpdateMode.OnPropertyChanged));
-            chkfromFileSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkfromFileSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoAddSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoAddSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoCleanSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoCleanSend", true, DataSourceUpdateMode.OnPropertyChanged));
             chkAutoSend.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "chkAutoSend", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -307,6 +310,12 @@ namespace ZUARTControl
             rbtnSendUTF8.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUTF8", true, DataSourceUpdateMode.OnPropertyChanged));
             rbtnSendUnicode.DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "rbtnSendUnicode", true, DataSourceUpdateMode.OnPropertyChanged));
 
+            toolStripMenuItem1.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey1;
+            toolStripMenuItem2.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey2;
+            toolStripMenuItem3.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey3;
+            toolStripMenuItem4.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey4;
+            //this.toolStripMenuItem1.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey1;
+
             //for (int i = 0; i < ListSend_Count; i++)
             //{
             //    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
@@ -318,6 +327,10 @@ namespace ZUARTControl
 
         private void setting_save(object sender, EventArgs e)
         {
+            ZUART.Properties.Settings.Default.menuItemSendKey1 = toolStripMenuItem1.CheckState;
+            ZUART.Properties.Settings.Default.menuItemSendKey2 = toolStripMenuItem2.CheckState;
+            ZUART.Properties.Settings.Default.menuItemSendKey3 = toolStripMenuItem3.CheckState;
+            ZUART.Properties.Settings.Default.menuItemSendKey4 = toolStripMenuItem4.CheckState;
             ZUART.Properties.Settings.Default.Save();
         }
 
@@ -487,7 +500,7 @@ namespace ZUARTControl
             }
             else
             {
-                if (SendStr(txtSendData.Text))
+                if (SendStr(txtSendData.Text, rbtnSendHex.Checked))
                 {
                     if (chkAutoCleanSend.Checked)
                     {
@@ -500,11 +513,6 @@ namespace ZUARTControl
 
 
         #region 选择编码发送字符串
-        private bool SendStr(String str)
-        {
-            if (txtSendData == null) return false;
-            return SendStr(txtSendData.Text, rbtnSendHex.Checked);
-        }
         private bool SendStr(String str, bool hexbool)
         {
 
@@ -752,7 +760,53 @@ namespace ZUARTControl
             e.Handled = true;
         }
         #endregion
+        #region 发送文本框,输入监听,供设置发送/换行按键
+        private bool eHandled = false;
+        private void txtSendData_KeyPress(object sender, KeyPressEventArgs e)
+        {      
+            e.Handled = eHandled;
 
+            if(rbtnSendHex.Checked &&!eHandled)
+            {   //\u0016\u0001\u0018\u0003\u001a
+                if (!"\r\babcdefABCDEF 0123456789".Contains(e.KeyChar.ToString()) && e.KeyChar> '\u0020')
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+        private void txtSendData_KeyDown(object sender, KeyEventArgs e)
+        {
+            eHandled = false;
+            if (e.KeyCode== Keys.Enter && e.Control && !e.Shift)
+            {
+                //Console.WriteLine("Ctrl+Enter");
+                if(toolStripMenuItem3.CheckState==CheckState.Checked)
+                {//Ctrl+Enter 发送
+                    e.Handled = true;
+                    btnSend_Click(null, null);
+                }
+            }
+            else if (e.KeyCode == Keys.Enter && !e.Control && e.Shift)
+            {
+                //Console.WriteLine("Shift+Enter");
+                if (toolStripMenuItem4.CheckState == CheckState.Checked)
+                {//Shift+Enter 发送
+                    e.Handled = true;
+                    btnSend_Click(null, null);
+                }
+            }
+            else if (e.KeyCode == Keys.Enter && !e.Shift && !e.Control && !e.Alt)
+            {
+                //Console.WriteLine("Enter");
+                if (toolStripMenuItem1.CheckState == CheckState.Checked || toolStripMenuItem2.CheckState == CheckState.Checked)
+                {//Enter 发送
+                    e.Handled = true;
+                    btnSend_Click(null, null);
+                }
+            }
+            eHandled = e.Handled;
+        }
+        #endregion
         #region 接收文本框字符处理
         public void AddData(byte[] data)
         {
@@ -891,7 +945,7 @@ namespace ZUARTControl
         #region 自动发送定时器函数
         private void timerAutoSend_Tick(object sender, EventArgs e)
         {
-            if (txtSendData != null) SendStr(txtSendData.Text);
+            if (txtSendData != null) SendStr(txtSendData.Text, rbtnSendHex.Checked);
         }
         #endregion
         #region 自动发送间隔时间,只能输入数字
@@ -926,5 +980,27 @@ namespace ZUARTControl
         }
         #endregion
 
+        private void lkbSendKey_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            menuSendKey.Show(lkbSendKey, 0, lkbSendKey.Height);
+ 
+        }
+
+        private void toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem1.CheckState = CheckState.Unchecked;
+            toolStripMenuItem2.CheckState = CheckState.Unchecked;
+            toolStripMenuItem3.CheckState = CheckState.Unchecked;
+            toolStripMenuItem4.CheckState = CheckState.Unchecked;
+
+            ((ToolStripMenuItem)sender).CheckState = CheckState.Checked;
+
+        }
+
+        private void toolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(((ToolStripMenuItem)sender).CheckState == CheckState.Checked)
+                lkbSendKey.Text = ((ToolStripMenuItem)sender).Text;
+        }
     }
 }
