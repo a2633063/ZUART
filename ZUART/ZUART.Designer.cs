@@ -73,7 +73,7 @@
             this.panel_Log.Controls.Add(this.lblRevCount);
             this.panel_Log.Controls.Add(this.lblSendCount);
             this.panel_Log.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Log.Location = new System.Drawing.Point(0, 594);
+            this.panel_Log.Location = new System.Drawing.Point(0, 576);
             this.panel_Log.Name = "panel_Log";
             this.panel_Log.Size = new System.Drawing.Size(1096, 25);
             this.panel_Log.TabIndex = 4;
@@ -150,7 +150,7 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox6.Location = new System.Drawing.Point(0, 0);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(192, 594);
+            this.groupBox6.Size = new System.Drawing.Size(197, 576);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "多字符串发送";
@@ -164,14 +164,14 @@
             this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
             this.panel_ListSend.Location = new System.Drawing.Point(4, 32);
             this.panel_ListSend.Name = "panel_ListSend";
-            this.panel_ListSend.Size = new System.Drawing.Size(189, 562);
+            this.panel_ListSend.Size = new System.Drawing.Size(193, 544);
             this.panel_ListSend.TabIndex = 6;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(145, 16);
+            this.label7.Location = new System.Drawing.Point(149, 16);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 12);
             this.label7.TabIndex = 4;
@@ -199,7 +199,7 @@
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(716, 106);
+            this.groupBox3.Size = new System.Drawing.Size(730, 103);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
@@ -211,16 +211,16 @@
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(672, 84);
+            this.txtSendData.Size = new System.Drawing.Size(686, 81);
             this.txtSendData.TabIndex = 1;
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(675, 19);
+            this.btnSend.Location = new System.Drawing.Point(689, 19);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(38, 84);
+            this.btnSend.Size = new System.Drawing.Size(38, 81);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -232,7 +232,7 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(716, 484);
+            this.groupBox2.Size = new System.Drawing.Size(730, 469);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "数据接收区";
@@ -246,7 +246,7 @@
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(710, 462);
+            this.txtShowData.Size = new System.Drawing.Size(724, 447);
             this.txtShowData.TabIndex = 2;
             // 
             // splitContainer1
@@ -254,7 +254,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(177, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(158, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -264,8 +264,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox6);
-            this.splitContainer1.Size = new System.Drawing.Size(912, 594);
-            this.splitContainer1.SplitterDistance = 716;
+            this.splitContainer1.Size = new System.Drawing.Size(931, 576);
+            this.splitContainer1.SplitterDistance = 730;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.TabStop = false;
             // 
@@ -283,8 +283,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainer2.Size = new System.Drawing.Size(716, 594);
-            this.splitContainer2.SplitterDistance = 484;
+            this.splitContainer2.Size = new System.Drawing.Size(730, 576);
+            this.splitContainer2.SplitterDistance = 469;
             this.splitContainer2.TabIndex = 3;
             this.splitContainer2.TabStop = false;
             // 
@@ -300,7 +300,8 @@
             this.zuartControl1.PanelListSend = this.panel_ListSend;
             this.zuartControl1.RevCount = ((ulong)(0ul));
             this.zuartControl1.SendCount = ((ulong)(0ul));
-            this.zuartControl1.Size = new System.Drawing.Size(180, 591);
+            this.zuartControl1.SendFileName = null;
+            this.zuartControl1.Size = new System.Drawing.Size(152, 573);
             this.zuartControl1.TabIndex = 1;
             this.zuartControl1.TextBoxSendData = this.txtSendData;
             this.zuartControl1.TextBoxShowData = this.txtShowData;
@@ -312,7 +313,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1096, 619);
+            this.ClientSize = new System.Drawing.Size(1096, 601);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.zuartControl1);
             this.Controls.Add(this.panel_Log);

@@ -88,19 +88,22 @@ namespace ZUARTControl
             // 
             // panel_Setting
             // 
+            this.panel_Setting.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_Setting.BackColor = System.Drawing.SystemColors.Control;
             this.panel_Setting.Controls.Add(this.groupboxSendSetting);
             this.panel_Setting.Controls.Add(this.groupboxRecSetting);
             this.panel_Setting.Controls.Add(this.groupBoxComSetting);
-            this.panel_Setting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_Setting.Location = new System.Drawing.Point(0, 0);
             this.panel_Setting.Name = "panel_Setting";
-            this.panel_Setting.Size = new System.Drawing.Size(182, 572);
+            this.panel_Setting.Size = new System.Drawing.Size(148, 572);
             this.panel_Setting.TabIndex = 0;
             // 
             // groupboxSendSetting
             // 
-            this.groupboxSendSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupboxSendSetting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupboxSendSetting.Controls.Add(this.chkfromFileSend);
             this.groupboxSendSetting.Controls.Add(this.txtAutoSendms);
             this.groupboxSendSetting.Controls.Add(this.chkAutoCleanSend);
@@ -115,7 +118,7 @@ namespace ZUARTControl
             this.groupboxSendSetting.Controls.Add(this.lkbClearSend);
             this.groupboxSendSetting.Location = new System.Drawing.Point(3, 377);
             this.groupboxSendSetting.Name = "groupboxSendSetting";
-            this.groupboxSendSetting.Size = new System.Drawing.Size(170, 195);
+            this.groupboxSendSetting.Size = new System.Drawing.Size(142, 192);
             this.groupboxSendSetting.TabIndex = 3;
             this.groupboxSendSetting.TabStop = false;
             this.groupboxSendSetting.Text = "发送区设置";
@@ -123,7 +126,7 @@ namespace ZUARTControl
             // txtAutoSendms
             // 
             this.txtAutoSendms.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txtAutoSendms.Location = new System.Drawing.Point(105, 90);
+            this.txtAutoSendms.Location = new System.Drawing.Point(103, 90);
             this.txtAutoSendms.MaxLength = 5;
             this.txtAutoSendms.Name = "txtAutoSendms";
             this.txtAutoSendms.Size = new System.Drawing.Size(32, 21);
@@ -177,7 +180,7 @@ namespace ZUARTControl
             // rbtnSendUnicode
             // 
             this.rbtnSendUnicode.AutoSize = true;
-            this.rbtnSendUnicode.Location = new System.Drawing.Point(68, 138);
+            this.rbtnSendUnicode.Location = new System.Drawing.Point(66, 138);
             this.rbtnSendUnicode.Name = "rbtnSendUnicode";
             this.rbtnSendUnicode.Size = new System.Drawing.Size(65, 16);
             this.rbtnSendUnicode.TabIndex = 9;
@@ -188,7 +191,7 @@ namespace ZUARTControl
             // rbtnSendHex
             // 
             this.rbtnSendHex.AutoSize = true;
-            this.rbtnSendHex.Location = new System.Drawing.Point(9, 116);
+            this.rbtnSendHex.Location = new System.Drawing.Point(7, 116);
             this.rbtnSendHex.Name = "rbtnSendHex";
             this.rbtnSendHex.Size = new System.Drawing.Size(41, 16);
             this.rbtnSendHex.TabIndex = 6;
@@ -200,7 +203,7 @@ namespace ZUARTControl
             // 
             this.rbtnSendASCII.AutoSize = true;
             this.rbtnSendASCII.Checked = true;
-            this.rbtnSendASCII.Location = new System.Drawing.Point(68, 117);
+            this.rbtnSendASCII.Location = new System.Drawing.Point(66, 117);
             this.rbtnSendASCII.Name = "rbtnSendASCII";
             this.rbtnSendASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnSendASCII.TabIndex = 7;
@@ -212,7 +215,7 @@ namespace ZUARTControl
             // rbtnSendUTF8
             // 
             this.rbtnSendUTF8.AutoSize = true;
-            this.rbtnSendUTF8.Location = new System.Drawing.Point(9, 138);
+            this.rbtnSendUTF8.Location = new System.Drawing.Point(7, 138);
             this.rbtnSendUTF8.Name = "rbtnSendUTF8";
             this.rbtnSendUTF8.Size = new System.Drawing.Size(53, 16);
             this.rbtnSendUTF8.TabIndex = 8;
@@ -222,9 +225,12 @@ namespace ZUARTControl
             // 
             // lkbSendKey
             // 
-            this.lkbSendKey.Location = new System.Drawing.Point(5, 173);
+            this.lkbSendKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lkbSendKey.Font = new System.Drawing.Font("宋体", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkbSendKey.Location = new System.Drawing.Point(1, 173);
             this.lkbSendKey.Name = "lkbSendKey";
-            this.lkbSendKey.Size = new System.Drawing.Size(160, 12);
+            this.lkbSendKey.Size = new System.Drawing.Size(140, 12);
             this.lkbSendKey.TabIndex = 10;
             this.lkbSendKey.TabStop = true;
             this.lkbSendKey.Text = "Enter发送,Ctrl+Enter换行";
@@ -234,7 +240,7 @@ namespace ZUARTControl
             // lkbClearSend
             // 
             this.lkbClearSend.AutoSize = true;
-            this.lkbClearSend.Location = new System.Drawing.Point(83, 157);
+            this.lkbClearSend.Location = new System.Drawing.Point(9, 157);
             this.lkbClearSend.Name = "lkbClearSend";
             this.lkbClearSend.Size = new System.Drawing.Size(53, 12);
             this.lkbClearSend.TabIndex = 11;
@@ -244,8 +250,8 @@ namespace ZUARTControl
             // 
             // groupboxRecSetting
             // 
-            this.groupboxRecSetting.Controls.Add(this.chkRTS);
-            this.groupboxRecSetting.Controls.Add(this.chkDTR);
+            this.groupboxRecSetting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupboxRecSetting.Controls.Add(this.chkAutoScroll);
             this.groupboxRecSetting.Controls.Add(this.chkRecSend);
             this.groupboxRecSetting.Controls.Add(this.lkbSaveRev);
@@ -256,9 +262,9 @@ namespace ZUARTControl
             this.groupboxRecSetting.Controls.Add(this.lkbClearRev);
             this.groupboxRecSetting.Controls.Add(this.chkShowTime);
             this.groupboxRecSetting.Controls.Add(this.chkAutoLine);
-            this.groupboxRecSetting.Location = new System.Drawing.Point(3, 203);
+            this.groupboxRecSetting.Location = new System.Drawing.Point(3, 213);
             this.groupboxRecSetting.Name = "groupboxRecSetting";
-            this.groupboxRecSetting.Size = new System.Drawing.Size(170, 168);
+            this.groupboxRecSetting.Size = new System.Drawing.Size(142, 163);
             this.groupboxRecSetting.TabIndex = 2;
             this.groupboxRecSetting.TabStop = false;
             this.groupboxRecSetting.Text = "接收区设置";
@@ -266,9 +272,12 @@ namespace ZUARTControl
             // chkRTS
             // 
             this.chkRTS.AutoSize = true;
-            this.chkRTS.Location = new System.Drawing.Point(129, -1);
+            this.chkRTS.Checked = true;
+            this.chkRTS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRTS.Enabled = false;
+            this.chkRTS.Location = new System.Drawing.Point(22, 153);
             this.chkRTS.Name = "chkRTS";
-            this.chkRTS.Size = new System.Drawing.Size(42, 16);
+            this.chkRTS.Size = new System.Drawing.Size(47, 18);
             this.chkRTS.TabIndex = 2;
             this.chkRTS.Text = "RTS";
             this.chkRTS.UseVisualStyleBackColor = true;
@@ -277,9 +286,12 @@ namespace ZUARTControl
             // chkDTR
             // 
             this.chkDTR.AutoSize = true;
-            this.chkDTR.Location = new System.Drawing.Point(82, -1);
+            this.chkDTR.Checked = true;
+            this.chkDTR.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDTR.Enabled = false;
+            this.chkDTR.Location = new System.Drawing.Point(77, 154);
             this.chkDTR.Name = "chkDTR";
-            this.chkDTR.Size = new System.Drawing.Size(42, 16);
+            this.chkDTR.Size = new System.Drawing.Size(47, 18);
             this.chkDTR.TabIndex = 1;
             this.chkDTR.Text = "DTR";
             this.chkDTR.UseVisualStyleBackColor = true;
@@ -291,7 +303,7 @@ namespace ZUARTControl
             this.chkAutoScroll.Checked = true;
             this.chkAutoScroll.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoScroll.Enabled = false;
-            this.chkAutoScroll.Location = new System.Drawing.Point(13, 83);
+            this.chkAutoScroll.Location = new System.Drawing.Point(11, 83);
             this.chkAutoScroll.Name = "chkAutoScroll";
             this.chkAutoScroll.Size = new System.Drawing.Size(72, 16);
             this.chkAutoScroll.TabIndex = 6;
@@ -301,7 +313,7 @@ namespace ZUARTControl
             // chkRecSend
             // 
             this.chkRecSend.AutoSize = true;
-            this.chkRecSend.Location = new System.Drawing.Point(13, 62);
+            this.chkRecSend.Location = new System.Drawing.Point(11, 62);
             this.chkRecSend.Name = "chkRecSend";
             this.chkRecSend.Size = new System.Drawing.Size(96, 16);
             this.chkRecSend.TabIndex = 5;
@@ -311,7 +323,7 @@ namespace ZUARTControl
             // lkbSaveRev
             // 
             this.lkbSaveRev.AutoSize = true;
-            this.lkbSaveRev.Location = new System.Drawing.Point(16, 149);
+            this.lkbSaveRev.Location = new System.Drawing.Point(16, 145);
             this.lkbSaveRev.Name = "lkbSaveRev";
             this.lkbSaveRev.Size = new System.Drawing.Size(53, 12);
             this.lkbSaveRev.TabIndex = 11;
@@ -322,7 +334,7 @@ namespace ZUARTControl
             // rbtnUnicode
             // 
             this.rbtnUnicode.AutoSize = true;
-            this.rbtnUnicode.Location = new System.Drawing.Point(72, 127);
+            this.rbtnUnicode.Location = new System.Drawing.Point(68, 123);
             this.rbtnUnicode.Name = "rbtnUnicode";
             this.rbtnUnicode.Size = new System.Drawing.Size(65, 16);
             this.rbtnUnicode.TabIndex = 10;
@@ -333,7 +345,7 @@ namespace ZUARTControl
             // rbtnUTF8
             // 
             this.rbtnUTF8.AutoSize = true;
-            this.rbtnUTF8.Location = new System.Drawing.Point(12, 127);
+            this.rbtnUTF8.Location = new System.Drawing.Point(8, 123);
             this.rbtnUTF8.Name = "rbtnUTF8";
             this.rbtnUTF8.Size = new System.Drawing.Size(53, 16);
             this.rbtnUTF8.TabIndex = 9;
@@ -345,7 +357,7 @@ namespace ZUARTControl
             // 
             this.rbtnASCII.AutoSize = true;
             this.rbtnASCII.Checked = true;
-            this.rbtnASCII.Location = new System.Drawing.Point(72, 105);
+            this.rbtnASCII.Location = new System.Drawing.Point(68, 105);
             this.rbtnASCII.Name = "rbtnASCII";
             this.rbtnASCII.Size = new System.Drawing.Size(41, 16);
             this.rbtnASCII.TabIndex = 8;
@@ -357,7 +369,7 @@ namespace ZUARTControl
             // rbtnHex
             // 
             this.rbtnHex.AutoSize = true;
-            this.rbtnHex.Location = new System.Drawing.Point(13, 105);
+            this.rbtnHex.Location = new System.Drawing.Point(9, 105);
             this.rbtnHex.Name = "rbtnHex";
             this.rbtnHex.Size = new System.Drawing.Size(41, 16);
             this.rbtnHex.TabIndex = 7;
@@ -368,7 +380,7 @@ namespace ZUARTControl
             // lkbClearRev
             // 
             this.lkbClearRev.AutoSize = true;
-            this.lkbClearRev.Location = new System.Drawing.Point(83, 149);
+            this.lkbClearRev.Location = new System.Drawing.Point(83, 145);
             this.lkbClearRev.Name = "lkbClearRev";
             this.lkbClearRev.Size = new System.Drawing.Size(53, 12);
             this.lkbClearRev.TabIndex = 12;
@@ -379,18 +391,18 @@ namespace ZUARTControl
             // chkShowTime
             // 
             this.chkShowTime.AutoSize = true;
-            this.chkShowTime.Location = new System.Drawing.Point(13, 41);
+            this.chkShowTime.Location = new System.Drawing.Point(11, 41);
             this.chkShowTime.Name = "chkShowTime";
             this.chkShowTime.Size = new System.Drawing.Size(96, 16);
             this.chkShowTime.TabIndex = 4;
-            this.chkShowTime.Text = "显示接收时间";
+            this.chkShowTime.Text = "日志模式显示";
             this.chkShowTime.UseVisualStyleBackColor = true;
             this.chkShowTime.CheckedChanged += new System.EventHandler(this.chkShowTime_CheckedChanged);
             // 
             // chkAutoLine
             // 
             this.chkAutoLine.AutoSize = true;
-            this.chkAutoLine.Location = new System.Drawing.Point(13, 20);
+            this.chkAutoLine.Location = new System.Drawing.Point(11, 20);
             this.chkAutoLine.Name = "chkAutoLine";
             this.chkAutoLine.Size = new System.Drawing.Size(96, 16);
             this.chkAutoLine.TabIndex = 3;
@@ -399,6 +411,10 @@ namespace ZUARTControl
             // 
             // groupBoxComSetting
             // 
+            this.groupBoxComSetting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxComSetting.Controls.Add(this.chkDTR);
+            this.groupBoxComSetting.Controls.Add(this.chkRTS);
             this.groupBoxComSetting.Controls.Add(this.cbbParity);
             this.groupBoxComSetting.Controls.Add(this.cbbStopBits);
             this.groupBoxComSetting.Controls.Add(this.btnOpen);
@@ -413,13 +429,15 @@ namespace ZUARTControl
             this.groupBoxComSetting.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBoxComSetting.Location = new System.Drawing.Point(3, 3);
             this.groupBoxComSetting.Name = "groupBoxComSetting";
-            this.groupBoxComSetting.Size = new System.Drawing.Size(170, 194);
+            this.groupBoxComSetting.Size = new System.Drawing.Size(142, 208);
             this.groupBoxComSetting.TabIndex = 1;
             this.groupBoxComSetting.TabStop = false;
             this.groupBoxComSetting.Text = "端口设置";
             // 
             // cbbParity
             // 
+            this.cbbParity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbParity.FormattingEnabled = true;
             this.cbbParity.Items.AddRange(new object[] {
             "None",
@@ -427,22 +445,24 @@ namespace ZUARTControl
             "Even",
             "Mark",
             "Space"});
-            this.cbbParity.Location = new System.Drawing.Point(61, 130);
+            this.cbbParity.Location = new System.Drawing.Point(54, 130);
             this.cbbParity.Name = "cbbParity";
-            this.cbbParity.Size = new System.Drawing.Size(98, 21);
+            this.cbbParity.Size = new System.Drawing.Size(85, 21);
             this.cbbParity.TabIndex = 5;
             this.cbbParity.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
             // cbbStopBits
             // 
+            this.cbbStopBits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbStopBits.FormattingEnabled = true;
             this.cbbStopBits.Items.AddRange(new object[] {
             "1",
             "2",
             "3"});
-            this.cbbStopBits.Location = new System.Drawing.Point(61, 104);
+            this.cbbStopBits.Location = new System.Drawing.Point(54, 104);
             this.cbbStopBits.Name = "cbbStopBits";
-            this.cbbStopBits.Size = new System.Drawing.Size(98, 21);
+            this.cbbStopBits.Size = new System.Drawing.Size(85, 21);
             this.cbbStopBits.TabIndex = 4;
             this.cbbStopBits.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
@@ -452,10 +472,10 @@ namespace ZUARTControl
             this.btnOpen.Font = new System.Drawing.Font("宋体", 10F);
             this.btnOpen.Image = global::ZUART.Properties.Resources.close;
             this.btnOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOpen.Location = new System.Drawing.Point(9, 157);
+            this.btnOpen.Location = new System.Drawing.Point(6, 171);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Padding = new System.Windows.Forms.Padding(8, 0, 25, 0);
-            this.btnOpen.Size = new System.Drawing.Size(150, 32);
+            this.btnOpen.Size = new System.Drawing.Size(135, 33);
             this.btnOpen.TabIndex = 6;
             this.btnOpen.Text = "打开串口";
             this.btnOpen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -464,20 +484,24 @@ namespace ZUARTControl
             // 
             // cbbDataBits
             // 
+            this.cbbDataBits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbDataBits.FormattingEnabled = true;
             this.cbbDataBits.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbbDataBits.Items.AddRange(new object[] {
             "8",
             "7",
             "6"});
-            this.cbbDataBits.Location = new System.Drawing.Point(61, 77);
+            this.cbbDataBits.Location = new System.Drawing.Point(54, 77);
             this.cbbDataBits.Name = "cbbDataBits";
-            this.cbbDataBits.Size = new System.Drawing.Size(98, 21);
+            this.cbbDataBits.Size = new System.Drawing.Size(85, 21);
             this.cbbDataBits.TabIndex = 3;
             this.cbbDataBits.TextChanged += new System.EventHandler(this.cbbComSetChange);
             // 
             // cbbBaudRate
             // 
+            this.cbbBaudRate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbBaudRate.DisplayMember = "1";
             this.cbbBaudRate.FormattingEnabled = true;
             this.cbbBaudRate.Items.AddRange(new object[] {
@@ -497,9 +521,9 @@ namespace ZUARTControl
             "115200",
             "128000",
             "256000"});
-            this.cbbBaudRate.Location = new System.Drawing.Point(61, 48);
+            this.cbbBaudRate.Location = new System.Drawing.Point(54, 48);
             this.cbbBaudRate.Name = "cbbBaudRate";
-            this.cbbBaudRate.Size = new System.Drawing.Size(98, 21);
+            this.cbbBaudRate.Size = new System.Drawing.Size(85, 21);
             this.cbbBaudRate.TabIndex = 2;
             this.cbbBaudRate.Text = "115200";
             this.cbbBaudRate.ValueMember = "1";
@@ -507,11 +531,13 @@ namespace ZUARTControl
             // 
             // cbbComList
             // 
+            this.cbbComList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbComList.DisplayMember = "1";
             this.cbbComList.FormattingEnabled = true;
-            this.cbbComList.Location = new System.Drawing.Point(61, 22);
+            this.cbbComList.Location = new System.Drawing.Point(54, 22);
             this.cbbComList.Name = "cbbComList";
-            this.cbbComList.Size = new System.Drawing.Size(98, 21);
+            this.cbbComList.Size = new System.Drawing.Size(85, 21);
             this.cbbComList.TabIndex = 1;
             this.cbbComList.DropDown += new System.EventHandler(this.cbbComList_DropDown);
             this.cbbComList.TextChanged += new System.EventHandler(this.cbbComSetChange);
@@ -519,47 +545,52 @@ namespace ZUARTControl
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 51);
+            this.label2.Location = new System.Drawing.Point(1, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 14);
             this.label2.TabIndex = 1;
             this.label2.Text = "波特率";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 133);
+            this.label5.Location = new System.Drawing.Point(1, 133);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 14);
             this.label5.TabIndex = 4;
             this.label5.Text = "校验位";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Location = new System.Drawing.Point(1, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 14);
             this.label1.TabIndex = 0;
             this.label1.Text = "端口";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 107);
+            this.label4.Location = new System.Drawing.Point(1, 107);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 14);
             this.label4.TabIndex = 3;
             this.label4.Text = "停止位";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 80);
+            this.label3.Location = new System.Drawing.Point(1, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "数据位";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ComDevice
             // 
@@ -631,7 +662,7 @@ namespace ZUARTControl
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel_Setting);
             this.Name = "ZuartControl";
-            this.Size = new System.Drawing.Size(182, 572);
+            this.Size = new System.Drawing.Size(148, 572);
             this.panel_Setting.ResumeLayout(false);
             this.groupboxSendSetting.ResumeLayout(false);
             this.groupboxSendSetting.PerformLayout();

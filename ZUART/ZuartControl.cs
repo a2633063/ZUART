@@ -381,6 +381,8 @@ namespace ZUARTControl
                 {
                     if (btnSend != null)
                         btnSend.Enabled = false;
+                    chkDTR.Enabled = false;
+                    chkRTS.Enabled = false;
                     btnOpen.Text = "打开串口";
                     btnOpen.Image = ZUART.Properties.Resources.close;
                     Log("串口已关闭");
@@ -394,6 +396,8 @@ namespace ZUARTControl
                     // 串口号,波特率,数据位,停止位.校验位
                     Log("串口已开启:" + cbbComList.Text + "," + cbbBaudRate.Text + "," + cbbDataBits.Text + "," + cbbStopBits.Text + "," + cbbParity.Text);
 
+                    chkDTR.Enabled = true;
+                    chkRTS.Enabled = true;
                     ComDevice.DtrEnable = chkDTR.Checked;
                     ComDevice.RtsEnable = chkRTS.Checked;
                 }
@@ -482,7 +486,8 @@ namespace ZUARTControl
         {
 
             int item = ((Button)sender).TabIndex;
-            SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
+            if (ListSendTextBox[item].Text.Length > 0)
+                SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
         }
         #endregion
 
@@ -493,16 +498,25 @@ namespace ZUARTControl
             {
                 byte[] file = File.ReadAllBytes(SendFileName);
                 SendData(file);//TODO 发送大量数据时容易出问题 需要优化
+
+                if (chkShowTime.Checked)
+                {
+                    if (txtShowData.Text.Length > 0)
+                    {
+                        txtShowData.AppendText("\r\n");
+                    }
+                    txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Send file:" + "\r\n发送文件数据源:"+ SendFileName);
+                }
                 return;
             }
             if (txtSendData == null) return;
+            if (txtSendData.Text.Length < 1)
+            {
+                MessageBox.Show("发送数据为空!", "错误");
+                return;
+            }
             if (chkAutoSend.Checked)
             {
-                if (txtSendData.Text.Length < 1)
-                {
-                    MessageBox.Show("发送数据为空!", "错误");
-                    return;
-                }
                 if (txtAutoSendms.Text.Length < 1) txtAutoSendms.Text = "500";
                 timerAutoSend.Interval = Convert.ToInt32(txtAutoSendms.Text);
                 if (timerAutoSend.Enabled)
@@ -545,6 +559,16 @@ namespace ZUARTControl
                 try
                 {
                     sendData = strToHexByte(str.Trim());
+
+                    if (chkShowTime.Checked)
+                    {
+                        if (txtShowData.Text.Length > 0)
+                        {
+                            txtShowData.AppendText("\r\n");
+                        }
+                        txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Send Hex:" + "\r\n" + str.Trim());
+                    }
+
                 }
                 catch (Exception)
                 {
@@ -555,6 +579,15 @@ namespace ZUARTControl
             }
             else
             {
+                if (chkShowTime.Checked)
+                {
+                    if (txtShowData.Text.Length > 0)
+                    {
+                        txtShowData.AppendText("\r\n");
+                    }
+                    txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Send Str:" + "\r\n" + str);
+                }
+
                 #region 转义字符的处理
                 if (chkTrans.Checked)
                 {//转义字符的处理
@@ -873,9 +906,10 @@ namespace ZUARTControl
                 str = "\r\n";
                 //txtShowData.AppendText("\r\n");
             }
+
             if (chkShowTime.Checked)
             {
-                str += " [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n";
+                str += " [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Rec:" + "\r\n";
                 //txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "]" + "\r\n");
             }
 
