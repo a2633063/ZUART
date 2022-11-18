@@ -74,7 +74,7 @@ namespace ZUARTControl
             {
                 txtSendData = value;
                 if (txtSendData == null) return;
-                txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+                //txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
 
                 // txtSendData.AcceptsTab = true;
                 txtSendData.KeyPress += txtSendData_KeyPress;
@@ -322,6 +322,10 @@ namespace ZUARTControl
             //    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
             //    ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
             //}
+
+            if(txtSendData != null)
+                txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
+
             #endregion
         }
         #endregion
