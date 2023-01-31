@@ -1498,19 +1498,21 @@ namespace ZUART.Properties {
                 this["chkTrans"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Checked")]
-        public global::System.Windows.Forms.CheckState menuItemSendKey1 {
-            get {
+        [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey1
+        {
+            get
+            {
                 return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey1"]));
             }
-            set {
+            set
+            {
                 this["menuItemSendKey1"] = value;
             }
         }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
