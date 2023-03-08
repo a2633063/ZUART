@@ -12,7 +12,7 @@ namespace ZUART.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1498,21 +1498,19 @@ namespace ZUART.Properties {
                 this["chkTrans"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
-        public global::System.Windows.Forms.CheckState menuItemSendKey1
-        {
-            get
-            {
+        [global::System.Configuration.DefaultSettingValueAttribute("Checked")]
+        public global::System.Windows.Forms.CheckState menuItemSendKey1 {
+            get {
                 return ((global::System.Windows.Forms.CheckState)(this["menuItemSendKey1"]));
             }
-            set
-            {
+            set {
                 this["menuItemSendKey1"] = value;
             }
         }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Unchecked")]
