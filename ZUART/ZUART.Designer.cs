@@ -51,11 +51,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lvwBatchSend = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.zuartControl1 = new ZUARTControl.ZuartControl();
             this.panel_Log.SuspendLayout();
@@ -71,7 +66,6 @@
             this.splitContainer2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Log
@@ -287,7 +281,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -310,54 +303,13 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.lvwBatchSend);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(235, 550);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "自动发送";
+            this.tabPage2.Size = new System.Drawing.Size(291, 550);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "批量发送";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // lvwBatchSend
-            // 
-            this.lvwBatchSend.CheckBoxes = true;
-            this.lvwBatchSend.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.lvwBatchSend.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwBatchSend.FullRowSelect = true;
-            this.lvwBatchSend.HideSelection = false;
-            this.lvwBatchSend.Location = new System.Drawing.Point(3, 3);
-            this.lvwBatchSend.Name = "lvwBatchSend";
-            this.lvwBatchSend.Size = new System.Drawing.Size(229, 509);
-            this.lvwBatchSend.TabIndex = 0;
-            this.lvwBatchSend.UseCompatibleStateImageBehavior = false;
-            this.lvwBatchSend.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "序号";
-            this.columnHeader1.Width = 40;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "延迟";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "数据";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(235, 550);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // imageList1
             // 
@@ -417,7 +369,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -444,13 +395,8 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListView lvwBatchSend;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
