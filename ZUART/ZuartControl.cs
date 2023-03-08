@@ -553,7 +553,7 @@ namespace ZUARTControl
 
 
         #region 选择编码发送字符串
-        private bool SendStr(String str, bool hexbool)
+        public bool SendStr(String str, bool hexbool)
         {
 
             byte[] sendData = null;

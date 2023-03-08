@@ -66,6 +66,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchSend\BatchSendItem.cs" />
+    <Compile Include="BatchSend\FormBatchSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BatchSend\FormBatchSend.Designer.cs">
+      <DependentUpon>FormBatchSend.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +93,9 @@
     <Compile Include="ZuartControl.Designer.cs">
       <DependentUpon>ZuartControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BatchSend\FormBatchSend.resx">
+      <DependentUpon>FormBatchSend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,6 +136,8 @@
     <None Include="Resources\zuart_open.ico" />
     <None Include="Resources\zuart_open_1.ico" />
     <None Include="Resources\zuart_open_2.ico" />
+    <None Include="Resources\ico_ab.png" />
+    <None Include="Resources\ico_bin.png" />
     <Content Include="zuart.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +157,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

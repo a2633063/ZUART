@@ -36,7 +36,6 @@
             this.btnCleanCount = new System.Windows.Forms.Button();
             this.lblRevCount = new System.Windows.Forms.Label();
             this.lblSendCount = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.panel_ListSend = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,9 +48,17 @@
             this.txtShowData = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lvwBatchSend = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.zuartControl1 = new ZUARTControl.ZuartControl();
             this.panel_Log.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -62,6 +69,9 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Log
@@ -142,36 +152,21 @@
             this.lblSendCount.Text = "发送:0";
             this.lblSendCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.panel_ListSend);
-            this.groupBox6.Controls.Add(this.label7);
-            this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(0, 0);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(197, 576);
-            this.groupBox6.TabIndex = 3;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "多字符串发送";
-            // 
             // panel_ListSend
             // 
-            this.panel_ListSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_ListSend.AutoScroll = true;
             this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
-            this.panel_ListSend.Location = new System.Drawing.Point(4, 32);
+            this.panel_ListSend.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_ListSend.Location = new System.Drawing.Point(3, 15);
             this.panel_ListSend.Name = "panel_ListSend";
-            this.panel_ListSend.Size = new System.Drawing.Size(193, 544);
+            this.panel_ListSend.Size = new System.Drawing.Size(285, 532);
             this.panel_ListSend.TabIndex = 6;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(149, 16);
+            this.label7.Location = new System.Drawing.Point(-53, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 12);
             this.label7.TabIndex = 4;
@@ -180,7 +175,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(2, 16);
+            this.label6.Location = new System.Drawing.Point(-1, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 3;
@@ -199,7 +194,7 @@
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(730, 103);
+            this.groupBox3.Size = new System.Drawing.Size(628, 104);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
@@ -211,16 +206,16 @@
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(686, 81);
+            this.txtSendData.Size = new System.Drawing.Size(584, 82);
             this.txtSendData.TabIndex = 1;
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(689, 19);
+            this.btnSend.Location = new System.Drawing.Point(587, 19);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(38, 81);
+            this.btnSend.Size = new System.Drawing.Size(38, 82);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -232,7 +227,7 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(730, 469);
+            this.groupBox2.Size = new System.Drawing.Size(628, 468);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "数据接收区";
@@ -246,7 +241,7 @@
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(724, 447);
+            this.txtShowData.Size = new System.Drawing.Size(622, 446);
             this.txtShowData.TabIndex = 2;
             // 
             // splitContainer1
@@ -263,9 +258,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox6);
+            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(931, 576);
-            this.splitContainer1.SplitterDistance = 730;
+            this.splitContainer1.SplitterDistance = 628;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.TabStop = false;
             // 
@@ -283,10 +278,92 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainer2.Size = new System.Drawing.Size(730, 576);
-            this.splitContainer2.SplitterDistance = 469;
+            this.splitContainer2.Size = new System.Drawing.Size(628, 576);
+            this.splitContainer2.SplitterDistance = 468;
             this.splitContainer2.TabIndex = 3;
             this.splitContainer2.TabStop = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(299, 576);
+            this.tabControl1.TabIndex = 4;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.panel_ListSend);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(291, 550);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "快捷发送";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lvwBatchSend);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(235, 550);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "自动发送";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lvwBatchSend
+            // 
+            this.lvwBatchSend.CheckBoxes = true;
+            this.lvwBatchSend.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwBatchSend.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvwBatchSend.FullRowSelect = true;
+            this.lvwBatchSend.HideSelection = false;
+            this.lvwBatchSend.Location = new System.Drawing.Point(3, 3);
+            this.lvwBatchSend.Name = "lvwBatchSend";
+            this.lvwBatchSend.Size = new System.Drawing.Size(229, 509);
+            this.lvwBatchSend.TabIndex = 0;
+            this.lvwBatchSend.UseCompatibleStateImageBehavior = false;
+            this.lvwBatchSend.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "序号";
+            this.columnHeader1.Width = 40;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "延迟";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "数据";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(235, 550);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // zuartControl1
             // 
@@ -325,8 +402,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZUART_FormClosing);
             this.panel_Log.ResumeLayout(false);
             this.panel_Log.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -339,6 +414,10 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -349,7 +428,6 @@
         private System.Windows.Forms.Label lblSendCount;
         private System.Windows.Forms.Button btnCleanCount;
         private System.Windows.Forms.Label Log;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Panel panel_ListSend;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -364,6 +442,15 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView lvwBatchSend;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 
