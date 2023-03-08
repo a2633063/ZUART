@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZUART.BatchSend;
 using ZUART.Properties;
+using ZUARTControl;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ZUART
@@ -40,13 +41,19 @@ namespace ZUART
 
         int addItem(BatchSendItem item)
         {
-            return addItem(item,true);
+            return addItem(item, true, this.dataGridView1.Rows.Add());
         }
-        int addItem(BatchSendItem item, bool isCheck)
+        int addItem(BatchSendItem item, int index)
+        {
+            return addItem(item, true, index);
+        }
+        int addItem(BatchSendItem item, bool isCheck, int index)
         {
             if (item == null) return -1;
+            if (index >= dataGridView1.Rows.Count) return -1;
+            if (index < 0) index = this.dataGridView1.Rows.Add();
 
-            int index = this.dataGridView1.Rows.Add();
+
             this.dataGridView1.Rows[index].Tag = item;
             this.dataGridView1.Rows[index].Cells[0].Value = isCheck;
 
@@ -55,6 +62,7 @@ namespace ZUART
             //this.dataGridView1.Rows[index].Cells[2].Value = item.ishex ? Resources.ico_bin : Resources.ico_ab;
             this.dataGridView1.Rows[index].Cells[2].Value = item.dat;
             this.dataGridView1.Rows[index].Cells[3].Value = String.IsNullOrWhiteSpace(item.name) ? "Send" : item.name;
+            dataGridView1.ClearSelection();
             return index;
         }
 
@@ -108,7 +116,7 @@ namespace ZUART
             }
             if ((bool)dataGridView1.Rows[send_index].Cells[0].EditedFormattedValue == false)
             {
-                while((bool)dataGridView1.Rows[send_index].Cells[0].EditedFormattedValue == false)
+                while ((bool)dataGridView1.Rows[send_index].Cells[0].EditedFormattedValue == false)
                 {
                     send_index++;
                     if (dataGridView1.Rows.Count <= send_index)
@@ -130,9 +138,9 @@ namespace ZUART
             item = (BatchSendItem)this.dataGridView1.Rows[send_index].Tag;
             send_index++;
 
-            if (item.delay == 0) timerSend_Tick(null,null);
-            else 
-            timerSend.Interval = item.delay;
+            if (item.delay == 0) timerSend_Tick(null, null);
+            else
+                timerSend.Interval = item.delay;
         }
 
         int send_index = 0;
@@ -169,23 +177,15 @@ namespace ZUART
 
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            //SolidBrush b = new SolidBrush(this.dataGridView1.RowHeadersDefaultCellStyle.ForeColor);
-            // e.Graphics.DrawString((e.RowIndex + 1).ToString(System.Globalization.CultureInfo.CurrentUICulture), this.dataGridView1.DefaultCellStyle.Font, b, e.RowBounds.Location.X + 20, e.RowBounds.Location.Y + 4);
-            //foreach (DataGridViewRow row in dataGridView1.Rows)
-            //{
-            //    row.Cells[0].Value = row.Index + 1;
-            //}
-
-
-            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X+8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
             TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), dataGridView1.RowHeadersDefaultCellStyle.Font, rectangle,
             dataGridView1.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
 
 
-            int x = e.RowBounds.Location.X +4+ dataGridView1.Columns[0].Width + dataGridView1.Columns[1].Width;
-            int y = e.RowBounds.Location.Y+ (e.RowBounds.Height- Resources.ico_bin.Height)/2;
+            int x = e.RowBounds.Location.X + 4 + dataGridView1.Columns[0].Width + dataGridView1.Columns[1].Width;
+            int y = e.RowBounds.Location.Y + (e.RowBounds.Height - Resources.ico_bin.Height) / 2;
             rectangle = new Rectangle(x, y,
-                 Resources.ico_bin.Width,Resources.ico_bin.Height);
+                 Resources.ico_bin.Width, Resources.ico_bin.Height);
 
 
             BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
@@ -197,8 +197,26 @@ namespace ZUART
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length < 1) return;
+            ImportFile(files[0]);
 
-            using (StreamReader r = new StreamReader(files[0]))
+        }
+
+        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+        #endregion
+        #region 从配置文件到入批量发送
+        void ImportFile(string file)
+        {
+            using (StreamReader r = new StreamReader(file))
             {
                 string str;
                 int i = 0;
@@ -214,7 +232,7 @@ namespace ZUART
                     try
                     {
                         matches = regex.Matches(str);
-                        if (matches.Count !=1) continue;
+                        if (matches.Count != 1) continue;
                         Match match = matches[0];
                         if (match.Groups.Count != 7) continue;
 
@@ -228,31 +246,176 @@ namespace ZUART
                         //byte[] gb = Encoding.GetEncoding("gbk").GetBytes(name);       //导入编码确认
                         //gb = Encoding.Convert(Encoding.GetEncoding("gbk"), Encoding.UTF8, gb);
                         //name = Encoding.UTF8.GetString(gb);
-                        addItem(new BatchSendItem(delay,ishex,dat, name));
-
-
+                        addItem(new BatchSendItem(delay, ishex, dat, name));
                     }
                     catch (Exception ex)
                     {
-                        
+
                     }
                 }
                 while (str != null);
-                
+
             }
         }
 
-        private void dataGridView1_DragEnter(object sender, DragEventArgs e)
+        #endregion
+
+        #region 新增/删除/上下移动/导入导出/保存及右键菜单等功能
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            FormAddBatchSendItem form = new FormAddBatchSendItem(-1);
+            form.TopLevel = false; //指示子窗体非顶级窗体
+
+            form.FormBorderStyle = FormBorderStyle.None;
+
+            form.Anchor = AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
+
+            form.Left = 0;
+            form.Width = dataGridView1.Width;
+            form.Top = this.Height - 200;
+            form.Height = 200;
+            this.Controls.Add(form);
+            form.Show();
+            form.BringToFront();
+            form.ReturnBatchSendItem += Add_BatchSendItem_Return;
+        }
+
+        private void Add_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
+        {
+            addItem(e.Item);
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
             {
-                e.Effect = DragDropEffects.Link;
+                return;
             }
-            else
+
+            FormAddBatchSendItem form = new FormAddBatchSendItem((BatchSendItem)dataGridView1.SelectedRows[0].Tag, dataGridView1.SelectedRows[0].Index);
+            form.TopLevel = false; //指示子窗体非顶级窗体
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Anchor = AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
+            form.Left = 0;
+            form.Width = dataGridView1.Width;
+            form.Top = this.Height - 200;
+            form.Height = 200;
+            this.Controls.Add(form);
+            form.Show();
+            form.BringToFront();
+            form.ReturnBatchSendItem += Edit_BatchSendItem_Return;
+        }
+        private void Edit_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
+        {
+            bool isselect = true;
+            if (e.Index > 0 && e.Index<dataGridView1.Rows.Count)
             {
-                e.Effect = DragDropEffects.None;
+                isselect = (bool)dataGridView1.Rows[e.Index].Cells[0].EditedFormattedValue;
             }
+            addItem(e.Item, isselect,e.Index);
+            if (e.Index > 0 && e.Index < dataGridView1.Rows.Count)
+                dataGridView1.CurrentCell = this.dataGridView1[0, e.Index];
+        }
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                MessageBox.Show("没有选择删除对象", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            //让用户选择点击
+            DialogResult result = MessageBox.Show("确定删除选中的1条记录?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                dataGridView1.Rows.Remove(dataGridView1.SelectedRows[0]);
+            }
+        }
+        #region 上下移动功能
+
+        void dataGridView_exchange(int index1, int index2)
+        {
+            if (index1 < 0) return;
+            if (index2 < 0) return;
+            if (index1 >= dataGridView1.Rows.Count) return;
+            if (index2 >= dataGridView1.Rows.Count) return;
+
+            bool isselect1 = (bool)dataGridView1.Rows[index1].Cells[0].EditedFormattedValue;
+            bool isselect2 = (bool)dataGridView1.Rows[index2].Cells[0].EditedFormattedValue;
+
+            BatchSendItem item1 = (BatchSendItem)dataGridView1.Rows[index1].Tag;
+            BatchSendItem item2 = (BatchSendItem)dataGridView1.Rows[index2].Tag;
+            addItem(item1, isselect1, index2);
+            addItem(item2, isselect2, index1);
+
+            dataGridView1.CurrentCell = this.dataGridView1[0, index2];
+        }
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            int index = dataGridView1.SelectedRows[0].Index;
+            dataGridView_exchange(index, index - 1);
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            int index = dataGridView1.SelectedRows[0].Index;
+            dataGridView_exchange(index, index + 1);
         } 
         #endregion
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            //让用户选择点击
+            DialogResult result = MessageBox.Show("确定清空所有数据?", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.OK)
+            {
+                dataGridView1.Rows.Clear();
+            }
+
+        }
+
+        //导入
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;//该值确定是否可以选择多个文件
+            dialog.Title = "请选择文件夹";
+            dialog.Filter = "所有文件(*.*)|*.*";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string file = dialog.FileName;
+
+                ImportFile(file);
+            }
+        }
+        //导出
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+
+        }
+        //保存
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void contextMenuStrip1_Opened(object sender, EventArgs e)
+        {
+            bool isSelect = (dataGridView1.SelectedRows.Count >0);
+
+            修改ToolStripMenuItem.Enabled = isSelect;
+            删除ToolStripMenuItem.Enabled = isSelect;
+            上移ToolStripMenuItem.Enabled = isSelect;
+            下移ToolStripMenuItem.Enabled = isSelect;
+
+        }
+        #endregion
+
     }
 }

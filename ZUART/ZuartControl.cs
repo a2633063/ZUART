@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
+using ZUART;
 
 namespace ZUARTControl
 {
@@ -562,7 +563,7 @@ namespace ZUARTControl
             {
                 try
                 {
-                    sendData = strToHexByte(str.Trim());
+                    sendData = Function.ToByteFromHexStr(str.Trim());
 
                     if (chkShowTime.Checked)
                     {
@@ -570,7 +571,7 @@ namespace ZUARTControl
                         {
                             txtShowData.AppendText("\r\n");
                         }
-                        txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Send Hex:" + "\r\n" + str.Trim());
+                        txtShowData.AppendText(" [" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "] Send Hex:" + "\r\n" + Function.ToHexStrFromByte(sendData));
                     }
 
                 }
@@ -778,17 +779,7 @@ namespace ZUARTControl
         }
         #endregion
 
-        #region 字符串转换16进制字节数组
-        private byte[] strToHexByte(string hexString)
-        {
-            hexString = hexString.Replace(" ", "");
-            if ((hexString.Length % 2) != 0) hexString += " ";
-            byte[] returnBytes = new byte[hexString.Length / 2];
-            for (int i = 0; i < returnBytes.Length; i++)
-                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2).Replace(" ", ""), 16);
-            return returnBytes;
-        }
-        #endregion
+
 
         #region 接收数据监听
         private void Com_DataReceived(object sender, SerialDataReceivedEventArgs e)

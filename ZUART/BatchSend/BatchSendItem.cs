@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZUART.BatchSend
 {
-    internal class BatchSendItem
+    public class BatchSendItem
     {
         private int _delay;
         [Description("延时时间,多长时间后发送此命令"), Browsable(false)]
