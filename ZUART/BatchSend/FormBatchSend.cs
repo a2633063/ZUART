@@ -28,13 +28,6 @@ namespace ZUART
             InitializeComponent();
             init();
 
-
-            addItem(new BatchSendItem(1000, false, "123456", ""));
-            addItem(new BatchSendItem(1000, true, "01 02 03 04 05 06", "send"));
-            addItem(new BatchSendItem(100, false, "100", ""));
-            addItem(new BatchSendItem(100, false, "100", ""));
-            addItem(new BatchSendItem(100, false, "100", ""));
-            addItem(new BatchSendItem(100, false, "100", ""));
             for (int i = 0; i < 1; i++)
                 addItem(new BatchSendItem(100, false, "100", ""));
 
@@ -533,8 +526,19 @@ namespace ZUART
 
 
 
+
         #endregion
 
-
+        private void FormBatchSend_Leave(object sender, EventArgs e)
+        {
+            string context = "[BATCHSEND]\r\n";
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
+                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
+                context = context + ExportOneStr(i + 1, item, ischeck);
+            }
+            Properties.Settings.Default.BatchSendList = context;
+        }
     }
 }

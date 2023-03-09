@@ -53,6 +53,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.zuartControl1 = new ZUARTControl.ZuartControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel_Log.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -281,6 +282,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -337,6 +339,16 @@
             this.zuartControl1.ComConnectState += new System.EventHandler<ZUARTControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
             this.zuartControl1.ComDataReceived += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
             this.zuartControl1.ComDataSend += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(291, 550);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "ASCII";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // ZUART
             // 
@@ -397,6 +409,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 

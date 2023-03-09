@@ -72,6 +72,14 @@ namespace ZUART
             this.tabPage2.Controls.Add(form);
             form.Show();
 
+
+            FormASCII form3 = new FormASCII();
+            form3.TopLevel = false; //指示子窗体非顶级窗体
+            form3.Dock = DockStyle.Fill;//将窗体最大化填充
+            form3.FormBorderStyle = FormBorderStyle.None;
+            this.tabPage3.Controls.Add(form3);
+            form3.Show();
+
         }
         #endregion
 

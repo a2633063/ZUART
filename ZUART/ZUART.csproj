@@ -87,6 +87,12 @@
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="Function.cs" />
+    <Compile Include="FormASCII.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormASCII.Designer.cs">
+      <DependentUpon>FormASCII.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZUART.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormASCII.resx">
+      <DependentUpon>FormASCII.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZUART.resx">
       <DependentUpon>ZUART.cs</DependentUpon>
