@@ -27,10 +27,6 @@ namespace ZUART
             this.zuartControl = zuartControl;
             InitializeComponent();
             init();
-
-            for (int i = 0; i < 1; i++)
-                addItem(new BatchSendItem(100, false, "100", ""));
-
             
             string str = Properties.Settings.Default.BatchSendList.Replace("\r\n", "\n");
             string[] sArr = str.Split('\n');
