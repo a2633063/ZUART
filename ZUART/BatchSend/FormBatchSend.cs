@@ -79,7 +79,6 @@ namespace ZUART
 
             BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
 
-
             zuartControl.SendStr(item.dat, item.ishex);
 
         }
@@ -134,7 +133,7 @@ namespace ZUART
                 }
             }
 
-            dataGridView1.CurrentCell = this.dataGridView1[0, send_index];
+            dataGridView1.Rows[send_index].Selected = true;
             item = (BatchSendItem)this.dataGridView1.Rows[send_index].Tag;
             send_index++;
 
@@ -162,7 +161,8 @@ namespace ZUART
                 if (dataGridView1.Rows.Count < 1) return;
                 btnStartSend.Text = "停止批量发送";
                 send_index = 0;
-                timerSend.Interval = 1;
+                timerSend_Tick(null, null);
+                //timerSend.Interval = 1;
                 timerSend.Enabled = true;
                 btnStartSend.Image = Resources.open;
             }
@@ -175,6 +175,7 @@ namespace ZUART
             }
         }
 
+        #region dataGridView外观/功能
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
@@ -191,6 +192,54 @@ namespace ZUART
             BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
             e.Graphics.DrawImage(item.ishex ? Resources.ico_bin : Resources.ico_ab, rectangle);
         }
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex > -1 && e.ColumnIndex > -1)
+            {
+                (sender as DataGridView).Rows[e.RowIndex].Selected = true;
+
+            }
+        }
+
+        private int GetRowIndexAt(int mouseLocation_Y)
+        {
+            if (dataGridView1.FirstDisplayedScrollingRowIndex < 0)
+            {
+                return -1;
+            }
+            if (dataGridView1.ColumnHeadersVisible == true && mouseLocation_Y <= dataGridView1.ColumnHeadersHeight)
+            {
+                return -1;
+            }
+            int index = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int displayedCount = dataGridView1.DisplayedRowCount(true);
+            for (int k = 1; k <= displayedCount;)
+            {
+                if (dataGridView1.Rows[index].Visible == true)
+                {
+                    Rectangle rect = dataGridView1.GetRowDisplayRectangle(index, true);  // 取该区域的显示部分区域   
+                    if (rect.Top <= mouseLocation_Y && mouseLocation_Y < rect.Bottom)
+                    {
+                        return index;
+                    }
+                    k++;
+                }
+                index++;
+            }
+            return -1;
+        }
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (GetRowIndexAt(e.Y) == -1)
+            {
+                dataGridView1.ClearSelection();
+            }
+        }
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            btnEdit_Click(null,null);
+        }
+        #endregion
 
         #region 接收拖入的配置文件
         private void dataGridView1_DragDrop(object sender, DragEventArgs e)
@@ -308,13 +357,15 @@ namespace ZUART
         private void Edit_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
         {
             bool isselect = true;
-            if (e.Index > 0 && e.Index<dataGridView1.Rows.Count)
+            if (e.Index > 0 && e.Index < dataGridView1.Rows.Count)
             {
                 isselect = (bool)dataGridView1.Rows[e.Index].Cells[0].EditedFormattedValue;
             }
-            addItem(e.Item, isselect,e.Index);
+            addItem(e.Item, isselect, e.Index);
             if (e.Index > 0 && e.Index < dataGridView1.Rows.Count)
-                dataGridView1.CurrentCell = this.dataGridView1[0, e.Index];
+            {
+                this.dataGridView1.Rows[e.Index].Selected = true;
+            }
         }
         private void btnDel_Click(object sender, EventArgs e)
         {
@@ -347,7 +398,7 @@ namespace ZUART
             addItem(item1, isselect1, index2);
             addItem(item2, isselect2, index1);
 
-            dataGridView1.CurrentCell = this.dataGridView1[0, index2];
+            this.dataGridView1.Rows[index2].Selected = true;
         }
         private void btnUp_Click(object sender, EventArgs e)
         {
@@ -367,7 +418,7 @@ namespace ZUART
             }
             int index = dataGridView1.SelectedRows[0].Index;
             dataGridView_exchange(index, index + 1);
-        } 
+        }
         #endregion
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -407,7 +458,7 @@ namespace ZUART
         }
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {
-            bool isSelect = (dataGridView1.SelectedRows.Count >0);
+            bool isSelect = (dataGridView1.SelectedRows.Count > 0);
 
             修改ToolStripMenuItem.Enabled = isSelect;
             删除ToolStripMenuItem.Enabled = isSelect;
@@ -415,7 +466,10 @@ namespace ZUART
             下移ToolStripMenuItem.Enabled = isSelect;
 
         }
+
+
         #endregion
+
 
     }
 }
