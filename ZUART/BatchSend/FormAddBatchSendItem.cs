@@ -13,16 +13,34 @@ namespace ZUART.BatchSend
 {
     public partial class FormAddBatchSendItem : Form
     {
+        private static FormAddBatchSendItem staticForm = null;
         private int index = -1;
         public FormAddBatchSendItem(int index)
         {
+            if (!(staticForm == null || staticForm.IsDisposed))
+            {
+                staticForm.Close();
+            }
+
+            staticForm = this;
             InitializeComponent();
             this.index = index;
         }
-        public FormAddBatchSendItem(BatchSendItem item,int index)
+        public FormAddBatchSendItem(BatchSendItem item, int index)
         {
+
+            if (!(staticForm == null || staticForm.IsDisposed))
+            {
+                staticForm.Close();
+            }
+
             InitializeComponent();
-            if (item == null) return;
+            if (item == null)
+            {
+                this.Close();
+                return;
+            }
+            staticForm = this;
             this.index = index;
 
             txtDat.Text = item.dat;
@@ -75,7 +93,7 @@ namespace ZUART.BatchSend
                 return;
             }
 
-            if(rbtnHEX.Checked)
+            if (rbtnHEX.Checked)
             {
                 try
                 {
@@ -109,7 +127,7 @@ namespace ZUART.BatchSend
             }
 
 
- 
+
 
         }
     }

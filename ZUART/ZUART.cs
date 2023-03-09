@@ -64,9 +64,6 @@ namespace ZUART
              }*/
             #endregion
 
-            ImageList imageList1 = new ImageList();
-            imageList1.Images.Add(Resources.ico_ab);
-            imageList1.Images.Add(Resources.ico_bin);
 
             FormBatchSend form = new FormBatchSend(zuartControl1);
             form.TopLevel = false; //指示子窗体非顶级窗体
