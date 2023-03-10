@@ -22,17 +22,21 @@ namespace ZUART
     public partial class FormBatchSend : Form
     {
         private ZUARTControl.ZuartControl zuartControl = null;
+        private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "BatchSend.ini");
         public FormBatchSend(ZUARTControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;
             InitializeComponent();
             init();
-            
-            string str = Properties.Settings.Default.BatchSendList.Replace("\r\n", "\n");
-            string[] sArr = str.Split('\n');
-            foreach (string s in sArr)
+
+            IniFile ini = new IniFile(IniPath);
+            for (int i = 1; i > 0; i++) //死循环
             {
-                ImportOneStr(s);
+                string str = ini.Read(i.ToString(), "BATCHSEND");
+                if (str != null)
+                    ImportOneStr(i + "=" + str);
+                else
+                    break;
             }
 
         }
@@ -71,14 +75,7 @@ namespace ZUART
         }
         private void FormBatchSend_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string context = "[BATCHSEND]\r\n";
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
-                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                context = context + ExportOneStr(i + 1, item, ischeck);
-            }
-            Properties.Settings.Default.BatchSendList = context;
+            btnSave_Click(null, null);
         }
 
 
@@ -304,16 +301,14 @@ namespace ZUART
 
             }
         }
-        string ExportOneStr(int id,BatchSendItem item,bool ischeck)
+        string ExportOneStr(BatchSendItem item, bool ischeck)
         {
             string context = "";
-            context = context + (id).ToString() + "=";
             context = context + (ischeck ? "1" : "0") + "|";
             context = context + item.delay + "|";
             context = context + (item.ishex ? "1" : "0") + "|";
             context = context + item.name + "|";
             context = context + item.dat.Replace("\r", "\u0003").Replace("\n", "\u0002");
-            context = context + "\r\n";
             return context;
         }
         void ExportFile(string file)
@@ -323,7 +318,7 @@ namespace ZUART
             {
                 BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
                 bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                context = context + ExportOneStr(i + 1,item, ischeck);
+                context = context + (i + 1).ToString() + "=" + ExportOneStr(item, ischeck) + "\r\n";
             }
 
             FileStream fs = new FileStream(file, FileMode.Create);
@@ -506,21 +501,19 @@ namespace ZUART
             var filename = saveFileDialog.FileName; //得到保存路径及文件名
             //MessageBox.Show(filename);
             ExportFile(filename);
-            
+
         }
         //保存
         private void btnSave_Click(object sender, EventArgs e)
         {
             string context = "[BATCHSEND]\r\n";
+            IniFile ini = new IniFile(IniPath);
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
                 bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                context = context + ExportOneStr(i + 1, item, ischeck);
+                ini.Write((i + 1).ToString(), ExportOneStr(item, ischeck), "BATCHSEND");
             }
-            Properties.Settings.Default.BatchSendList = context;
-
-            Properties.Settings.Default.Save();
         }
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {

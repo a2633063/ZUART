@@ -1546,17 +1546,5 @@ namespace ZUART.Properties {
                 this["menuItemSendKey4"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string BatchSendList {
-            get {
-                return ((string)(this["BatchSendList"]));
-            }
-            set {
-                this["BatchSendList"] = value;
-            }
-        }
     }
 }

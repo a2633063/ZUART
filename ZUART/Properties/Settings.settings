@@ -383,8 +383,5 @@
     <Setting Name="menuItemSendKey4" Type="System.Windows.Forms.CheckState" Scope="User">
       <Value Profile="(Default)">Unchecked</Value>
     </Setting>
-    <Setting Name="BatchSendList" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
   </Settings>
 </SettingsFile>

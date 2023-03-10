@@ -93,6 +93,7 @@
     <Compile Include="FormASCII.Designer.cs">
       <DependentUpon>FormASCII.cs</DependentUpon>
     </Compile>
+    <Compile Include="IniFile.cs" />
     <Compile Include="ZUART.cs">
       <SubType>Form</SubType>
     </Compile>
