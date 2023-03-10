@@ -36,9 +36,7 @@
             this.btnCleanCount = new System.Windows.Forms.Button();
             this.lblRevCount = new System.Windows.Forms.Label();
             this.lblSendCount = new System.Windows.Forms.Label();
-            this.panel_ListSend = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timerIcon = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -51,9 +49,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.zuartControl1 = new ZUARTControl.ZuartControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel_Log.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -147,16 +145,6 @@
             this.lblSendCount.Text = "发送:0";
             this.lblSendCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel_ListSend
-            // 
-            this.panel_ListSend.AutoScroll = true;
-            this.panel_ListSend.BackColor = System.Drawing.Color.Transparent;
-            this.panel_ListSend.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_ListSend.Location = new System.Drawing.Point(3, 15);
-            this.panel_ListSend.Name = "panel_ListSend";
-            this.panel_ListSend.Size = new System.Drawing.Size(285, 532);
-            this.panel_ListSend.TabIndex = 6;
-            // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -166,15 +154,6 @@
             this.label7.Size = new System.Drawing.Size(23, 12);
             this.label7.TabIndex = 4;
             this.label7.Text = "HEX";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(-1, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "发送";
             // 
             // timerIcon
             // 
@@ -292,8 +271,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.panel_ListSend);
-            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -313,6 +290,16 @@
             this.tabPage2.Text = "批量发送";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(291, 550);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "ASCII";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
@@ -328,7 +315,7 @@
             this.zuartControl1.Labellog = this.Log;
             this.zuartControl1.Location = new System.Drawing.Point(0, 0);
             this.zuartControl1.Name = "zuartControl1";
-            this.zuartControl1.PanelListSend = this.panel_ListSend;
+            this.zuartControl1.PanelListSend = null;
             this.zuartControl1.RevCount = ((ulong)(0ul));
             this.zuartControl1.SendCount = ((ulong)(0ul));
             this.zuartControl1.SendFileName = null;
@@ -339,16 +326,6 @@
             this.zuartControl1.ComConnectState += new System.EventHandler<ZUARTControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
             this.zuartControl1.ComDataReceived += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
             this.zuartControl1.ComDataSend += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(291, 550);
-            this.tabPage3.TabIndex = 3;
-            this.tabPage3.Text = "ASCII";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // ZUART
             // 
@@ -391,9 +368,7 @@
         private System.Windows.Forms.Label lblSendCount;
         private System.Windows.Forms.Button btnCleanCount;
         private System.Windows.Forms.Label Log;
-        private System.Windows.Forms.Panel panel_ListSend;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnabout;
         private System.Windows.Forms.Timer timerIcon;

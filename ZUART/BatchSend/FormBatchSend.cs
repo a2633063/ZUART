@@ -27,30 +27,16 @@ namespace ZUART
         {
             this.zuartControl = zuartControl;
             InitializeComponent();
-            init();
 
-            IniFile ini = new IniFile(IniPath);
-            for (int i = 1; i > 0; i++) //死循环
-            {
-                string str = ini.Read(i.ToString(), "BATCHSEND");
-                if (str != null)
-                    ImportOneStr(i + "=" + str);
-                else
-                    break;
-            }
-
+            ImportFile(IniPath);
         }
 
-
+        #region 列表增加一项
         int addItem(BatchSendItem item)
         {
-            return addItem(item, true, this.dataGridView1.Rows.Add());
+            return addItem(item, this.dataGridView1.Rows.Add());
         }
         int addItem(BatchSendItem item, int index)
-        {
-            return addItem(item, true, index);
-        }
-        int addItem(BatchSendItem item, bool isCheck, int index)
         {
             if (item == null) return -1;
             if (index >= dataGridView1.Rows.Count) return -1;
@@ -58,7 +44,7 @@ namespace ZUART
 
 
             this.dataGridView1.Rows[index].Tag = item;
-            this.dataGridView1.Rows[index].Cells[0].Value = isCheck;
+            this.dataGridView1.Rows[index].Cells[0].Value = item.ischeck;
 
             //this.dataGridView1.Rows[index].Cells[1].Value = index.ToString();
             this.dataGridView1.Rows[index].Cells[1].Value = item.delay.ToString();
@@ -69,14 +55,13 @@ namespace ZUART
             return index;
         }
 
-        void init()
-        {
-
-        }
+        #endregion
+        #region 退出前保存
         private void FormBatchSend_FormClosing(object sender, FormClosingEventArgs e)
         {
             btnSave_Click(null, null);
-        }
+        } 
+        #endregion
 
 
         #region 自动发送功能
@@ -178,11 +163,15 @@ namespace ZUART
         {
             int Index = this.dataGridView1.CurrentRow.Index;//获取当前选中行的索引
 
-            if (e.ColumnIndex != 3) return;
-
-            BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
-
-            zuartControl.SendStr(item.dat, item.ishex);
+            if (e.ColumnIndex == 3)
+            {
+                BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+                zuartControl.SendStr(item.dat, item.ishex);
+            }else if (e.ColumnIndex == 0)
+            {
+                BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+                item.ischeck = (bool)dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue;
+            }
 
         }
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
@@ -216,7 +205,6 @@ namespace ZUART
             if (e.Button == MouseButtons.Right && e.RowIndex > -1 && e.ColumnIndex > -1)
             {
                 (sender as DataGridView).Rows[e.RowIndex].Selected = true;
-
             }
         }
 
@@ -282,76 +270,31 @@ namespace ZUART
         }
         #endregion
         #region 导入/导出批量发送
-        void ImportOneStr(string str)
-        {
-            Regex regex = new Regex(@"^(\d+)\=([01])\|(\d+)\|([01])\|(.*?)\|(.*)$");
-            //搜索匹配的字符串 
-            MatchCollection matches;
-            try
-            {
-                matches = regex.Matches(str);
-                if (matches.Count != 1) return;
-                Match match = matches[0];
-                if (match.Groups.Count != 7) return;
-
-                bool ischeck = Convert.ToInt32(match.Groups[2].Value) == 1 ? true : false;
-                int delay = Convert.ToInt32(match.Groups[3].Value);
-                bool ishex = Convert.ToInt32(match.Groups[4].Value) == 1 ? true : false;
-                string name = match.Groups[5].Value;
-                string dat = match.Groups[6].Value.Replace("\u0003", "\r").Replace("\u0002", "\n");
-
-
-                //byte[] gb = Encoding.GetEncoding("gbk").GetBytes(name);       //导入编码确认
-                //gb = Encoding.Convert(Encoding.GetEncoding("gbk"), Encoding.UTF8, gb);
-                //name = Encoding.UTF8.GetString(gb);
-                addItem(new BatchSendItem(delay, ishex, dat, name));
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        string ExportOneStr(BatchSendItem item, bool ischeck)
-        {
-            string context = "";
-            context = context + (ischeck ? "1" : "0") + "|";
-            context = context + item.delay + "|";
-            context = context + (item.ishex ? "1" : "0") + "|";
-            context = context + item.name + "|";
-            context = context + item.dat.Replace("\r", "\u0003").Replace("\n", "\u0002");
-            return context;
-        }
         void ExportFile(string file)
         {
             string context = "[BATCHSEND]\r\n";
+            IniFile ini = new IniFile(file);
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
-                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                context = context + (i + 1).ToString() + "=" + ExportOneStr(item, ischeck) + "\r\n";
+                ini.Write((i + 1).ToString(), item.getSerializeStr(), "BATCHSEND");
             }
-
-            FileStream fs = new FileStream(file, FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs, Encoding.Default);
-            sw.Write(context);
-            sw.Close();
-            fs.Close();
         }
         void ImportFile(string file)
         {
-            using (StreamReader r = new StreamReader(file))
+            IniFile ini = new IniFile(file);
+            for (int i = 1; i > 0; i++) //死循环
             {
-                string str;
-                int i = 0;
-                do
+                string str = ini.Read(i.ToString(), "BATCHSEND");
+                if (str != null)
                 {
-                    str = r.ReadLine();
-                    Console.WriteLine(str);
-                    ImportOneStr(str);
+                    BatchSendItem item = BatchSendItem.BatchSendItemFromOneStr(i + "=" + str);
+                    if (item != null) addItem(item);
                 }
-                while (str != null);
-
+                else
+                    break;
             }
+
         }
 
         #endregion
@@ -403,12 +346,8 @@ namespace ZUART
         }
         private void Edit_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
         {
-            bool isselect = true;
-            if (e.Index > 0 && e.Index < dataGridView1.Rows.Count)
-            {
-                isselect = (bool)dataGridView1.Rows[e.Index].Cells[0].EditedFormattedValue;
-            }
-            addItem(e.Item, isselect, e.Index);
+
+            addItem(e.Item, e.Index);
             if (e.Index > 0 && e.Index < dataGridView1.Rows.Count)
             {
                 this.dataGridView1.Rows[e.Index].Selected = true;
@@ -437,13 +376,12 @@ namespace ZUART
             if (index1 >= dataGridView1.Rows.Count) return;
             if (index2 >= dataGridView1.Rows.Count) return;
 
-            bool isselect1 = (bool)dataGridView1.Rows[index1].Cells[0].EditedFormattedValue;
-            bool isselect2 = (bool)dataGridView1.Rows[index2].Cells[0].EditedFormattedValue;
+
 
             BatchSendItem item1 = (BatchSendItem)dataGridView1.Rows[index1].Tag;
             BatchSendItem item2 = (BatchSendItem)dataGridView1.Rows[index2].Tag;
-            addItem(item1, isselect1, index2);
-            addItem(item2, isselect2, index1);
+            addItem(item1, index2);
+            addItem(item2, index1);
 
             this.dataGridView1.Rows[index2].Selected = true;
         }
@@ -509,21 +447,13 @@ namespace ZUART
                 return; //被点了取消
             }
             var filename = saveFileDialog.FileName; //得到保存路径及文件名
-            //MessageBox.Show(filename);
             ExportFile(filename);
 
         }
         //保存
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string context = "[BATCHSEND]\r\n";
-            IniFile ini = new IniFile(IniPath);
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
-                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                ini.Write((i + 1).ToString(), ExportOneStr(item, ischeck), "BATCHSEND");
-            }
+            ExportFile(IniPath);
         }
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {
