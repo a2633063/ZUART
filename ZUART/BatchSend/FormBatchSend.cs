@@ -185,6 +185,16 @@ namespace ZUART
             zuartControl.SendStr(item.dat, item.ishex);
 
         }
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            BatchSendItem item = (BatchSendItem)this.dataGridView1.SelectedRows[0].Tag;
+
+            zuartControl.SendStr(item.dat, item.ishex);
+        }
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
@@ -525,9 +535,6 @@ namespace ZUART
             下移ToolStripMenuItem.Enabled = isSelect;
 
         }
-
-
-
 
         #endregion
 
