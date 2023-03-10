@@ -94,6 +94,19 @@
       <DependentUpon>FormASCII.cs</DependentUpon>
     </Compile>
     <Compile Include="IniFile.cs" />
+    <Compile Include="ShortcutSend\FormAddShortcutSendItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShortcutSend\FormAddShortcutSendItem.Designer.cs">
+      <DependentUpon>FormAddShortcutSendItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShortcutSend\FormShortcutSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShortcutSend\FormShortcutSend.Designer.cs">
+      <DependentUpon>FormShortcutSend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShortcutSend\ShortcutSendItem.cs" />
     <Compile Include="ZUART.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormASCII.resx">
       <DependentUpon>FormASCII.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShortcutSend\FormAddShortcutSendItem.resx">
+      <DependentUpon>FormAddShortcutSendItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShortcutSend\FormShortcutSend.resx">
+      <DependentUpon>FormShortcutSend.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZUART.resx">
       <DependentUpon>ZUART.cs</DependentUpon>

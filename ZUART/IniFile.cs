@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.AxHost;
-
 namespace ZUART
 {
 
@@ -65,6 +60,8 @@ namespace ZUART
 
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
+        [DllImport("kernel32.dll")]
+        private static extern int GetPrivateProfileSection(string lpAppName, byte[] lpszReturnBuffer, int nSize, string lpFileName);
 
         public IniFile(string IniPath = null)
         {
@@ -83,11 +80,35 @@ namespace ZUART
 
         public string Read(string Key, string Section = null)
         {
-            var RetVal = new StringBuilder(255);
-            int len=GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
+            var RetVal = new StringBuilder(4096);
+            int len=GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 4096, Path);
             if (len < 1) return null;
             return RetVal.ToString();
         }
+
+        public string[] ReadSectionAll(string Section )
+        {
+            const int MAX_BUFFER = 32767;    //默认为32767  
+
+            byte[] b = new byte[MAX_BUFFER];
+            int len = GetPrivateProfileSection(Section, b, MAX_BUFFER, Path);
+
+            int count=0;
+            for(int i=0;i<len;i++)
+            {
+                if (b[i] == '\0') count++;
+            }
+            count++;    //再加1是为了将字符串中结束的\0字符隔开
+            
+            string[] result = Encoding.Default.GetString(b).Split(new char[] { '\0' },count);
+            string[] sections = new string[count - 1];      //返回值  
+
+
+            for (int i = 0; i < count - 1; i++)
+                sections[i] = result[i];
+                return sections;
+        }
+
 
         public void Write(string Key, string Value, string Section = null)
         {

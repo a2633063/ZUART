@@ -106,68 +106,6 @@ namespace ZUARTControl
             }
         }
 
-        private Panel panel_ListSend;
-        [Category("控件绑定"), Description("批量发送列表添加的Panel"), Browsable(true)]
-        public Panel PanelListSend
-        {
-            get
-            {
-                return panel_ListSend;
-            }
-            set
-            {
-                panel_ListSend = value;
-                if (panel_ListSend == null) return;
-
-                //todo 增加控件
-                for (int i = 0; i < ListSend_Count; i++)
-                {
-                    #region 增加Button
-                    ListSendButton[i] = new Button();
-                    ListSendButton[i].Left = -1;
-                    ListSendButton[i].Size = new Size(25, 21);
-                    ListSendButton[i].Text = (i + 1).ToString();
-                    ListSendButton[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
-                    ListSendButton[i].Click += ListSendButton_Click;
-                    ListSendButton[i].TabStop = true;
-                    ListSendButton[i].TabIndex = i;
-                    panel_ListSend.Controls.Add(ListSendButton[i]);
-                    #endregion
-
-                    #region 增加TextBox
-                    ListSendTextBox[i] = new TextBox();
-                    ListSendTextBox[i].Left = 25;
-                    ListSendTextBox[i].Size = new Size(panel_ListSend.Width - ListSendTextBox[i].Left - 17, 21);
-                    ListSendTextBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height + 1));
-                    ListSendTextBox[i].TabStop = true;
-                    ListSendTextBox[i].TabIndex = i;
-                    ListSendTextBox[i].Anchor = ((((AnchorStyles.Top | AnchorStyles.Left) | AnchorStyles.Right)));
-                    panel_ListSend.Controls.Add(ListSendTextBox[i]);
-                    #endregion
-
-                    #region 增加CheckBox
-                    ListSendCheckBox[i] = new CheckBox();
-                    ListSendCheckBox[i].Left = panel_ListSend.Width - 16;
-                    ListSendCheckBox[i].Size = new Size(15, 15);
-                    ListSendCheckBox[i].Text = "";
-                    ListSendCheckBox[i].Top = (i == 0 ? 0 : (ListSendButton[i - 1].Top + ListSendButton[0].Height) + 1) + 4;
-                    ListSendCheckBox[i].TabStop = true;
-                    ListSendCheckBox[i].TabIndex = i;
-                    ListSendCheckBox[i].Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                    panel_ListSend.Controls.Add(ListSendCheckBox[i]);
-                    #endregion
-
-                    toolTip1.SetToolTip(ListSendCheckBox[i], toolTip1.GetToolTip(ListSendCheckBox[0]));
-                }
-                /* for (int i = 0; i < ListSend_Count; i++)
-                 {
-                     ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-                     ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-                 }*/
-
-            }
-        }
-
         #endregion
 
 
@@ -276,10 +214,7 @@ namespace ZUARTControl
 
         #region 初始化
 
-        const int ListSend_Count = 50;
-        Button[] ListSendButton = new Button[ListSend_Count];
-        TextBox[] ListSendTextBox = new TextBox[ListSend_Count];
-        CheckBox[] ListSendCheckBox = new CheckBox[ListSend_Count];
+
         private void init()
         {
             #region 控件初始化
@@ -318,11 +253,6 @@ namespace ZUARTControl
             toolStripMenuItem4.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey4;
             //this.toolStripMenuItem1.CheckState = global::ZUART.Properties.Settings.Default.menuItemSendKey1;
 
-            //for (int i = 0; i < ListSend_Count; i++)
-            //{
-            //    ListSendTextBox[i].DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "ListSend_Text" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-            //    ListSendCheckBox[i].DataBindings.Add(new Binding("Checked", global::ZUART.Properties.Settings.Default, "ListSend_Hex" + i, true, DataSourceUpdateMode.OnPropertyChanged));
-            //}
 
             if(txtSendData != null)
                 txtSendData.DataBindings.Add(new Binding("Text", global::ZUART.Properties.Settings.Default, "txtSendData", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -486,15 +416,6 @@ namespace ZUARTControl
         }
         #endregion
 
-        #region 多字符串发送
-        private void ListSendButton_Click(object sender, EventArgs e)
-        {
-
-            int item = ((Button)sender).TabIndex;
-            if (ListSendTextBox[item].Text.Length > 0)
-                SendStr(ListSendTextBox[item].Text, ListSendCheckBox[item].Checked);
-        }
-        #endregion
 
         #region 发送数据button事件
         private void btnSend_Click(object sender, EventArgs e)

@@ -315,7 +315,6 @@
             this.zuartControl1.Labellog = this.Log;
             this.zuartControl1.Location = new System.Drawing.Point(0, 0);
             this.zuartControl1.Name = "zuartControl1";
-            this.zuartControl1.PanelListSend = null;
             this.zuartControl1.RevCount = ((ulong)(0ul));
             this.zuartControl1.SendCount = ((ulong)(0ul));
             this.zuartControl1.SendFileName = null;

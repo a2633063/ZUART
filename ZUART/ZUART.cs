@@ -68,6 +68,14 @@ namespace ZUART
             FormChild = new Form[tabControl1.TabCount];
             int i = 0;
 
+            FormChild[i] = new FormShortcutSend(zuartControl1);
+            FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
+            FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
+            FormChild[i].FormBorderStyle = FormBorderStyle.None;
+            this.tabPage1.Controls.Add(FormChild[i]);
+            FormChild[i].Show();
+
+            i++;
             FormChild[i] = new FormBatchSend(zuartControl1);
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充

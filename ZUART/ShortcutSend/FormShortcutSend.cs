@@ -2,17 +2,16 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ZUART.BatchSend;
+using ZUART.ShortcutSend;
 using ZUART.Properties;
-
 
 namespace ZUART
 {
-    public partial class FormBatchSend : Form
+    public partial class FormShortcutSend : Form
     {
         private ZUARTControl.ZuartControl zuartControl = null;
-        private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "BatchSend.ini");
-        public FormBatchSend(ZUARTControl.ZuartControl zuartControl)
+        private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "ShortcutSend.ini");
+        public FormShortcutSend(ZUARTControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;
             InitializeComponent();
@@ -21,147 +20,44 @@ namespace ZUART
         }
 
         #region 列表增加一项
-        int addItem(BatchSendItem item)
+        int addItem(ShortcutSendItem item)
         {
             return addItem(item, this.dataGridView1.Rows.Add());
         }
-        int addItem(BatchSendItem item, int index)
+        int addItem(ShortcutSendItem item, int index)
         {
             if (item == null) return -1;
             if (index >= dataGridView1.Rows.Count) return -1;
             if (index < 0) index = this.dataGridView1.Rows.Add();
 
-
             this.dataGridView1.Rows[index].Tag = item;
-            this.dataGridView1.Rows[index].Cells[0].Value = item.ischeck;
-
-            //this.dataGridView1.Rows[index].Cells[1].Value = index.ToString();
-            this.dataGridView1.Rows[index].Cells[1].Value = item.delay.ToString();
-            //this.dataGridView1.Rows[index].Cells[2].Value = item.ishex ? Resources.ico_bin : Resources.ico_ab;
-            this.dataGridView1.Rows[index].Cells[2].Value = item.dat;
-            this.dataGridView1.Rows[index].Cells[3].Value = String.IsNullOrWhiteSpace(item.name) ? "Send" : item.name;
+            this.dataGridView1.Rows[index].Cells[0].Value = item.name;
+            this.dataGridView1.Rows[index].Cells[1].Value = item.dat;
+            this.dataGridView1.Rows[index].Cells[2].Value = "发送";
             dataGridView1.ClearSelection();
             return index;
         }
 
         #endregion
         #region 退出前保存
-        private void FormBatchSend_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormShortcutSend_FormClosing(object sender, FormClosingEventArgs e)
         {
             btnSave_Click(null, null);
         }
         #endregion
 
 
-        #region 自动发送功能
-        private void timerSend_Tick(object sender, EventArgs e)
-        {
-            BatchSendItem item;
-            if (send_index > 0)
-            {
-                //发送数据
-                if (send_index - 1 >= dataGridView1.Rows.Count)
-                {//超出范围
-                    startSend(false);
-                    return;
-                }
-                item = (BatchSendItem)this.dataGridView1.Rows[send_index - 1].Tag;
-                if (!zuartControl.SendStr(item.dat, item.ishex))
-                {   //发送出错
-                    startSend(false);
-                    return;
-                }
-            }
-            if (dataGridView1.Rows.Count <= send_index)
-            {
-                if (chkCycleMode.Checked)
-                {
-                    send_index = 0;
-                }
-                else
-                {
-                    startSend(false);
-                    return;
-                }
-            }
-            if ((bool)dataGridView1.Rows[send_index].Cells[0].EditedFormattedValue == false)
-            {
-                while ((bool)dataGridView1.Rows[send_index].Cells[0].EditedFormattedValue == false)
-                {
-                    send_index++;
-                    if (dataGridView1.Rows.Count <= send_index)
-                    {
-                        if (chkCycleMode.Checked)
-                        {
-                            send_index = 0;
-                        }
-                        else
-                        {
-                            startSend(false);
-                            return;
-                        }
-                    }
-                }
-            }
-
-            dataGridView1.Rows[send_index].Selected = true;
-            item = (BatchSendItem)this.dataGridView1.Rows[send_index].Tag;
-            send_index++;
-
-            if (item.delay == 0) timerSend_Tick(null, null);
-            else
-                timerSend.Interval = item.delay;
-        }
-
-        int send_index = 0;
-        private void btnStartSend_Click(object sender, EventArgs e)
-        {
-            startSend(btnStartSend.Text.Contains("启动"));
-        }
-
-        void startSend(bool start)
-        {
-            if (start)
-            {
-                if (!zuartControl.IsComOpen)
-                {
-                    MessageBox.Show("串口未开启");
-                    return;
-                }
-                //dataGridView1.ClearSelection();
-                if (dataGridView1.Rows.Count < 1) return;
-                btnStartSend.Text = "停止批量发送";
-                send_index = 0;
-                timerSend_Tick(null, null);
-                //timerSend.Interval = 1;
-                timerSend.Enabled = true;
-                btnStartSend.Image = Resources.open;
-            }
-            else
-            {
-                timerSend.Enabled = false;
-                btnStartSend.Text = "启动批量发送";
-                dataGridView1.ClearSelection();
-                btnStartSend.Image = Resources.close;
-            }
-        }
-
-        #endregion
         #region dataGridView外观/功能
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int Index = this.dataGridView1.CurrentRow.Index;//获取当前选中行的索引
 
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 2)
             {
-                BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+                ShortcutSendItem item = (ShortcutSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
                 zuartControl.SendStr(item.dat, item.ishex);
             }
-            else if (e.ColumnIndex == 0)
-            {
-                BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
-                item.ischeck = (bool)dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue;
-            }
+
 
         }
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
@@ -170,24 +66,23 @@ namespace ZUART
             {
                 return;
             }
-            BatchSendItem item = (BatchSendItem)this.dataGridView1.SelectedRows[0].Tag;
-
+            ShortcutSendItem item = (ShortcutSendItem)this.dataGridView1.SelectedRows[0].Tag;
             zuartControl.SendStr(item.dat, item.ishex);
         }
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
-            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), dataGridView1.RowHeadersDefaultCellStyle.Font, rectangle,
-            dataGridView1.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+            //Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
+            //TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(), dataGridView1.RowHeadersDefaultCellStyle.Font, rectangle,
+            //dataGridView1.RowHeadersDefaultCellStyle.ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
 
 
-            int x = e.RowBounds.Location.X + 4 + dataGridView1.Columns[0].Width + dataGridView1.Columns[1].Width;
+            int x = e.RowBounds.Location.X + 4;
             int y = e.RowBounds.Location.Y + (e.RowBounds.Height - Resources.ico_bin.Height) / 2;
-            rectangle = new Rectangle(x, y,
+            Rectangle rectangle = new Rectangle(x, y,
                  Resources.ico_bin.Width, Resources.ico_bin.Height);
 
 
-            BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+            ShortcutSendItem item = (ShortcutSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
             e.Graphics.DrawImage(item.ishex ? Resources.ico_bin : Resources.ico_ab, rectangle);
         }
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -237,7 +132,7 @@ namespace ZUART
             if (e.Button != MouseButtons.Left) return;
             if (e.ColumnIndex == 2)
             {
-                BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+                ShortcutSendItem item = (ShortcutSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
                 zuartControl.SendStr(item.dat, item.ishex);
                 return;
             }
@@ -251,7 +146,6 @@ namespace ZUART
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length < 1) return;
             ImportFile(files[0]);
-
         }
 
         private void dataGridView1_DragEnter(object sender, DragEventArgs e)
@@ -272,25 +166,22 @@ namespace ZUART
             IniFile ini = new IniFile(file);
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
-                ini.Write((i + 1).ToString(), item.getSerializeStr(), "BATCHSEND");
+                ShortcutSendItem item = (ShortcutSendItem)dataGridView1.Rows[i].Tag;
+                ini.Write(item.name, item.getSerializeStr(i+1), "SHORTCUT");
             }
         }
         void ImportFile(string file)
         {
             IniFile ini = new IniFile(file);
-            for (int i = 1; i > 0; i++) //死循环
-            {
-                string str = ini.Read(i.ToString(), "BATCHSEND");
-                if (str != null)
-                {
-                    BatchSendItem item = BatchSendItem.BatchSendItemFromOneStr(i + "=" + str);
-                    if (item != null) addItem(item);
-                }
-                else
-                    break;
-            }
 
+
+            string[] sections=ini.ReadSectionAll("SHORTCUT");
+
+            foreach(string s in sections)
+            {
+                ShortcutSendItem item = ShortcutSendItem.ShortcutSendItemFromOneStr(s);
+                if (item != null) addItem(item);
+            }
         }
 
         #endregion
@@ -298,7 +189,7 @@ namespace ZUART
         #region 新增/删除/上下移动/导入导出/保存及右键菜单等功能
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FormAddBatchSendItem form = new FormAddBatchSendItem(-1);
+            FormAddShortcutSendItem form = new FormAddShortcutSendItem(-1);
             form.TopLevel = false; //指示子窗体非顶级窗体
 
             form.FormBorderStyle = FormBorderStyle.None;
@@ -312,10 +203,10 @@ namespace ZUART
             this.Controls.Add(form);
             form.Show();
             form.BringToFront();
-            form.ReturnBatchSendItem += Add_BatchSendItem_Return;
+            form.ReturnShortcutSendItem += Add_ShortcutSendItem_Return;
         }
 
-        private void Add_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
+        private void Add_ShortcutSendItem_Return(object sender, FormAddShortcutSendItem.AddShortcutSendItem_EventArgs e)
         {
             addItem(e.Item);
         }
@@ -327,7 +218,7 @@ namespace ZUART
                 return;
             }
 
-            FormAddBatchSendItem form = new FormAddBatchSendItem((BatchSendItem)dataGridView1.SelectedRows[0].Tag, dataGridView1.SelectedRows[0].Index);
+            FormAddShortcutSendItem form = new FormAddShortcutSendItem((ShortcutSendItem)dataGridView1.SelectedRows[0].Tag, dataGridView1.SelectedRows[0].Index);
             form.TopLevel = false; //指示子窗体非顶级窗体
             form.FormBorderStyle = FormBorderStyle.None;
             form.Anchor = AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
@@ -338,9 +229,9 @@ namespace ZUART
             this.Controls.Add(form);
             form.Show();
             form.BringToFront();
-            form.ReturnBatchSendItem += Edit_BatchSendItem_Return;
+            form.ReturnShortcutSendItem += Edit_ShortcutSendItem_Return;
         }
-        private void Edit_BatchSendItem_Return(object sender, FormAddBatchSendItem.AddBatchSendItem_EventArgs e)
+        private void Edit_ShortcutSendItem_Return(object sender, FormAddShortcutSendItem.AddShortcutSendItem_EventArgs e)
         {
 
             addItem(e.Item, e.Index);
@@ -374,8 +265,8 @@ namespace ZUART
 
 
 
-            BatchSendItem item1 = (BatchSendItem)dataGridView1.Rows[index1].Tag;
-            BatchSendItem item2 = (BatchSendItem)dataGridView1.Rows[index2].Tag;
+            ShortcutSendItem item1 = (ShortcutSendItem)dataGridView1.Rows[index1].Tag;
+            ShortcutSendItem item2 = (ShortcutSendItem)dataGridView1.Rows[index2].Tag;
             addItem(item1, index2);
             addItem(item2, index1);
 
