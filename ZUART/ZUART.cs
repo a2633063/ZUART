@@ -21,6 +21,7 @@ namespace ZUART
         TextBox[] ListSendTextBox = new TextBox[ListSend_Count];
         CheckBox[] ListSendCheckBox = new CheckBox[ListSend_Count];
 
+        Form[] FormChild;
         public ZUART()
         {
             InitializeComponent();
@@ -64,21 +65,23 @@ namespace ZUART
              }*/
             #endregion
 
+            FormChild = new Form[tabControl1.TabCount];
+            int i = 0;
 
-            FormBatchSend form = new FormBatchSend(zuartControl1);
-            form.TopLevel = false; //指示子窗体非顶级窗体
-            form.Dock = DockStyle.Fill;//将窗体最大化填充
-            form.FormBorderStyle = FormBorderStyle.None;
-            this.tabPage2.Controls.Add(form);
-            form.Show();
+            FormChild[i] = new FormBatchSend(zuartControl1);
+            FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
+            FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
+            FormChild[i].FormBorderStyle = FormBorderStyle.None;
+            this.tabPage2.Controls.Add(FormChild[i]);
+            FormChild[i].Show();
 
-
-            FormASCII form3 = new FormASCII();
-            form3.TopLevel = false; //指示子窗体非顶级窗体
-            form3.Dock = DockStyle.Fill;//将窗体最大化填充
-            form3.FormBorderStyle = FormBorderStyle.None;
-            this.tabPage3.Controls.Add(form3);
-            form3.Show();
+            i++;
+            FormChild[i] = new FormASCII();
+            FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
+            FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
+            FormChild[i].FormBorderStyle = FormBorderStyle.None;
+            this.tabPage3.Controls.Add(FormChild[i]);
+            FormChild[i].Show();
 
         }
         #endregion
@@ -89,6 +92,14 @@ namespace ZUART
         }
         private void ZUART_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (FormChild != null)
+            {
+                foreach (Form form in FormChild)
+                {
+                    if (form != null && !form.IsDisposed)
+                        form.Close();
+                }
+            }
             setting_save(null, null);
         }
 

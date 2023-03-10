@@ -69,19 +69,20 @@ namespace ZUART
         {
 
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void FormBatchSend_FormClosing(object sender, FormClosingEventArgs e)
         {
-            int Index = this.dataGridView1.CurrentRow.Index;//获取当前选中行的索引
-
-            if (e.ColumnIndex != 3) return;
-
-            BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
-
-            zuartControl.SendStr(item.dat, item.ishex);
-
+            string context = "[BATCHSEND]\r\n";
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
+                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
+                context = context + ExportOneStr(i + 1, item, ischeck);
+            }
+            Properties.Settings.Default.BatchSendList = context;
         }
 
+
+        #region 自动发送功能
         private void timerSend_Tick(object sender, EventArgs e)
         {
             BatchSendItem item;
@@ -174,7 +175,19 @@ namespace ZUART
             }
         }
 
+        #endregion
         #region dataGridView外观/功能
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int Index = this.dataGridView1.CurrentRow.Index;//获取当前选中行的索引
+
+            if (e.ColumnIndex != 3) return;
+
+            BatchSendItem item = (BatchSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
+
+            zuartControl.SendStr(item.dat, item.ishex);
+
+        }
         private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             Rectangle rectangle = new Rectangle(e.RowBounds.Location.X + 8, e.RowBounds.Location.Y, dataGridView1.RowHeadersWidth - 4, e.RowBounds.Height);
@@ -525,16 +538,6 @@ namespace ZUART
 
         #endregion
 
-        private void FormBatchSend_Leave(object sender, EventArgs e)
-        {
-            string context = "[BATCHSEND]\r\n";
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
-                bool ischeck = (bool)dataGridView1.Rows[i].Cells[0].EditedFormattedValue;
-                context = context + ExportOneStr(i + 1, item, ischeck);
-            }
-            Properties.Settings.Default.BatchSendList = context;
-        }
+
     }
 }
