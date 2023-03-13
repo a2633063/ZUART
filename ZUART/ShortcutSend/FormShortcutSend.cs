@@ -164,6 +164,7 @@ namespace ZUART
         void ExportFile(string file)
         {
             IniFile ini = new IniFile(file);
+            ini.DeleteSection("SHORTCUT");
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 ShortcutSendItem item = (ShortcutSendItem)dataGridView1.Rows[i].Tag;

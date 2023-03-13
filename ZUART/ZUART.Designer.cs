@@ -36,7 +36,6 @@
             this.btnCleanCount = new System.Windows.Forms.Button();
             this.lblRevCount = new System.Windows.Forms.Label();
             this.lblSendCount = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timerIcon = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -64,7 +63,6 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Log
@@ -145,16 +143,6 @@
             this.lblSendCount.Text = "发送:0";
             this.lblSendCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(-53, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 12);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "HEX";
-            // 
             // timerIcon
             // 
             this.timerIcon.Interval = 300;
@@ -168,7 +156,7 @@
             this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(628, 104);
+            this.groupBox3.Size = new System.Drawing.Size(571, 104);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
@@ -180,14 +168,14 @@
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(584, 82);
+            this.txtSendData.Size = new System.Drawing.Size(527, 82);
             this.txtSendData.TabIndex = 1;
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(587, 19);
+            this.btnSend.Location = new System.Drawing.Point(530, 19);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(38, 82);
             this.btnSend.TabIndex = 2;
@@ -201,7 +189,7 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(628, 468);
+            this.groupBox2.Size = new System.Drawing.Size(571, 468);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "数据接收区";
@@ -215,7 +203,7 @@
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(622, 446);
+            this.txtShowData.Size = new System.Drawing.Size(565, 446);
             this.txtShowData.TabIndex = 2;
             // 
             // splitContainer1
@@ -234,7 +222,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(931, 576);
-            this.splitContainer1.SplitterDistance = 628;
+            this.splitContainer1.SplitterDistance = 571;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.TabStop = false;
             // 
@@ -252,7 +240,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainer2.Size = new System.Drawing.Size(628, 576);
+            this.splitContainer2.Size = new System.Drawing.Size(571, 576);
             this.splitContainer2.SplitterDistance = 468;
             this.splitContainer2.TabIndex = 3;
             this.splitContainer2.TabStop = false;
@@ -266,16 +254,15 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(299, 576);
+            this.tabControl1.Size = new System.Drawing.Size(356, 576);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(291, 550);
+            this.tabPage1.Size = new System.Drawing.Size(348, 550);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "快捷发送";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -355,8 +342,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -367,7 +352,6 @@
         private System.Windows.Forms.Label lblSendCount;
         private System.Windows.Forms.Button btnCleanCount;
         private System.Windows.Forms.Label Log;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnabout;
         private System.Windows.Forms.Timer timerIcon;

@@ -270,6 +270,7 @@ namespace ZUART
         void ExportFile(string file)
         {
             IniFile ini = new IniFile(file);
+            ini.DeleteSection("BATCHSEND");
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 BatchSendItem item = (BatchSendItem)dataGridView1.Rows[i].Tag;
@@ -279,17 +280,25 @@ namespace ZUART
         void ImportFile(string file)
         {
             IniFile ini = new IniFile(file);
-            for (int i = 1; i > 0; i++) //死循环
+
+            string[] sections = ini.ReadSectionAll("BATCHSEND");
+
+            foreach (string s in sections)
             {
-                string str = ini.Read(i.ToString(), "BATCHSEND");
-                if (str != null)
-                {
-                    BatchSendItem item = BatchSendItem.BatchSendItemFromOneStr(i + "=" + str);
-                    if (item != null) addItem(item);
-                }
-                else
-                    break;
+                BatchSendItem item = BatchSendItem.BatchSendItemFromOneStr(s);
+                if (item != null) addItem(item);
             }
+            //for (int i = 1; i > 0; i++) //死循环
+            //{
+            //    string str = ini.Read(i.ToString(), "BATCHSEND");
+            //    if (str != null)
+            //    {
+            //        BatchSendItem item = BatchSendItem.BatchSendItemFromOneStr(i + "=" + str);
+            //        if (item != null) addItem(item);
+            //    }
+            //    else
+            //        break;
+            //}
 
         }
 
