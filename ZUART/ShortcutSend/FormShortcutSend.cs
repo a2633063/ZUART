@@ -130,7 +130,7 @@ namespace ZUART
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
-            if (e.ColumnIndex == 2)
+            if (e.ColumnIndex == 2 && e.RowIndex >= 0)
             {
                 ShortcutSendItem item = (ShortcutSendItem)this.dataGridView1.Rows[e.RowIndex].Tag;
                 zuartControl.SendStr(item.dat, item.ishex);
