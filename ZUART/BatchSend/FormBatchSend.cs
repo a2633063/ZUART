@@ -471,8 +471,19 @@ namespace ZUART
 
         }
 
+
         #endregion
 
+        private void 拷贝toolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                return;
+            }
 
+            int index = dataGridView1.SelectedRows[0].Index;
+            BatchSendItem item = (BatchSendItem)dataGridView1.Rows[index].Tag;
+            addItem(item);
+        }
     }
 }
