@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUART", "ZUART\ZUART.csproj", "{E53141B4-83A2-40D8-B058-B014B5695CC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZuartControl", "ZuartControl\ZuartControl.csproj", "{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E53141B4-83A2-40D8-B058-B014B5695CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E53141B4-83A2-40D8-B058-B014B5695CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E53141B4-83A2-40D8-B058-B014B5695CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,3 @@
+[submodule "ZuartControl"]
+	path = ZuartControl
+	url = ssh://git@zip-zhang.synology.me:10022/z/ZuartControl.git

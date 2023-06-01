@@ -9,9 +9,9 @@ namespace ZUART
 {
     public partial class FormShortcutSend : Form
     {
-        private ZUARTControl.ZuartControl zuartControl = null;
+        private ZuartControl.ZuartControl zuartControl = null;
         private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "ShortcutSend.ini");
-        public FormShortcutSend(ZUARTControl.ZuartControl zuartControl)
+        public FormShortcutSend(ZuartControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;
             InitializeComponent();

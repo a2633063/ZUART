@@ -115,12 +115,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZuartControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ZuartControl.Designer.cs">
-      <DependentUpon>ZuartControl.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="BatchSend\FormAddBatchSendItem.resx">
       <DependentUpon>FormAddBatchSendItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,9 +146,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ZuartControl.resx">
-      <DependentUpon>ZuartControl.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -197,7 +188,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ZuartControl\ZuartControl.csproj">
+      <Project>{6C8CF26A-8362-4784-AED3-0A7C29BC95F3}</Project>
+      <Name>ZuartControl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,9 +10,9 @@ namespace ZUART
 {
     public partial class FormBatchSend : Form
     {
-        private ZUARTControl.ZuartControl zuartControl = null;
+        private ZuartControl.ZuartControl zuartControl = null;
         private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "BatchSend.ini");
-        public FormBatchSend(ZUARTControl.ZuartControl zuartControl)
+        public FormBatchSend(ZuartControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;
             InitializeComponent();

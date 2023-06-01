@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ZUART.Properties;
-using ZUARTControl;
 
 namespace ZUART
 {
@@ -113,7 +103,7 @@ namespace ZUART
 
 
         #region 开关串口状态
-        private void zuartControl1_ComConnectState(object sender, ZuartControl.ComConnectState_EventArgs e)
+        private void zuartControl1_ComConnectState(object sender, ZuartControl.ZuartControl.ComConnectState_EventArgs e)
         {
             if (e.IsComOpen)
             {
@@ -131,13 +121,13 @@ namespace ZUART
 
 
         #region 接收/发送数据监听
-        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ComData_EventArgs e)
+        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ZuartControl.ComData_EventArgs e)
         {
             byte[] data = e.data;
 
             lblRevCount.Text = "接收:" + zuartControl1.RevCount.ToString();
         }
-        private void zuartControl1_ComDataSend(object sender, ZuartControl.ComData_EventArgs e)
+        private void zuartControl1_ComDataSend(object sender, ZuartControl.ZuartControl.ComData_EventArgs e)
         {
             lblSendCount.Text = "发送:" + zuartControl1.SendCount.ToString();
         }

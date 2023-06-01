@@ -51,8 +51,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.zuartControl1 = new ZuartControl.ZuartControl();
             this.labSplitSwitch = new System.Windows.Forms.Label();
-            this.zuartControl1 = new ZUARTControl.ZuartControl();
             this.panel_Log.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -311,9 +311,31 @@
             this.panel1.BackColor = System.Drawing.Color.Silver;
             this.panel1.Controls.Add(this.zuartControl1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(165, 576);
             this.panel1.TabIndex = 5;
+            // 
+            // zuartControl1
+            // 
+            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.zuartControl1.AutoLine = false;
+            this.zuartControl1.ButtonSend = this.btnSend;
+            this.zuartControl1.Labellog = this.Log;
+            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
+            this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.zuartControl1.Name = "zuartControl1";
+            this.zuartControl1.RevCount = ((ulong)(0ul));
+            this.zuartControl1.SendCount = ((ulong)(0ul));
+            this.zuartControl1.SendFileName = null;
+            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
+            this.zuartControl1.TabIndex = 1;
+            this.zuartControl1.TextBoxSendData = this.txtSendData;
+            this.zuartControl1.TextBoxShowData = this.txtShowData;
+            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
+            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
+            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
             // 
             // labSplitSwitch
             // 
@@ -326,26 +348,6 @@
             this.labSplitSwitch.TabIndex = 6;
             this.labSplitSwitch.Text = "label1";
             this.labSplitSwitch.Click += new System.EventHandler(this.labSplitSwitch_Click);
-            // 
-            // zuartControl1
-            // 
-            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.zuartControl1.AutoLine = false;
-            this.zuartControl1.ButtonSend = this.btnSend;
-            this.zuartControl1.Labellog = this.Log;
-            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
-            this.zuartControl1.Name = "zuartControl1";
-            this.zuartControl1.RevCount = ((ulong)(0ul));
-            this.zuartControl1.SendCount = ((ulong)(0ul));
-            this.zuartControl1.SendFileName = null;
-            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
-            this.zuartControl1.TabIndex = 1;
-            this.zuartControl1.TextBoxSendData = this.txtSendData;
-            this.zuartControl1.TextBoxShowData = this.txtShowData;
-            this.zuartControl1.ComConnectState += new System.EventHandler<ZUARTControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
-            this.zuartControl1.ComDataReceived += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
-            this.zuartControl1.ComDataSend += new System.EventHandler<ZUARTControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
             // 
             // ZUART
             // 
@@ -395,7 +397,7 @@
         private System.Windows.Forms.TextBox txtSendData;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtShowData;
-        private ZUARTControl.ZuartControl zuartControl1;
+        private ZuartControl.ZuartControl zuartControl1;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
