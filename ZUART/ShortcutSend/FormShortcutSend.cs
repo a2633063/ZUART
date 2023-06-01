@@ -351,11 +351,20 @@ namespace ZUART
             删除ToolStripMenuItem.Enabled = isSelect;
             上移ToolStripMenuItem.Enabled = isSelect;
             下移ToolStripMenuItem.Enabled = isSelect;
+            复制ToolStripMenuItem.Enabled = isSelect;
 
         }
 
+
         #endregion
 
-
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            addItem((ShortcutSendItem)dataGridView1.SelectedRows[0].Tag);
+        }
     }
 }

@@ -104,6 +104,16 @@ namespace ZUART
                 }
             }
 
+            int showStart = dataGridView1.FirstDisplayedScrollingRowIndex;
+            int showStop = dataGridView1.FirstDisplayedScrollingRowIndex + dataGridView1.DisplayedRowCount(false);
+
+            if (send_index < showStart)
+                dataGridView1.FirstDisplayedScrollingRowIndex = send_index;
+            else if (send_index > showStop)
+            {
+                dataGridView1.FirstDisplayedScrollingRowIndex = send_index + 1 - dataGridView1.DisplayedRowCount(false);
+            }
+
             dataGridView1.Rows[send_index].Selected = true;
             item = (BatchSendItem)this.dataGridView1.Rows[send_index].Tag;
             send_index++;
