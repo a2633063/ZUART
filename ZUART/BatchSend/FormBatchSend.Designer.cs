@@ -41,6 +41,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.拷贝toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清空ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnUp = new System.Windows.Forms.Button();
             this.btnDown = new System.Windows.Forms.Button();
-            this.拷贝toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -184,6 +184,13 @@
             this.新增ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.新增ToolStripMenuItem.Text = "新增(&N)";
             this.新增ToolStripMenuItem.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // 拷贝toolStripMenuItem
+            // 
+            this.拷贝toolStripMenuItem.Name = "拷贝toolStripMenuItem";
+            this.拷贝toolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.拷贝toolStripMenuItem.Text = "复制(&C)";
+            this.拷贝toolStripMenuItem.Click += new System.EventHandler(this.拷贝toolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -329,13 +336,6 @@
             this.btnDown.Text = "∨";
             this.btnDown.UseVisualStyleBackColor = true;
             this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
-            // 
-            // 拷贝toolStripMenuItem
-            // 
-            this.拷贝toolStripMenuItem.Name = "拷贝toolStripMenuItem";
-            this.拷贝toolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.拷贝toolStripMenuItem.Text = "拷贝(&C)";
-            this.拷贝toolStripMenuItem.Click += new System.EventHandler(this.拷贝toolStripMenuItem_Click);
             // 
             // FormBatchSend
             // 

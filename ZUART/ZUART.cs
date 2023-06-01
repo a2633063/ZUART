@@ -181,5 +181,9 @@ namespace ZUART
                 this.Icon = Properties.Resources.zuart_open_2;
         }
 
+        private void labSplitSwitch_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace ZUARTControl
             this.components = new System.ComponentModel.Container();
             this.panel_Setting = new System.Windows.Forms.Panel();
             this.groupboxSendSetting = new System.Windows.Forms.GroupBox();
+            this.chkfromFileSend = new System.Windows.Forms.CheckBox();
             this.txtAutoSendms = new System.Windows.Forms.TextBox();
             this.chkAutoCleanSend = new System.Windows.Forms.CheckBox();
             this.chkAutoSend = new System.Windows.Forms.CheckBox();
@@ -46,8 +47,6 @@ namespace ZUARTControl
             this.lkbSendKey = new System.Windows.Forms.LinkLabel();
             this.lkbClearSend = new System.Windows.Forms.LinkLabel();
             this.groupboxRecSetting = new System.Windows.Forms.GroupBox();
-            this.chkRTS = new System.Windows.Forms.CheckBox();
-            this.chkDTR = new System.Windows.Forms.CheckBox();
             this.chkAutoScroll = new System.Windows.Forms.CheckBox();
             this.chkRecSend = new System.Windows.Forms.CheckBox();
             this.lkbSaveRev = new System.Windows.Forms.LinkLabel();
@@ -59,6 +58,8 @@ namespace ZUARTControl
             this.chkShowTime = new System.Windows.Forms.CheckBox();
             this.chkAutoLine = new System.Windows.Forms.CheckBox();
             this.groupBoxComSetting = new System.Windows.Forms.GroupBox();
+            this.chkDTR = new System.Windows.Forms.CheckBox();
+            this.chkRTS = new System.Windows.Forms.CheckBox();
             this.cbbParity = new System.Windows.Forms.ComboBox();
             this.cbbStopBits = new System.Windows.Forms.ComboBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -78,7 +79,6 @@ namespace ZUARTControl
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkfromFileSend = new System.Windows.Forms.CheckBox();
             this.panel_Setting.SuspendLayout();
             this.groupboxSendSetting.SuspendLayout();
             this.groupboxRecSetting.SuspendLayout();
@@ -102,7 +102,7 @@ namespace ZUARTControl
             // 
             // groupboxSendSetting
             // 
-            this.groupboxSendSetting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupboxSendSetting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupboxSendSetting.Controls.Add(this.chkfromFileSend);
             this.groupboxSendSetting.Controls.Add(this.txtAutoSendms);
@@ -122,6 +122,17 @@ namespace ZUARTControl
             this.groupboxSendSetting.TabIndex = 3;
             this.groupboxSendSetting.TabStop = false;
             this.groupboxSendSetting.Text = "发送区设置";
+            // 
+            // chkfromFileSend
+            // 
+            this.chkfromFileSend.AutoSize = true;
+            this.chkfromFileSend.Location = new System.Drawing.Point(9, 38);
+            this.chkfromFileSend.Name = "chkfromFileSend";
+            this.chkfromFileSend.Size = new System.Drawing.Size(108, 16);
+            this.chkfromFileSend.TabIndex = 2;
+            this.chkfromFileSend.Text = "打开文件数据源";
+            this.chkfromFileSend.UseVisualStyleBackColor = true;
+            this.chkfromFileSend.CheckedChanged += new System.EventHandler(this.chkfromFileSend_CheckedChanged);
             // 
             // txtAutoSendms
             // 
@@ -269,34 +280,6 @@ namespace ZUARTControl
             this.groupboxRecSetting.TabStop = false;
             this.groupboxRecSetting.Text = "接收区设置";
             // 
-            // chkRTS
-            // 
-            this.chkRTS.AutoSize = true;
-            this.chkRTS.Checked = true;
-            this.chkRTS.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRTS.Enabled = false;
-            this.chkRTS.Location = new System.Drawing.Point(22, 153);
-            this.chkRTS.Name = "chkRTS";
-            this.chkRTS.Size = new System.Drawing.Size(47, 18);
-            this.chkRTS.TabIndex = 2;
-            this.chkRTS.Text = "RTS";
-            this.chkRTS.UseVisualStyleBackColor = true;
-            this.chkRTS.CheckedChanged += new System.EventHandler(this.chkRTS_DTR_CheckedChanged);
-            // 
-            // chkDTR
-            // 
-            this.chkDTR.AutoSize = true;
-            this.chkDTR.Checked = true;
-            this.chkDTR.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDTR.Enabled = false;
-            this.chkDTR.Location = new System.Drawing.Point(77, 154);
-            this.chkDTR.Name = "chkDTR";
-            this.chkDTR.Size = new System.Drawing.Size(47, 18);
-            this.chkDTR.TabIndex = 1;
-            this.chkDTR.Text = "DTR";
-            this.chkDTR.UseVisualStyleBackColor = true;
-            this.chkDTR.CheckedChanged += new System.EventHandler(this.chkRTS_DTR_CheckedChanged);
-            // 
             // chkAutoScroll
             // 
             this.chkAutoScroll.AutoSize = true;
@@ -433,6 +416,34 @@ namespace ZUARTControl
             this.groupBoxComSetting.TabIndex = 1;
             this.groupBoxComSetting.TabStop = false;
             this.groupBoxComSetting.Text = "端口设置";
+            // 
+            // chkDTR
+            // 
+            this.chkDTR.AutoSize = true;
+            this.chkDTR.Checked = true;
+            this.chkDTR.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDTR.Enabled = false;
+            this.chkDTR.Location = new System.Drawing.Point(77, 154);
+            this.chkDTR.Name = "chkDTR";
+            this.chkDTR.Size = new System.Drawing.Size(47, 18);
+            this.chkDTR.TabIndex = 1;
+            this.chkDTR.Text = "DTR";
+            this.chkDTR.UseVisualStyleBackColor = true;
+            this.chkDTR.CheckedChanged += new System.EventHandler(this.chkRTS_DTR_CheckedChanged);
+            // 
+            // chkRTS
+            // 
+            this.chkRTS.AutoSize = true;
+            this.chkRTS.Checked = true;
+            this.chkRTS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRTS.Enabled = false;
+            this.chkRTS.Location = new System.Drawing.Point(22, 153);
+            this.chkRTS.Name = "chkRTS";
+            this.chkRTS.Size = new System.Drawing.Size(47, 18);
+            this.chkRTS.TabIndex = 2;
+            this.chkRTS.Text = "RTS";
+            this.chkRTS.UseVisualStyleBackColor = true;
+            this.chkRTS.CheckedChanged += new System.EventHandler(this.chkRTS_DTR_CheckedChanged);
             // 
             // cbbParity
             // 
@@ -644,17 +655,6 @@ namespace ZUARTControl
             this.toolStripMenuItem4.Text = "Shift+Enter发送,Enter换行";
             this.toolStripMenuItem4.CheckStateChanged += new System.EventHandler(this.toolStripMenuItem_CheckStateChanged);
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem_Click);
-            // 
-            // chkfromFileSend
-            // 
-            this.chkfromFileSend.AutoSize = true;
-            this.chkfromFileSend.Location = new System.Drawing.Point(9, 38);
-            this.chkfromFileSend.Name = "chkfromFileSend";
-            this.chkfromFileSend.Size = new System.Drawing.Size(108, 16);
-            this.chkfromFileSend.TabIndex = 2;
-            this.chkfromFileSend.Text = "打开文件数据源";
-            this.chkfromFileSend.UseVisualStyleBackColor = true;
-            this.chkfromFileSend.CheckedChanged += new System.EventHandler(this.chkfromFileSend_CheckedChanged);
             // 
             // ZuartControl
             // 
