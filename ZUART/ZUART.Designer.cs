@@ -47,29 +47,34 @@
             this.labSplit2Switch = new System.Windows.Forms.Label();
             this.labSplit1Switch = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabLeft = new System.Windows.Forms.TabControl();
+            this.PageDataSendRec = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabRight = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.menuTab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.移动到右侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.移动到左侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Log.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabLeft.SuspendLayout();
+            this.PageDataSendRec.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabRight.SuspendLayout();
             this.menuTab.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -199,9 +204,9 @@
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Font = new System.Drawing.Font("宋体", 10F);
-            this.btnSend.Location = new System.Drawing.Point(530, 19);
+            this.btnSend.Location = new System.Drawing.Point(516, 16);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(38, 84);
+            this.btnSend.Size = new System.Drawing.Size(38, 81);
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -209,11 +214,11 @@
             // txtSendData
             // 
             this.txtSendData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSendData.Location = new System.Drawing.Point(3, 19);
+            this.txtSendData.Location = new System.Drawing.Point(3, 16);
             this.txtSendData.Multiline = true;
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(527, 84);
+            this.txtSendData.Size = new System.Drawing.Size(513, 81);
             this.txtSendData.TabIndex = 1;
             // 
             // txtShowData
@@ -221,11 +226,11 @@
             this.txtShowData.AcceptsTab = true;
             this.txtShowData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtShowData.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txtShowData.Location = new System.Drawing.Point(3, 19);
+            this.txtShowData.Location = new System.Drawing.Point(0, 0);
             this.txtShowData.Multiline = true;
             this.txtShowData.Name = "txtShowData";
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtShowData.Size = new System.Drawing.Size(565, 446);
+            this.txtShowData.Size = new System.Drawing.Size(557, 442);
             this.txtShowData.TabIndex = 2;
             // 
             // labSplit2Switch
@@ -263,82 +268,96 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel1.Controls.Add(this.tabLeft);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel2.Controls.Add(this.tabRight);
             this.splitContainer1.Size = new System.Drawing.Size(931, 576);
             this.splitContainer1.SplitterDistance = 571;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.TabStop = false;
             // 
+            // tabLeft
+            // 
+            this.tabLeft.Controls.Add(this.PageDataSendRec);
+            this.tabLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabLeft.HotTrack = true;
+            this.tabLeft.Location = new System.Drawing.Point(0, 0);
+            this.tabLeft.Multiline = true;
+            this.tabLeft.Name = "tabLeft";
+            this.tabLeft.SelectedIndex = 0;
+            this.tabLeft.Size = new System.Drawing.Size(571, 576);
+            this.tabLeft.TabIndex = 4;
+            this.tabLeft.Click += new System.EventHandler(this.TabRight_Click);
+            // 
+            // PageDataSendRec
+            // 
+            this.PageDataSendRec.Controls.Add(this.splitContainer2);
+            this.PageDataSendRec.Location = new System.Drawing.Point(4, 22);
+            this.PageDataSendRec.Name = "PageDataSendRec";
+            this.PageDataSendRec.Padding = new System.Windows.Forms.Padding(3);
+            this.PageDataSendRec.Size = new System.Drawing.Size(563, 550);
+            this.PageDataSendRec.TabIndex = 0;
+            this.PageDataSendRec.Tag = "";
+            this.PageDataSendRec.Text = "数据收发";
+            this.PageDataSendRec.UseVisualStyleBackColor = true;
+            // 
             // splitContainer2
             // 
             this.splitContainer2.BackColor = System.Drawing.Color.Silver;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer2.Panel1.Controls.Add(this.groupBox2);
+            this.splitContainer2.Panel1.Controls.Add(this.txtShowData);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainer2.Size = new System.Drawing.Size(571, 576);
-            this.splitContainer2.SplitterDistance = 468;
+            this.splitContainer2.Size = new System.Drawing.Size(557, 544);
+            this.splitContainer2.SplitterDistance = 442;
             this.splitContainer2.SplitterWidth = 2;
             this.splitContainer2.TabIndex = 3;
             this.splitContainer2.TabStop = false;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtShowData);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(571, 468);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "数据接收区";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txtSendData);
             this.groupBox3.Controls.Add(this.btnSend);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
+            this.groupBox3.Font = new System.Drawing.Font("宋体", 8F);
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(571, 106);
+            this.groupBox3.Size = new System.Drawing.Size(557, 100);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
             // 
-            // tabControl1
+            // tabRight
             // 
-            this.tabControl1.AllowDrop = true;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(358, 576);
-            this.tabControl1.TabIndex = 4;
-            this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
-            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragDrop);
-            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragEnter);
+            this.tabRight.AllowDrop = true;
+            this.tabRight.Controls.Add(this.tabPage1);
+            this.tabRight.Controls.Add(this.tabPage2);
+            this.tabRight.Controls.Add(this.tabPage3);
+            this.tabRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabRight.HotTrack = true;
+            this.tabRight.Location = new System.Drawing.Point(0, 0);
+            this.tabRight.Multiline = true;
+            this.tabRight.Name = "tabRight";
+            this.tabRight.SelectedIndex = 0;
+            this.tabRight.Size = new System.Drawing.Size(358, 576);
+            this.tabRight.TabIndex = 4;
+            this.tabRight.Click += new System.EventHandler(this.TabRight_Click);
+            this.tabRight.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabRight_DragDrop);
+            this.tabRight.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabRight_DragEnter);
             // 
             // tabPage1
             // 
@@ -347,6 +366,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(350, 550);
             this.tabPage1.TabIndex = 0;
+            this.tabPage1.Tag = "";
             this.tabPage1.Text = "快捷发送";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -357,6 +377,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(350, 550);
             this.tabPage2.TabIndex = 2;
+            this.tabPage2.Tag = "";
             this.tabPage2.Text = "批量发送";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
@@ -367,6 +388,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(350, 550);
             this.tabPage3.TabIndex = 3;
+            this.tabPage3.Tag = "";
             this.tabPage3.Text = "ASCII";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -374,24 +396,46 @@
             // 
             this.menuTab.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.新增ToolStripMenuItem,
-            this.删除ToolStripMenuItem});
+            this.删除ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.移动到右侧ToolStripMenuItem,
+            this.移动到左侧ToolStripMenuItem});
             this.menuTab.Name = "menuTab";
-            this.menuTab.Size = new System.Drawing.Size(101, 48);
+            this.menuTab.Size = new System.Drawing.Size(137, 98);
             this.menuTab.Opening += new System.ComponentModel.CancelEventHandler(this.menuTab_Opening);
             // 
             // 新增ToolStripMenuItem
             // 
             this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
-            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.新增ToolStripMenuItem.Text = "新增";
             this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            // 
+            // 移动到右侧ToolStripMenuItem
+            // 
+            this.移动到右侧ToolStripMenuItem.Name = "移动到右侧ToolStripMenuItem";
+            this.移动到右侧ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.移动到右侧ToolStripMenuItem.Text = "移动到右侧";
+            this.移动到右侧ToolStripMenuItem.Click += new System.EventHandler(this.移动到右侧ToolStripMenuItem_Click);
+            // 
+            // 移动到左侧ToolStripMenuItem
+            // 
+            this.移动到左侧ToolStripMenuItem.Name = "移动到左侧ToolStripMenuItem";
+            this.移动到左侧ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.移动到左侧ToolStripMenuItem.Text = "移动到左侧";
+            this.移动到左侧ToolStripMenuItem.Click += new System.EventHandler(this.移动到左侧ToolStripMenuItem_Click);
             // 
             // ZUART
             // 
@@ -416,15 +460,16 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabLeft.ResumeLayout(false);
+            this.PageDataSendRec.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tabRight.ResumeLayout(false);
             this.menuTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -441,13 +486,12 @@
         private System.Windows.Forms.Timer timerIcon;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtSendData;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtShowData;
         private ZuartControl.ZuartControl zuartControl1;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabRight;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -458,6 +502,11 @@
         private System.Windows.Forms.ContextMenuStrip menuTab;
         private System.Windows.Forms.ToolStripMenuItem 新增ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabLeft;
+        private System.Windows.Forms.TabPage PageDataSendRec;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem 移动到右侧ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 移动到左侧ToolStripMenuItem;
     }
 }
 

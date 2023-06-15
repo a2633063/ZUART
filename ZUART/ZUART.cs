@@ -61,12 +61,16 @@ namespace ZUART
              }*/
             #endregion
 
+            tabPage1.Tag = false;
+            tabPage2.Tag = false;
+            tabPage3.Tag = false;
+            PageDataSendRec.Tag = false;
             int i = 0;
             FormChild.Add(new FormShortcutSend(zuartControl1));
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
-            this.tabPage1.Controls.Add(FormChild[i]);
+            tabPage1.Controls.Add(FormChild[i]);
             FormChild[i].Show();
 
             i++;
@@ -74,7 +78,7 @@ namespace ZUART
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
-            this.tabPage2.Controls.Add(FormChild[i]);
+            tabPage2.Controls.Add(FormChild[i]);
             FormChild[i].Show();
 
             i++;
@@ -82,7 +86,7 @@ namespace ZUART
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
-            this.tabPage3.Controls.Add(FormChild[i]);
+            tabPage3.Controls.Add(FormChild[i]);
             FormChild[i].Show();
 
 
@@ -237,8 +241,8 @@ namespace ZUART
                         userForm.Parent = tabPageNew;
                         tabPageNew.Controls.Add(userForm);
                         userForm.Show();
-                        this.tabControl1.Controls.Add(tabPageNew);
-                        tabControl1.SelectedTab = tabPageNew;
+                        this.tabRight.Controls.Add(tabPageNew);
+                        tabRight.SelectedTab = tabPageNew;
                         FormChild.Add(userForm);
                         tabPage.Add(dll_file_name);
 
@@ -258,8 +262,8 @@ namespace ZUART
                         tabPageNew.Size = new Size(35, 550);
                         tabPageNew.TabIndex = 0;
                         tabPageNew.Controls.Add(userControl);
-                        this.tabControl1.Controls.Add(tabPageNew);
-                        tabControl1.SelectedTab = tabPageNew;
+                        this.tabRight.Controls.Add(tabPageNew);
+                        tabRight.SelectedTab = tabPageNew;
 
                     }
                 }
@@ -272,7 +276,7 @@ namespace ZUART
         }
 
 
-        private void tabControl1_DragEnter(object sender, DragEventArgs e)
+        private void TabRight_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -284,7 +288,7 @@ namespace ZUART
             }
         }
 
-        private void tabControl1_DragDrop(object sender, DragEventArgs e)
+        private void TabRight_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length < 1) return;
@@ -303,28 +307,47 @@ namespace ZUART
             }
         }
 
-        private void tabControl1_Click(object sender, EventArgs ee)
+        private void TabRight_Click(object sender, EventArgs ee)
         {
             MouseEventArgs e = (MouseEventArgs)ee;
             if (e.Button == MouseButtons.Right && e.Clicks == 1)
             {
                 Point p = new Point(e.X, e.Y);
-                for (int i = 0; i < tabControl1.TabCount; i++)
+                for (int i = 0; i < ((TabControl)sender).TabCount; i++)
                 {
-                    Rectangle rect = tabControl1.GetTabRect(i);
+                    Rectangle rect = ((TabControl)sender).GetTabRect(i);
                     if (rect.Contains(p))
                     {
-                        tabControl1.SelectedIndex = i;
+                        ((TabControl)sender).SelectedIndex = i;
                         break;
                     }
                 }
-                menuTab.Show(tabControl1, p);
+                menuTab.Show(((TabControl)sender), p);
             }
         }
+        #region TabPage 菜单相关功能
 
         private void menuTab_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            删除ToolStripMenuItem.Enabled = tabControl1.SelectedIndex > 2;
+            object obj = ((ContextMenuStrip)sender).SourceControl;
+
+
+
+
+            if (obj.GetType() == typeof(TabControl))
+            {
+                TabControl tab = (TabControl)obj;
+
+                删除ToolStripMenuItem.Enabled = !(tab.SelectedTab.Tag!=null && tab.SelectedTab.Tag.GetType() == typeof(bool) && !(bool)tab.SelectedTab.Tag);
+                移动到左侧ToolStripMenuItem.Visible = (obj == tabRight);
+                移动到右侧ToolStripMenuItem.Visible = (obj == tabLeft);
+
+                移动到左侧ToolStripMenuItem.Enabled = (tab.TabCount >1);
+                移动到右侧ToolStripMenuItem.Enabled = (tab.TabCount > 1);
+
+            }
+
+
 
         }
 
@@ -342,7 +365,7 @@ namespace ZUART
 
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = FormChild[tabControl1.SelectedIndex];
+            Form form = FormChild[tabRight.SelectedIndex];
             form.Close();
             if (form != null && !form.IsDisposed)
             {
@@ -350,8 +373,36 @@ namespace ZUART
                 form.Dispose();
             }
             FormChild.Remove(form);
-            tabPage.RemoveAt(tabControl1.SelectedIndex-3);
-            tabControl1.TabPages.RemoveAt(tabControl1.SelectedIndex);
+            tabPage.RemoveAt(tabRight.SelectedIndex - 3);
+            tabRight.TabPages.RemoveAt(tabRight.SelectedIndex);
+
+        }
+
+        private void 移动到右侧ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            object obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+            if (obj.GetType() == typeof(TabControl))
+            {
+                TabControl tab = (TabControl)obj;
+                TabPage t = tab.SelectedTab;
+                tab.TabPages.Remove(t);
+                tabRight.TabPages.Add(t);
+                tabRight.SelectedTab=t;
+            }
+        }
+        #endregion
+
+        private void 移动到左侧ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            object obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+            if (obj.GetType() == typeof(TabControl))
+            {
+                TabControl tab = (TabControl)obj;
+                TabPage t = tab.SelectedTab;
+                tab.TabPages.Remove(t);
+                tabLeft.TabPages.Add(t);
+                tabLeft.SelectedTab = t;
+            }
 
         }
     }
