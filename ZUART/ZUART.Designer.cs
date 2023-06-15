@@ -38,24 +38,27 @@
             this.lblSendCount = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timerIcon = new System.Windows.Forms.Timer(this.components);
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtSendData = new System.Windows.Forms.TextBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.zuartControl1 = new ZuartControl.ZuartControl();
             this.btnSend = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtSendData = new System.Windows.Forms.TextBox();
             this.txtShowData = new System.Windows.Forms.TextBox();
+            this.labSplit2Switch = new System.Windows.Forms.Label();
+            this.labSplit1Switch = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.zuartControl1 = new ZuartControl.ZuartControl();
-            this.labSplitSwitch = new System.Windows.Forms.Label();
+            this.menuTab = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Log.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,8 +67,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.menuTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Log
@@ -151,28 +156,44 @@
             this.timerIcon.Interval = 300;
             this.timerIcon.Tick += new System.EventHandler(this.timerIcon_Tick);
             // 
-            // groupBox3
+            // imageList1
             // 
-            this.groupBox3.Controls.Add(this.txtSendData);
-            this.groupBox3.Controls.Add(this.btnSend);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(571, 106);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "数据发送区";
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // txtSendData
+            // panel1
             // 
-            this.txtSendData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSendData.Location = new System.Drawing.Point(3, 19);
-            this.txtSendData.Multiline = true;
-            this.txtSendData.Name = "txtSendData";
-            this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtSendData.Size = new System.Drawing.Size(527, 84);
-            this.txtSendData.TabIndex = 1;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.Silver;
+            this.panel1.Controls.Add(this.zuartControl1);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(165, 576);
+            this.panel1.TabIndex = 5;
+            // 
+            // zuartControl1
+            // 
+            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.zuartControl1.AutoLine = false;
+            this.zuartControl1.ButtonSend = this.btnSend;
+            this.zuartControl1.Labellog = this.Log;
+            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
+            this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.zuartControl1.Name = "zuartControl1";
+            this.zuartControl1.RevCount = ((ulong)(0ul));
+            this.zuartControl1.SendCount = ((ulong)(0ul));
+            this.zuartControl1.SendFileName = null;
+            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
+            this.zuartControl1.TabIndex = 1;
+            this.zuartControl1.TextBoxSendData = this.txtSendData;
+            this.zuartControl1.TextBoxShowData = this.txtShowData;
+            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
+            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
+            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
             // 
             // btnSend
             // 
@@ -185,17 +206,15 @@
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // txtSendData
             // 
-            this.groupBox2.Controls.Add(this.txtShowData);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(571, 468);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "数据接收区";
+            this.txtSendData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSendData.Location = new System.Drawing.Point(3, 19);
+            this.txtSendData.Multiline = true;
+            this.txtSendData.Name = "txtSendData";
+            this.txtSendData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtSendData.Size = new System.Drawing.Size(527, 84);
+            this.txtSendData.TabIndex = 1;
             // 
             // txtShowData
             // 
@@ -208,6 +227,29 @@
             this.txtShowData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtShowData.Size = new System.Drawing.Size(565, 446);
             this.txtShowData.TabIndex = 2;
+            // 
+            // labSplit2Switch
+            // 
+            this.labSplit2Switch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labSplit2Switch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(128)))), ((int)(((byte)(64)))));
+            this.labSplit2Switch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labSplit2Switch.Location = new System.Drawing.Point(1091, 60);
+            this.labSplit2Switch.Name = "labSplit2Switch";
+            this.labSplit2Switch.Size = new System.Drawing.Size(5, 130);
+            this.labSplit2Switch.TabIndex = 6;
+            this.labSplit2Switch.Text = "label1";
+            this.labSplit2Switch.Click += new System.EventHandler(this.labSplit2Switch_Click);
+            // 
+            // labSplit1Switch
+            // 
+            this.labSplit1Switch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(128)))), ((int)(((byte)(64)))));
+            this.labSplit1Switch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labSplit1Switch.Location = new System.Drawing.Point(164, 60);
+            this.labSplit1Switch.Name = "labSplit1Switch";
+            this.labSplit1Switch.Size = new System.Drawing.Size(4, 130);
+            this.labSplit1Switch.TabIndex = 6;
+            this.labSplit1Switch.Text = "label1";
+            this.labSplit1Switch.Click += new System.EventHandler(this.labSplit1Switch_Click);
             // 
             // splitContainer1
             // 
@@ -256,17 +298,47 @@
             this.splitContainer2.TabIndex = 3;
             this.splitContainer2.TabStop = false;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtShowData);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Font = new System.Drawing.Font("宋体", 10F);
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(571, 468);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "数据接收区";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtSendData);
+            this.groupBox3.Controls.Add(this.btnSend);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Font = new System.Drawing.Font("宋体", 10F);
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(571, 106);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "数据发送区";
+            // 
             // tabControl1
             // 
+            this.tabControl1.AllowDrop = true;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(358, 576);
             this.tabControl1.TabIndex = 4;
+            this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
+            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragDrop);
+            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragEnter);
             // 
             // tabPage1
             // 
@@ -298,63 +370,36 @@
             this.tabPage3.Text = "ASCII";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // imageList1
+            // menuTab
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.menuTab.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.新增ToolStripMenuItem,
+            this.删除ToolStripMenuItem});
+            this.menuTab.Name = "menuTab";
+            this.menuTab.Size = new System.Drawing.Size(101, 48);
+            this.menuTab.Opening += new System.ComponentModel.CancelEventHandler(this.menuTab_Opening);
             // 
-            // panel1
+            // 新增ToolStripMenuItem
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.BackColor = System.Drawing.Color.Silver;
-            this.panel1.Controls.Add(this.zuartControl1);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(165, 576);
-            this.panel1.TabIndex = 5;
+            this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.新增ToolStripMenuItem.Text = "新增";
+            this.新增ToolStripMenuItem.Click += new System.EventHandler(this.新增ToolStripMenuItem_Click);
             // 
-            // zuartControl1
+            // 删除ToolStripMenuItem
             // 
-            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.zuartControl1.AutoLine = false;
-            this.zuartControl1.ButtonSend = this.btnSend;
-            this.zuartControl1.Labellog = this.Log;
-            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
-            this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.zuartControl1.Name = "zuartControl1";
-            this.zuartControl1.RevCount = ((ulong)(0ul));
-            this.zuartControl1.SendCount = ((ulong)(0ul));
-            this.zuartControl1.SendFileName = null;
-            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
-            this.zuartControl1.TabIndex = 1;
-            this.zuartControl1.TextBoxSendData = this.txtSendData;
-            this.zuartControl1.TextBoxShowData = this.txtShowData;
-            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
-            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
-            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
-            // 
-            // labSplitSwitch
-            // 
-            this.labSplitSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labSplitSwitch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(128)))), ((int)(((byte)(64)))));
-            this.labSplitSwitch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labSplitSwitch.Location = new System.Drawing.Point(1091, 60);
-            this.labSplitSwitch.Name = "labSplitSwitch";
-            this.labSplitSwitch.Size = new System.Drawing.Size(5, 130);
-            this.labSplitSwitch.TabIndex = 6;
-            this.labSplitSwitch.Text = "label1";
-            this.labSplitSwitch.Click += new System.EventHandler(this.labSplitSwitch_Click);
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 601);
-            this.Controls.Add(this.labSplitSwitch);
+            this.Controls.Add(this.labSplit2Switch);
+            this.Controls.Add(this.labSplit1Switch);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel_Log);
@@ -366,10 +411,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ZUART_FormClosing);
             this.panel_Log.ResumeLayout(false);
             this.panel_Log.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -378,8 +420,12 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.menuTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -407,7 +453,11 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labSplitSwitch;
+        private System.Windows.Forms.Label labSplit2Switch;
+        private System.Windows.Forms.Label labSplit1Switch;
+        private System.Windows.Forms.ContextMenuStrip menuTab;
+        private System.Windows.Forms.ToolStripMenuItem 新增ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
     }
 }
 

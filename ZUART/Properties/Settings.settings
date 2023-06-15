@@ -383,5 +383,14 @@
     <Setting Name="menuItemSendKey4" Type="System.Windows.Forms.CheckState" Scope="User">
       <Value Profile="(Default)">Unchecked</Value>
     </Setting>
+    <Setting Name="tabPage" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Panel1Collapsed" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Panel2Collapsed" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

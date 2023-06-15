@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using ZUART.Properties;
+using static System.Net.WebRequestMethods;
 
 namespace ZUART
 {
@@ -10,8 +15,9 @@ namespace ZUART
         Button[] ListSendButton = new Button[ListSend_Count];
         TextBox[] ListSendTextBox = new TextBox[ListSend_Count];
         CheckBox[] ListSendCheckBox = new CheckBox[ListSend_Count];
+        List<Form> FormChild = new List<Form> { };
+        List<string> tabPage = new List<string> { };
 
-        Form[] FormChild;
         public ZUART()
         {
             InitializeComponent();
@@ -55,10 +61,8 @@ namespace ZUART
              }*/
             #endregion
 
-            FormChild = new Form[tabControl1.TabCount];
             int i = 0;
-
-            FormChild[i] = new FormShortcutSend(zuartControl1);
+            FormChild.Add(new FormShortcutSend(zuartControl1));
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
@@ -66,7 +70,7 @@ namespace ZUART
             FormChild[i].Show();
 
             i++;
-            FormChild[i] = new FormBatchSend(zuartControl1);
+            FormChild.Add(new FormBatchSend(zuartControl1));
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
@@ -74,20 +78,39 @@ namespace ZUART
             FormChild[i].Show();
 
             i++;
-            FormChild[i] = new FormASCII();
+            FormChild.Add(new FormASCII());
             FormChild[i].TopLevel = false; //指示子窗体非顶级窗体
             FormChild[i].Dock = DockStyle.Fill;//将窗体最大化填充
             FormChild[i].FormBorderStyle = FormBorderStyle.None;
             this.tabPage3.Controls.Add(FormChild[i]);
             FormChild[i].Show();
 
+
+            string[] files = Properties.Settings.Default.tabPage.Split('|');
+            foreach (string file in files)
+            {
+                ImportDllForm(file);
+            }
+
+            splitContainer1.Panel1Collapsed = Properties.Settings.Default.Panel1Collapsed;
+            splitContainer1.Panel2Collapsed = Properties.Settings.Default.Panel2Collapsed;
         }
         #endregion
 
         private void setting_save(object sender, EventArgs e)
         {
+            string str = "";
+            foreach (string s in tabPage)
+            {
+                str = str + "|" + s;
+            }
+
+            Properties.Settings.Default.tabPage=str;
+            Properties.Settings.Default.Panel1Collapsed = splitContainer1.Panel1Collapsed;
+            Properties.Settings.Default.Panel2Collapsed = splitContainer1.Panel2Collapsed;
             Properties.Settings.Default.Save();
         }
+
         private void ZUART_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (FormChild != null)
@@ -95,7 +118,10 @@ namespace ZUART
                 foreach (Form form in FormChild)
                 {
                     if (form != null && !form.IsDisposed)
+                    {
                         form.Close();
+                        form.Dispose();
+                    }
                 }
             }
             setting_save(null, null);
@@ -171,9 +197,163 @@ namespace ZUART
                 this.Icon = Properties.Resources.zuart_open_2;
         }
 
-        private void labSplitSwitch_Click(object sender, EventArgs e)
+        private void labSplit1Switch_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !splitContainer1.Panel1Collapsed;
+        }
+        private void labSplit2Switch_Click(object sender, EventArgs e)
         {
             splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
         }
+
+        private void ImportDllForm(string dll_file_name)
+        {
+            if (dll_file_name == null || !System.IO.File.Exists(dll_file_name)) return;
+            if (!Path.GetExtension(dll_file_name).Equals(".dll")) return;
+
+            Assembly assembly1 = Assembly.LoadFrom(dll_file_name);
+            Type[] ty = assembly1.GetTypes();//只好得到所有的类型名，然后遍历，通过类型名字来区别了
+
+            foreach (Type tp in ty)
+            {
+
+                try
+                {
+                    if (tp.BaseType.FullName.Equals("System.Windows.Forms.Form"))
+                    {
+                        Form userForm = (Form)Activator.CreateInstance(tp, new object[] { zuartControl1 });
+                        userForm.Location = new Point(0, 0);
+                        userForm.TopLevel = false;
+                        userForm.Dock = DockStyle.Fill;
+                        userForm.FormBorderStyle = FormBorderStyle.None;
+                        string title = userForm.Text;
+                        if (String.IsNullOrWhiteSpace(title)) title = "自定义控件";
+                        TabPage tabPageNew = new TabPage(title);
+                        tabPageNew.Location = new System.Drawing.Point(4, 22);
+                        tabPageNew.Name = "tabPageNew";
+                        tabPageNew.Padding = new Padding(3);
+                        tabPageNew.Size = new Size(35, 550);
+                        tabPageNew.TabIndex = 0;
+                        userForm.Parent = tabPageNew;
+                        tabPageNew.Controls.Add(userForm);
+                        userForm.Show();
+                        this.tabControl1.Controls.Add(tabPageNew);
+                        tabControl1.SelectedTab = tabPageNew;
+                        FormChild.Add(userForm);
+                        tabPage.Add(dll_file_name);
+
+                    }
+                    else if (tp.BaseType.FullName.Equals("System.Windows.Forms.UserControl"))
+                    {
+                        UserControl userControl = (UserControl)Activator.CreateInstance(tp, new object[] { zuartControl1 });
+                        userControl.Location = new Point(0, 0);
+                        userControl.Dock = DockStyle.Fill;
+                        string title = userControl.Name;
+                        if (String.IsNullOrWhiteSpace(title)) title = "自定义控件";
+
+                        TabPage tabPageNew = new TabPage(title);
+                        tabPageNew.Location = new System.Drawing.Point(4, 22);
+                        tabPageNew.Name = "tabPageNew";
+                        tabPageNew.Padding = new Padding(3);
+                        tabPageNew.Size = new Size(35, 550);
+                        tabPageNew.TabIndex = 0;
+                        tabPageNew.Controls.Add(userControl);
+                        this.tabControl1.Controls.Add(tabPageNew);
+                        tabControl1.SelectedTab = tabPageNew;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "导入错误");
+                    //throw;
+                }
+            }
+        }
+
+
+        private void tabControl1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void tabControl1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length < 1) return;
+            foreach (string file in files)
+            {
+                if (!Path.GetExtension(file).Equals(".dll"))
+                {
+                    MessageBox.Show("仅支持form窗口的dll文件拖到到tabPage", "错误");
+                    return;
+                }
+            }
+            foreach (string file in files)
+            {
+
+                ImportDllForm(file);
+            }
+        }
+
+        private void tabControl1_Click(object sender, EventArgs ee)
+        {
+            MouseEventArgs e = (MouseEventArgs)ee;
+            if (e.Button == MouseButtons.Right && e.Clicks == 1)
+            {
+                Point p = new Point(e.X, e.Y);
+                for (int i = 0; i < tabControl1.TabCount; i++)
+                {
+                    Rectangle rect = tabControl1.GetTabRect(i);
+                    if (rect.Contains(p))
+                    {
+                        tabControl1.SelectedIndex = i;
+                        break;
+                    }
+                }
+                menuTab.Show(tabControl1, p);
+            }
+        }
+
+        private void menuTab_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            删除ToolStripMenuItem.Enabled = tabControl1.SelectedIndex > 2;
+
+        }
+
+        private void 新增ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string dll_file_name;
+            OpenFileDialog ofdg = new OpenFileDialog();
+            ofdg.DefaultExt = "*.dll";
+            if (ofdg.ShowDialog(this) != DialogResult.OK) return;
+
+
+            dll_file_name = ofdg.FileName;//得到选择的文件的完整路径
+            ImportDllForm(dll_file_name);
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = FormChild[tabControl1.SelectedIndex];
+            form.Close();
+            if (form != null && !form.IsDisposed)
+            {
+                form.Close();
+                form.Dispose();
+            }
+            FormChild.Remove(form);
+            tabPage.RemoveAt(tabControl1.SelectedIndex-3);
+            tabControl1.TabPages.RemoveAt(tabControl1.SelectedIndex);
+
+        }
     }
 }
+
