@@ -40,7 +40,9 @@
             this.timerIcon = new System.Windows.Forms.Timer(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.zuartControl1 = new ZuartControl.ZuartControl();
             this.btnSend = new System.Windows.Forms.Button();
+            this.rtxShowData = new System.Windows.Forms.RichTextBox();
             this.txtSendData = new System.Windows.Forms.TextBox();
             this.labSplit2Switch = new System.Windows.Forms.Label();
             this.labSplit1Switch = new System.Windows.Forms.Label();
@@ -59,8 +61,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.移动到右侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.移动到左侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rtxShowData = new System.Windows.Forms.RichTextBox();
-            this.zuartControl1 = new ZuartControl.ZuartControl();
             this.panel_Log.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -179,6 +179,27 @@
             this.panel1.Size = new System.Drawing.Size(165, 576);
             this.panel1.TabIndex = 5;
             // 
+            // zuartControl1
+            // 
+            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.zuartControl1.AutoLine = false;
+            this.zuartControl1.ButtonSend = this.btnSend;
+            this.zuartControl1.Labellog = this.Log;
+            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
+            this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.zuartControl1.Name = "zuartControl1";
+            this.zuartControl1.RevCount = ((ulong)(0ul));
+            this.zuartControl1.RichTextBoxShowData = this.rtxShowData;
+            this.zuartControl1.SendCount = ((ulong)(0ul));
+            this.zuartControl1.SendFileName = null;
+            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
+            this.zuartControl1.TabIndex = 1;
+            this.zuartControl1.TextBoxSendData = this.txtSendData;
+            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
+            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
+            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
+            // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
@@ -189,6 +210,16 @@
             this.btnSend.TabIndex = 2;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
+            // 
+            // rtxShowData
+            // 
+            this.rtxShowData.AcceptsTab = true;
+            this.rtxShowData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxShowData.Location = new System.Drawing.Point(0, 0);
+            this.rtxShowData.Name = "rtxShowData";
+            this.rtxShowData.Size = new System.Drawing.Size(557, 442);
+            this.rtxShowData.TabIndex = 0;
+            this.rtxShowData.Text = "";
             // 
             // txtSendData
             // 
@@ -403,37 +434,6 @@
             this.移动到左侧ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.移动到左侧ToolStripMenuItem.Text = "移动到左侧";
             this.移动到左侧ToolStripMenuItem.Click += new System.EventHandler(this.移动到左侧ToolStripMenuItem_Click);
-            // 
-            // rtxShowData
-            // 
-            this.rtxShowData.AcceptsTab = true;
-            this.rtxShowData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxShowData.Location = new System.Drawing.Point(0, 0);
-            this.rtxShowData.Name = "rtxShowData";
-            this.rtxShowData.Size = new System.Drawing.Size(557, 442);
-            this.rtxShowData.TabIndex = 0;
-            this.rtxShowData.Text = "";
-            // 
-            // zuartControl1
-            // 
-            this.zuartControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.zuartControl1.AutoLine = false;
-            this.zuartControl1.ButtonSend = this.btnSend;
-            this.zuartControl1.Labellog = this.Log;
-            this.zuartControl1.Location = new System.Drawing.Point(0, 0);
-            this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.zuartControl1.Name = "zuartControl1";
-            this.zuartControl1.RevCount = ((ulong)(0ul));
-            this.zuartControl1.RichTextBoxShowData = this.rtxShowData;
-            this.zuartControl1.SendCount = ((ulong)(0ul));
-            this.zuartControl1.SendFileName = null;
-            this.zuartControl1.Size = new System.Drawing.Size(163, 576);
-            this.zuartControl1.TabIndex = 1;
-            this.zuartControl1.TextBoxSendData = this.txtSendData;
-            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
-            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
-            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
             // 
             // ZUART
             // 

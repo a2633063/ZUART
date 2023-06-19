@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
@@ -159,6 +159,12 @@
     <Compile Include="BatchSend\FormBatchSend.Designer.cs">
       <DependentUpon>FormBatchSend.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCustomize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCustomize.Designer.cs">
+      <DependentUpon>FormCustomize.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BatchSend\FormBatchSend.resx">
       <DependentUpon>FormBatchSend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCustomize.resx">
+      <DependentUpon>FormCustomize.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>

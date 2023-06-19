@@ -98,6 +98,30 @@ namespace ZUART
 
             splitContainer1.Panel1Collapsed = Properties.Settings.Default.Panel1Collapsed;
             splitContainer1.Panel2Collapsed = Properties.Settings.Default.Panel2Collapsed;
+
+#if CUSTOM_PARSING
+            Form userForm = new FormCustomize(zuartControl1);
+            userForm.Location = new Point(0, 0);
+            userForm.TopLevel = false;
+            userForm.Dock = DockStyle.Fill;
+            userForm.BackColor = Color.White;
+            userForm.FormBorderStyle = FormBorderStyle.None;
+
+            string title = userForm.Text;
+            if (String.IsNullOrWhiteSpace(title)) title = "自定义控件";
+            TabPage tabPageNew = new TabPage(title);
+            tabPageNew.Location = new System.Drawing.Point(4, 22);
+            tabPageNew.Name = "tabPageNew";
+            tabPageNew.Padding = new Padding(3);
+            tabPageNew.Size = new Size(35, 550);
+            tabPageNew.TabIndex = 0;
+            tabPageNew.BackColor = Color.White;
+            userForm.Parent = tabPageNew;
+            tabPageNew.Controls.Add(userForm);
+            userForm.Show();
+            tabLeft.Controls.Add(tabPageNew);
+            tabLeft.SelectedTab = tabPageNew;
+#endif
         }
         #endregion
 
