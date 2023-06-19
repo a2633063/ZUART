@@ -120,7 +120,8 @@ namespace ZUART
             tabPageNew.Controls.Add(userForm);
             userForm.Show();
             tabLeft.Controls.Add(tabPageNew);
-            tabLeft.SelectedTab = tabPageNew;
+            tabLeft.SelectedIndex = 0;
+            移动到右侧ToolStripMenuItem_Click(null,null); 
 #endif
         }
         #endregion
@@ -404,21 +405,34 @@ namespace ZUART
 
         private void 移动到右侧ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+            object obj;
+            if (sender == null)
+            {
+                obj = tabLeft;
+            }
+            else
+                obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+
             if (obj.GetType() == typeof(TabControl))
             {
                 TabControl tab = (TabControl)obj;
                 TabPage t = tab.SelectedTab;
                 tab.TabPages.Remove(t);
                 tabRight.TabPages.Add(t);
-                tabRight.SelectedTab=t;
+                tabRight.SelectedTab = t;
             }
         }
-        #endregion
 
         private void 移动到左侧ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+            object obj;
+            if (sender == null)
+            {
+                obj = tabLeft;
+            }
+            else
+                obj = ((ContextMenuStrip)((ToolStripMenuItem)sender).GetCurrentParent()).SourceControl;
+
             if (obj.GetType() == typeof(TabControl))
             {
                 TabControl tab = (TabControl)obj;
@@ -429,6 +443,7 @@ namespace ZUART
             }
 
         }
+        #endregion
     }
 }
 
