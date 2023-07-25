@@ -196,9 +196,9 @@
             this.zuartControl1.Size = new System.Drawing.Size(163, 576);
             this.zuartControl1.TabIndex = 1;
             this.zuartControl1.TextBoxSendData = this.txtSendData;
-            this.zuartControl1.ComConnectState += new System.EventHandler<ZuartControl.ZuartControl.ComConnectState_EventArgs>(this.zuartControl1_ComConnectState);
-            this.zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
-            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataSend);
+            this.zuartControl1.ConnectState += new System.EventHandler<ZuartControl.ZuartControl.ConnectState_EventArgs>(this.zuartControl1_ComConnectState);
+            this.zuartControl1.DataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.Data_EventArgs>(this.zuartControl1_DataReceived);
+            this.zuartControl1.ComDataSend += new System.EventHandler<ZuartControl.ZuartControl.Data_EventArgs>(this.zuartControl1_DataSend);
             // 
             // btnSend
             // 

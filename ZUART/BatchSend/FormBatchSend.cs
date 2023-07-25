@@ -133,9 +133,9 @@ namespace ZUART
         {
             if (start)
             {
-                if (!zuartControl.IsComOpen)
+                if (!zuartControl.IsComOrNetOpen)
                 {
-                    MessageBox.Show("串口未开启");
+                    MessageBox.Show("通信未开启");
                     return;
                 }
                 //dataGridView1.ClearSelection();

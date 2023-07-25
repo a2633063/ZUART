@@ -25,11 +25,11 @@ namespace ZUART
             this.zuartControl1 = zuartControl;
             InitializeComponent();
             if (zuartControl1 != null)
-                zuartControl1.ComDataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.ComData_EventArgs>(this.zuartControl1_ComDataReceived);
+                zuartControl1.DataReceivedProperties += new System.EventHandler<ZuartControl.ZuartControl.Data_EventArgs>(this.zuartControl1_ComDataReceived);
 
         }
 
-        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ZuartControl.ComData_EventArgs e)
+        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ZuartControl.Data_EventArgs e)
         {
             byte[] data = e.data;
             string str = e.recived_string;

@@ -159,7 +159,7 @@ namespace ZUART
 
 
         #region 开关串口状态
-        private void zuartControl1_ComConnectState(object sender, ZuartControl.ZuartControl.ComConnectState_EventArgs e)
+        private void zuartControl1_ComConnectState(object sender, ZuartControl.ZuartControl.ConnectState_EventArgs e)
         {
             if (e.IsComOpen)
             {
@@ -176,25 +176,16 @@ namespace ZUART
         #endregion
 
 
-        #region 接收/发送数据监听
-        private void zuartControl1_ComDataReceived(object sender, ZuartControl.ZuartControl.ComData_EventArgs e)
+        #region 接收/发送数据监听 计数
+        private void zuartControl1_DataReceived(object sender, ZuartControl.ZuartControl.Data_EventArgs e)
         {
-            byte[] data = e.data;
-
             lblRevCount.Text = "接收:" + zuartControl1.RevCount.ToString();
         }
-        private void zuartControl1_ComDataSend(object sender, ZuartControl.ZuartControl.ComData_EventArgs e)
+        private void zuartControl1_DataSend(object sender, ZuartControl.ZuartControl.Data_EventArgs e)
         {
             lblSendCount.Text = "发送:" + zuartControl1.SendCount.ToString();
         }
         #endregion
-
-
-
-
-
-
-
 
         #region 计数清零
         private void btnCleanCount_Click(object sender, EventArgs e)
