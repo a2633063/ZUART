@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -11,7 +12,8 @@ namespace ZUART
     public partial class FormBatchSend : Form
     {
         private ZuartControl.ZuartControl zuartControl = null;
-        private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "BatchSend.ini");
+        private string IniPath = Path.Combine(Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoaming).FilePath), "BatchSend.ini");
+
         public FormBatchSend(ZuartControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;

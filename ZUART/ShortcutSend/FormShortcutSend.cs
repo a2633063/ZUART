@@ -4,13 +4,15 @@ using System.IO;
 using System.Windows.Forms;
 using ZUART.ShortcutSend;
 using ZUART.Properties;
+using System.Configuration;
 
 namespace ZUART
 {
     public partial class FormShortcutSend : Form
     {
         private ZuartControl.ZuartControl zuartControl = null;
-        private string IniPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Zip", "ShortcutSend.ini");
+        private string IniPath = Path.Combine(Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoaming).FilePath), "ShortcutSend.ini");
+
         public FormShortcutSend(ZuartControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;

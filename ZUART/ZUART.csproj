@@ -259,6 +259,7 @@
     <None Include="Resources\zuart_open_2.ico" />
     <None Include="Resources\ico_ab.png" />
     <None Include="Resources\ico_bin.png" />
+    <None Include="Resources\alipay.png" />
     <Content Include="zuart.ico" />
   </ItemGroup>
   <ItemGroup>
