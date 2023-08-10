@@ -354,7 +354,22 @@ namespace ZUART
             上移ToolStripMenuItem.Enabled = isSelect;
             下移ToolStripMenuItem.Enabled = isSelect;
             复制ToolStripMenuItem.Enabled = isSelect;
-
+            ToolStripMenuItem[] item = {
+                还原1ToolStripMenuItem,
+                还原2ToolStripMenuItem,
+                还原3ToolStripMenuItem,
+                还原4ToolStripMenuItem,
+                还原5ToolStripMenuItem,
+                还原6ToolStripMenuItem,
+                还原7ToolStripMenuItem,
+                还原8ToolStripMenuItem,
+                还原9ToolStripMenuItem
+            };
+            for (int i = 0; i < 9; i++)
+            {
+                string file = Path.Combine(Path.GetDirectoryName(IniPath), $"ShortcutSend{i + 1}.ini");
+                item[i].Enabled = File.Exists(file);
+            }
         }
 
 
@@ -367,6 +382,28 @@ namespace ZUART
                 return;
             }
             addItem((ShortcutSendItem)dataGridView1.SelectedRows[0].Tag);
+        }
+
+        private void 备份ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            ExportFile(Path.Combine(Path.GetDirectoryName(IniPath), $"ShortcutSend{item.Text[2]}.ini"));
+        }
+
+        private void 还原ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            string file = Path.Combine(Path.GetDirectoryName(IniPath), $"ShortcutSend{item.Text[2]}.ini");
+            if (File.Exists(file))
+            {
+                dataGridView1.Rows.Clear();
+                ImportFile(file);
+            }
+            else
+            {
+                MessageBox.Show($"备份{item.Text[2]}文件不存在", "还原失败");
+            }
         }
     }
 }

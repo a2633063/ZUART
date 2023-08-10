@@ -38,6 +38,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.修改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.新增ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.清空ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +49,26 @@
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份6ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份7ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备份9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原6ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原7ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.还原9ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -135,57 +155,66 @@
             this.上移ToolStripMenuItem,
             this.下移ToolStripMenuItem,
             this.toolStripSeparator3,
+            this.备份ToolStripMenuItem,
+            this.还原ToolStripMenuItem,
             this.保存ToolStripMenuItem,
             this.导入ToolStripMenuItem,
             this.导出ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 264);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 286);
             this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
             // 
             // 修改ToolStripMenuItem
             // 
             this.修改ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.修改ToolStripMenuItem.Name = "修改ToolStripMenuItem";
-            this.修改ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.修改ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.修改ToolStripMenuItem.Text = "修改(&M)";
             this.修改ToolStripMenuItem.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // 新增ToolStripMenuItem
             // 
             this.新增ToolStripMenuItem.Name = "新增ToolStripMenuItem";
-            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.新增ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.新增ToolStripMenuItem.Text = "新增(&N)";
             this.新增ToolStripMenuItem.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // 复制ToolStripMenuItem
+            // 
+            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.复制ToolStripMenuItem.Text = "复制(&C)";
+            this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.删除ToolStripMenuItem.Text = "删除(&D)";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // 清空ToolStripMenuItem
             // 
             this.清空ToolStripMenuItem.Name = "清空ToolStripMenuItem";
-            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.清空ToolStripMenuItem.Text = "清空(&E)";
             this.清空ToolStripMenuItem.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(162, 6);
             // 
             // 上移ToolStripMenuItem
             // 
             this.上移ToolStripMenuItem.Name = "上移ToolStripMenuItem";
             this.上移ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Up)));
-            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.上移ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.上移ToolStripMenuItem.Text = "上移";
             this.上移ToolStripMenuItem.Click += new System.EventHandler(this.btnUp_Click);
             // 
@@ -193,42 +222,193 @@
             // 
             this.下移ToolStripMenuItem.Name = "下移ToolStripMenuItem";
             this.下移ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Down)));
-            this.下移ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.下移ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.下移ToolStripMenuItem.Text = "下移";
             this.下移ToolStripMenuItem.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(162, 6);
             // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.保存ToolStripMenuItem.Text = "保存(&S)";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // 导入ToolStripMenuItem
             // 
             this.导入ToolStripMenuItem.Name = "导入ToolStripMenuItem";
-            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.导入ToolStripMenuItem.Text = "导入(&I)";
             this.导入ToolStripMenuItem.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // 导出ToolStripMenuItem
             // 
             this.导出ToolStripMenuItem.Name = "导出ToolStripMenuItem";
-            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.导出ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.导出ToolStripMenuItem.Text = "导出(&E)";
             this.导出ToolStripMenuItem.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // 复制ToolStripMenuItem
+            // 备份ToolStripMenuItem
             // 
-            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.复制ToolStripMenuItem.Text = "复制(&C)";
-            this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
+            this.备份ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.备份1ToolStripMenuItem,
+            this.备份2ToolStripMenuItem,
+            this.备份3ToolStripMenuItem,
+            this.备份4ToolStripMenuItem,
+            this.备份5ToolStripMenuItem,
+            this.备份6ToolStripMenuItem,
+            this.备份7ToolStripMenuItem,
+            this.备份8ToolStripMenuItem,
+            this.备份9ToolStripMenuItem});
+            this.备份ToolStripMenuItem.Name = "备份ToolStripMenuItem";
+            this.备份ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.备份ToolStripMenuItem.Text = "备份";
+            // 
+            // 还原ToolStripMenuItem
+            // 
+            this.还原ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.还原1ToolStripMenuItem,
+            this.还原2ToolStripMenuItem,
+            this.还原3ToolStripMenuItem,
+            this.还原4ToolStripMenuItem,
+            this.还原5ToolStripMenuItem,
+            this.还原6ToolStripMenuItem,
+            this.还原7ToolStripMenuItem,
+            this.还原8ToolStripMenuItem,
+            this.还原9ToolStripMenuItem});
+            this.还原ToolStripMenuItem.Name = "还原ToolStripMenuItem";
+            this.还原ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.还原ToolStripMenuItem.Text = "还原";
+            // 
+            // 备份1ToolStripMenuItem
+            // 
+            this.备份1ToolStripMenuItem.Name = "备份1ToolStripMenuItem";
+            this.备份1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份1ToolStripMenuItem.Text = "备份1";
+            this.备份1ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份2ToolStripMenuItem
+            // 
+            this.备份2ToolStripMenuItem.Name = "备份2ToolStripMenuItem";
+            this.备份2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份2ToolStripMenuItem.Text = "备份2";
+            this.备份2ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份3ToolStripMenuItem
+            // 
+            this.备份3ToolStripMenuItem.Name = "备份3ToolStripMenuItem";
+            this.备份3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份3ToolStripMenuItem.Text = "备份3";
+            this.备份3ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份4ToolStripMenuItem
+            // 
+            this.备份4ToolStripMenuItem.Name = "备份4ToolStripMenuItem";
+            this.备份4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份4ToolStripMenuItem.Text = "备份4";
+            this.备份4ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份5ToolStripMenuItem
+            // 
+            this.备份5ToolStripMenuItem.Name = "备份5ToolStripMenuItem";
+            this.备份5ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份5ToolStripMenuItem.Text = "备份5";
+            this.备份5ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份6ToolStripMenuItem
+            // 
+            this.备份6ToolStripMenuItem.Name = "备份6ToolStripMenuItem";
+            this.备份6ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份6ToolStripMenuItem.Text = "备份6";
+            this.备份6ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份7ToolStripMenuItem
+            // 
+            this.备份7ToolStripMenuItem.Name = "备份7ToolStripMenuItem";
+            this.备份7ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份7ToolStripMenuItem.Text = "备份7";
+            this.备份7ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份8ToolStripMenuItem
+            // 
+            this.备份8ToolStripMenuItem.Name = "备份8ToolStripMenuItem";
+            this.备份8ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份8ToolStripMenuItem.Text = "备份8";
+            this.备份8ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 备份9ToolStripMenuItem
+            // 
+            this.备份9ToolStripMenuItem.Name = "备份9ToolStripMenuItem";
+            this.备份9ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.备份9ToolStripMenuItem.Text = "备份9";
+            this.备份9ToolStripMenuItem.Click += new System.EventHandler(this.备份ToolStripMenuItem_Click);
+            // 
+            // 还原1ToolStripMenuItem
+            // 
+            this.还原1ToolStripMenuItem.Name = "还原1ToolStripMenuItem";
+            this.还原1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原1ToolStripMenuItem.Text = "还原1";
+            this.还原1ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原2ToolStripMenuItem
+            // 
+            this.还原2ToolStripMenuItem.Name = "还原2ToolStripMenuItem";
+            this.还原2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原2ToolStripMenuItem.Text = "还原2";
+            this.还原2ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原3ToolStripMenuItem
+            // 
+            this.还原3ToolStripMenuItem.Name = "还原3ToolStripMenuItem";
+            this.还原3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原3ToolStripMenuItem.Text = "还原3";
+            this.还原3ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原4ToolStripMenuItem
+            // 
+            this.还原4ToolStripMenuItem.Name = "还原4ToolStripMenuItem";
+            this.还原4ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原4ToolStripMenuItem.Text = "还原4";
+            this.还原4ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原5ToolStripMenuItem
+            // 
+            this.还原5ToolStripMenuItem.Name = "还原5ToolStripMenuItem";
+            this.还原5ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原5ToolStripMenuItem.Text = "还原5";
+            this.还原5ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原6ToolStripMenuItem
+            // 
+            this.还原6ToolStripMenuItem.Name = "还原6ToolStripMenuItem";
+            this.还原6ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原6ToolStripMenuItem.Text = "还原6";
+            this.还原6ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原7ToolStripMenuItem
+            // 
+            this.还原7ToolStripMenuItem.Name = "还原7ToolStripMenuItem";
+            this.还原7ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原7ToolStripMenuItem.Text = "还原7";
+            this.还原7ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原8ToolStripMenuItem
+            // 
+            this.还原8ToolStripMenuItem.Name = "还原8ToolStripMenuItem";
+            this.还原8ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原8ToolStripMenuItem.Text = "还原8";
+            this.还原8ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
+            // 
+            // 还原9ToolStripMenuItem
+            // 
+            this.还原9ToolStripMenuItem.Name = "还原9ToolStripMenuItem";
+            this.还原9ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.还原9ToolStripMenuItem.Text = "还原9";
+            this.还原9ToolStripMenuItem.Click += new System.EventHandler(this.还原ToolStripMenuItem_Click);
             // 
             // FormShortcutSend
             // 
@@ -265,5 +445,25 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewButtonColumn Column6;
         private System.Windows.Forms.ToolStripMenuItem 复制ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份5ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份6ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份7ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份8ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备份9ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原5ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原6ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原7ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原8ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 还原9ToolStripMenuItem;
     }
 }
