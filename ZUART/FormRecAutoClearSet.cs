@@ -19,6 +19,21 @@ namespace ZUART
             InitializeComponent();
             autoClearSet = null;
         }
+        public FormRecAutoClearSet(AutoClearSet _autoClearSet)
+        {
+            InitializeComponent();
+            autoClearSet = null;
+
+            if (_autoClearSet != null)
+            {
+                radioButton1.Checked = _autoClearSet.mod == AutoClearSet.MOD.StrCount;
+                radioButton2.Checked = _autoClearSet.mod == AutoClearSet.MOD.Timer;
+
+                radioButton_CheckedChanged(null, null);
+                if (numericUpDown1.Enabled) numericUpDown1.Value = _autoClearSet.val;
+                if (numericUpDown2.Enabled) numericUpDown2.Value = _autoClearSet.val;
+            }
+        }
         public AutoClearSet autoClearSet=null;
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {

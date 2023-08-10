@@ -233,7 +233,7 @@ namespace ZUART
         {
             if (chkRecAutoClear.Checked)
             {
-                FormRecAutoClearSet frm = new FormRecAutoClearSet();
+                FormRecAutoClearSet frm = new FormRecAutoClearSet(autoClearSet);
                 frm.ShowDialog();
                 autoClearSet = frm.autoClearSet;
                 frm.Dispose();
