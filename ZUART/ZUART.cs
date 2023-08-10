@@ -10,8 +10,10 @@ using static System.Net.WebRequestMethods;
 
 namespace ZUART
 {
+
     public partial class ZUART : Form
     {
+        public AutoClearSet autoClearSet = null;
         const int ListSend_Count = 50;
         Button[] ListSendButton = new Button[ListSend_Count];
         TextBox[] ListSendTextBox = new TextBox[ListSend_Count];
@@ -135,7 +137,7 @@ namespace ZUART
                 str = str + "|" + s;
             }
 
-            Properties.Settings.Default.tabPage=str;
+            Properties.Settings.Default.tabPage = str;
             Properties.Settings.Default.Panel1Collapsed = splitContainer1.Panel1Collapsed;
             Properties.Settings.Default.Panel2Collapsed = splitContainer1.Panel2Collapsed;
             Properties.Settings.Default.Save();
@@ -226,7 +228,47 @@ namespace ZUART
         {
             splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
         }
+        #region 自动清空功能
+        private void chkRecAutoClear_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkRecAutoClear.Checked)
+            {
+                FormRecAutoClearSet frm = new FormRecAutoClearSet();
+                frm.ShowDialog();
+                autoClearSet = frm.autoClearSet;
+                frm.Dispose();
 
+                if (autoClearSet == null) chkRecAutoClear.Checked = false;
+                else if (autoClearSet.mod == AutoClearSet.MOD.Timer)
+                {
+                    timerRecAutoClear.Interval = autoClearSet.val;
+                    timerRecAutoClear.Enabled = true;
+                }
+            }
+            else
+            {
+                timerRecAutoClear.Enabled = false;
+            }
+        }
+        private void rtxShowData_TextChanged(object sender, EventArgs e)
+        {
+            if (!chkRecAutoClear.Checked || autoClearSet == null) return;
+            if (autoClearSet.mod == AutoClearSet.MOD.Timer) return;
+
+            if (autoClearSet.mod == AutoClearSet.MOD.StrCount)
+            {
+                if (rtxShowData.TextLength > autoClearSet.val)
+                {
+                    rtxShowData.Clear();
+                }
+            }
+        }
+        private void timerRecAutoClear_Tick(object sender, EventArgs e)
+        {
+            rtxShowData.Clear();
+        }
+        #endregion
+        #region Tab相关功能
         private void ImportDllForm(string dll_file_name)
         {
             if (dll_file_name == null || !System.IO.File.Exists(dll_file_name)) return;
@@ -342,6 +384,7 @@ namespace ZUART
                 menuTab.Show(((TabControl)sender), p);
             }
         }
+        #endregion
         #region TabPage 菜单相关功能
 
         private void menuTab_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -349,17 +392,15 @@ namespace ZUART
             object obj = ((ContextMenuStrip)sender).SourceControl;
 
 
-
-
             if (obj.GetType() == typeof(TabControl))
             {
                 TabControl tab = (TabControl)obj;
 
-                删除ToolStripMenuItem.Enabled = !(tab.SelectedTab.Tag!=null && tab.SelectedTab.Tag.GetType() == typeof(bool) && !(bool)tab.SelectedTab.Tag);
+                删除ToolStripMenuItem.Enabled = !(tab.SelectedTab.Tag != null && tab.SelectedTab.Tag.GetType() == typeof(bool) && !(bool)tab.SelectedTab.Tag);
                 移动到左侧ToolStripMenuItem.Visible = (obj == tabRight);
                 移动到右侧ToolStripMenuItem.Visible = (obj == tabLeft);
 
-                移动到左侧ToolStripMenuItem.Enabled = (tab.TabCount >1);
+                移动到左侧ToolStripMenuItem.Enabled = (tab.TabCount > 1);
                 移动到右侧ToolStripMenuItem.Enabled = (tab.TabCount > 1);
 
             }
@@ -435,7 +476,22 @@ namespace ZUART
             }
 
         }
+
+
         #endregion
+
+
+    }
+
+    public class AutoClearSet
+    {
+        public enum MOD
+        {
+            StrCount,
+            Timer,
+        }
+        public MOD mod = MOD.StrCount;
+        public int val = 0;
     }
 }
 

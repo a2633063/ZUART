@@ -51,6 +51,7 @@
             this.PageDataSendRec = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chkRecAutoClear = new System.Windows.Forms.CheckBox();
             this.tabRight = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -61,6 +62,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.移动到右侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.移动到左侧ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerRecAutoClear = new System.Windows.Forms.Timer(this.components);
             this.panel_Log.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -185,6 +187,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.zuartControl1.AutoLine = false;
             this.zuartControl1.ButtonSend = this.btnSend;
+            this.zuartControl1.INIFileName = "zuartControl.ini";
             this.zuartControl1.Labellog = this.Log;
             this.zuartControl1.Location = new System.Drawing.Point(0, 0);
             this.zuartControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -220,6 +223,7 @@
             this.rtxShowData.Size = new System.Drawing.Size(557, 442);
             this.rtxShowData.TabIndex = 0;
             this.rtxShowData.Text = "";
+            this.rtxShowData.TextChanged += new System.EventHandler(this.rtxShowData_TextChanged);
             // 
             // txtSendData
             // 
@@ -328,6 +332,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.chkRecAutoClear);
             this.groupBox3.Controls.Add(this.txtSendData);
             this.groupBox3.Controls.Add(this.btnSend);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -338,6 +343,17 @@
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "数据发送区";
+            // 
+            // chkRecAutoClear
+            // 
+            this.chkRecAutoClear.AutoSize = true;
+            this.chkRecAutoClear.Location = new System.Drawing.Point(466, 1);
+            this.chkRecAutoClear.Name = "chkRecAutoClear";
+            this.chkRecAutoClear.Size = new System.Drawing.Size(90, 15);
+            this.chkRecAutoClear.TabIndex = 3;
+            this.chkRecAutoClear.Text = "接收自动清空";
+            this.chkRecAutoClear.UseVisualStyleBackColor = true;
+            this.chkRecAutoClear.CheckedChanged += new System.EventHandler(this.chkRecAutoClear_CheckedChanged);
             // 
             // tabRight
             // 
@@ -435,6 +451,10 @@
             this.移动到左侧ToolStripMenuItem.Text = "移动到左侧";
             this.移动到左侧ToolStripMenuItem.Click += new System.EventHandler(this.移动到左侧ToolStripMenuItem_Click);
             // 
+            // timerRecAutoClear
+            // 
+            this.timerRecAutoClear.Tick += new System.EventHandler(this.timerRecAutoClear_Tick);
+            // 
             // ZUART
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -504,6 +524,8 @@
         private System.Windows.Forms.ToolStripMenuItem 移动到右侧ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 移动到左侧ToolStripMenuItem;
         private System.Windows.Forms.RichTextBox rtxShowData;
+        private System.Windows.Forms.CheckBox chkRecAutoClear;
+        private System.Windows.Forms.Timer timerRecAutoClear;
     }
 }
 
