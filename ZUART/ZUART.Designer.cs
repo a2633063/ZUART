@@ -346,6 +346,7 @@
             // 
             // chkRecAutoClear
             // 
+            this.chkRecAutoClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRecAutoClear.AutoSize = true;
             this.chkRecAutoClear.Location = new System.Drawing.Point(466, 1);
             this.chkRecAutoClear.Name = "chkRecAutoClear";
