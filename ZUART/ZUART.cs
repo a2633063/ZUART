@@ -103,7 +103,9 @@ namespace ZUART
             splitContainer1.Panel2Collapsed = Properties.Settings.Default.Panel2Collapsed;
 
 #if CUSTOM_PARSING
+            i++;
             Form userForm = new FormCustomize(zuartControl1);
+            FormChild.Add(userForm);
             userForm.Location = new Point(0, 0);
             userForm.TopLevel = false;
             userForm.Dock = DockStyle.Fill;
