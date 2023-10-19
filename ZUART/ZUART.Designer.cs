@@ -240,22 +240,20 @@
             this.labSplit2Switch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labSplit2Switch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(128)))), ((int)(((byte)(64)))));
             this.labSplit2Switch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labSplit2Switch.Location = new System.Drawing.Point(1091, 60);
+            this.labSplit2Switch.Location = new System.Drawing.Point(1090, 60);
             this.labSplit2Switch.Name = "labSplit2Switch";
-            this.labSplit2Switch.Size = new System.Drawing.Size(5, 130);
+            this.labSplit2Switch.Size = new System.Drawing.Size(6, 130);
             this.labSplit2Switch.TabIndex = 6;
-            this.labSplit2Switch.Text = "label1";
             this.labSplit2Switch.Click += new System.EventHandler(this.labSplit2Switch_Click);
             // 
             // labSplit1Switch
             // 
             this.labSplit1Switch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(128)))), ((int)(((byte)(64)))));
             this.labSplit1Switch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labSplit1Switch.Location = new System.Drawing.Point(164, 60);
+            this.labSplit1Switch.Location = new System.Drawing.Point(165, 60);
             this.labSplit1Switch.Name = "labSplit1Switch";
-            this.labSplit1Switch.Size = new System.Drawing.Size(4, 130);
+            this.labSplit1Switch.Size = new System.Drawing.Size(6, 130);
             this.labSplit1Switch.TabIndex = 6;
-            this.labSplit1Switch.Text = "label1";
             this.labSplit1Switch.Click += new System.EventHandler(this.labSplit1Switch_Click);
             // 
             // splitContainer1
