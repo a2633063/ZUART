@@ -14,6 +14,7 @@ namespace ZUART
         private ZuartControl.ZuartControl zuartControl = null;
         private string IniPath = Path.Combine(Path.GetDirectoryName(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoaming).FilePath), "BatchSend.ini");
 
+        UInt32 send_times = 0;
         public FormBatchSend(ZuartControl.ZuartControl zuartControl)
         {
             this.zuartControl = zuartControl;
@@ -79,6 +80,8 @@ namespace ZUART
                 if (chkCycleMode.Checked)
                 {
                     send_index = 0;
+                    send_times++;
+                    label1.Text = $"{send_times}";
                 }
                 else
                 {
@@ -96,6 +99,8 @@ namespace ZUART
                         if (chkCycleMode.Checked)
                         {
                             send_index = 0;
+                            send_times++;
+                            label1.Text = $"{send_times}";
                         }
                         else
                         {
@@ -144,6 +149,8 @@ namespace ZUART
                 if (dataGridView1.Rows.Count < 1) return;
                 btnStartSend.Text = "停止批量发送";
                 send_index = 0;
+                send_times = 0;
+                label1.Text = "";
                 timerSend_Tick(null, null);
                 //timerSend.Interval = 1;
                 timerSend.Enabled = true;

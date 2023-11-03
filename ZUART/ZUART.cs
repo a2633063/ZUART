@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -26,6 +27,7 @@ namespace ZUART
             InitializeComponent();
             this.MinimumSize = this.Size;
             init();
+            this.Text += " v" + FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).FileVersion;
 
         }
 
